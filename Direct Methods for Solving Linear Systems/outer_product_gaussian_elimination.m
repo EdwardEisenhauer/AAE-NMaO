@@ -10,14 +10,11 @@ end
     error('Matrix is not nonsingular!') 
  end
  
- A;
- 
  for k = 1 : n-1
      rows = k + 1 : n;
      A(rows, k) = A(rows, k)/A(k, k);
      A(rows, rows) = A(rows, rows) - A(rows, k) * A(k, rows);
-     A;
  end
  
-U = triu(A)
-Mk = diag(A,-1) % Gauss vector
+U = triu(A);
+Mk = diag(A,-1); % Gauss vector
