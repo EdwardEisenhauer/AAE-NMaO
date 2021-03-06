@@ -1,5 +1,5 @@
 % Algorithm 1: Outer Product Gaussian Elimination (Alg. 3.2.1)
-function [U, Mk] = outer_product_gaussian_elimination(A)
+function [U, L] = outer_product_gaussian_elimination(A)
 
 [n, m] = size(A);
 if n ~= m
@@ -17,4 +17,4 @@ end
  end
  
 U = triu(A);
-Mk = diag(A,-1); % Gauss vector
+L = tril(A, -1) + eye(n);
