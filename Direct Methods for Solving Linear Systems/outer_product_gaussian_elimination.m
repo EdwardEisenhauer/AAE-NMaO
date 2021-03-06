@@ -1,5 +1,5 @@
-% Outer Product Gaussian Elimination (Alg. 3.2.1)
-function U, Mk = outer_product_gaussian_elimination(A)
+% Algorithm 1: Outer Product Gaussian Elimination (Alg. 3.2.1)
+function [U, Mk] = outer_product_gaussian_elimination(A)
 
 [n, m] = size(A);
 if n ~= m
@@ -10,13 +10,13 @@ end
     error('Matrix is not nonsingular!') 
  end
  
- A
+ A;
  
  for k = 1 : n-1
      rows = k + 1 : n;
      A(rows, k) = A(rows, k)/A(k, k);
      A(rows, rows) = A(rows, rows) - A(rows, k) * A(k, rows);
-     A
+     A;
  end
  
 U = triu(A)
