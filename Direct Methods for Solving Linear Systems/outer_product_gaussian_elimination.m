@@ -1,0 +1,20 @@
+% Outer Product Gaussian Elimination (Alg. 3.2.1)
+function outer_product_gaussian_elimination(A)
+
+[n, m] = size(A);
+if n ~= m
+    error('Matrix is not squared!')
+end
+    
+ if det(A) == 0
+    error('Matrix is not nonsingular!') 
+ end
+ 
+ A
+ 
+ for k = 1 : n-1
+     k
+     rows = k + 1 : n
+     A(rows, k) = A(rows, k)/A(k, k)
+     A(rows, rows) = A(rows, rows) - A(rows, k) * A(k, rows)
+ end
