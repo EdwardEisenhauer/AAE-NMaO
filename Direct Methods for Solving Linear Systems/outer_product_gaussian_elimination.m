@@ -1,5 +1,5 @@
 % Outer Product Gaussian Elimination (Alg. 3.2.1)
-function outer_product_gaussian_elimination(A)
+function U, Mk = outer_product_gaussian_elimination(A)
 
 [n, m] = size(A);
 if n ~= m
@@ -13,8 +13,11 @@ end
  A
  
  for k = 1 : n-1
-     k
-     rows = k + 1 : n
-     A(rows, k) = A(rows, k)/A(k, k)
-     A(rows, rows) = A(rows, rows) - A(rows, k) * A(k, rows)
+     rows = k + 1 : n;
+     A(rows, k) = A(rows, k)/A(k, k);
+     A(rows, rows) = A(rows, rows) - A(rows, k) * A(k, rows);
+     A
  end
+ 
+U = triu(A)
+Mk = diag(A,-1) % Gauss vector
