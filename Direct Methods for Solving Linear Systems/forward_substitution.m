@@ -10,8 +10,8 @@ if length(b) ~= n
     error('Vector b has wrong length!')
 end
 
-b(1) = b(1)/L(1,1);
+b(1, :) = b(1, :)/L(1,1);
 for i = 2:n
-    b(i) = (b(i) - L(i, 1:i-1)*b(1:i-1))/L(i, i);
+    b(i, :) = (b(i, :) - L(i, 1:i-1)*b(1:i-1, :))/L(i, i);
 end
 

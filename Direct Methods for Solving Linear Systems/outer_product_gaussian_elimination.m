@@ -1,5 +1,5 @@
 % Algorithm 1: Outer Product Gaussian Elimination (Alg. 3.2.1)
-function [U, L] = outer_product_gaussian_elimination(A)
+function A = outer_product_gaussian_elimination(A)
 
 [n, m] = size(A);
 if n ~= m
@@ -15,6 +15,3 @@ end
      A(rows, k) = A(rows, k)/A(k, k);
      A(rows, rows) = A(rows, rows) - A(rows, k) * A(k, rows);
  end
- 
-U = triu(A);
-L = tril(A, -1) + eye(n);
