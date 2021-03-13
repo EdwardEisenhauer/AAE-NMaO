@@ -7,7 +7,7 @@ A = [2, -1, 0, 0;
 
 b = [0;0;0;5];
 
-B = outer_product_gaussian_elimination(A);
+B = Alg1_outer_product_gaussian_elimination(A);
 U = triu(B);
 L = tril(B, -1);
 x = back_substitution(U, b);
@@ -23,7 +23,7 @@ b = [0;0;0;5];
 
 B = gauss_jordan_elimination([A b])
 
-[P, Q, L, U] = gaussian_elimination_with_complete_pivoting(A);
+[P, Q, L, U] = Alg2_gaussian_elimination_with_complete_pivoting(A);
 
 b = P*b;
 % Ly = b and Ux = y
@@ -40,7 +40,7 @@ A = [1, 1, 1;
 
 b = [1;2;1];
 
-[P, Q, L, U] = gaussian_elimination_with_complete_pivoting(A);
+[P, Q, L, U] = Alg2_gaussian_elimination_with_complete_pivoting(A);
 
 b = P*b;
 % Ly = b and Ux = y
@@ -69,7 +69,7 @@ A = [2, 1, 2;
      1, 2, 3;
      4, 1, 2];
  
-[P, Q, L, U] = gaussian_elimination_with_complete_pivoting(A);
+[P, Q, L, U] = Alg2_gaussian_elimination_with_complete_pivoting(A);
 
 I = P*eye(3);
 % Ly = b and Ux = y
@@ -77,3 +77,5 @@ y = forward_substitution(L, I);
 
 X = Q*back_substitution(U, y)
 inv(A)
+
+%% Problem 6

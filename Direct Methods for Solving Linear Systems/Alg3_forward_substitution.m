@@ -1,5 +1,5 @@
 % Algorithm 3: Forward Substitution (Alg. 3.1.1)
-function b = forward_substitution(L, b)
+function b = Alg3_forward_substitution(L, b)
 
 [n, m] = size(L);
 if n ~= m

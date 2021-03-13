@@ -1,6 +1,6 @@
-% Algorithm 5: Gauss-Jordan Elimination
+% Algorithm 5: Gauss-Jordan Elimination (Alg.
 % Argument A is an augmented matrix
-function A = gauss_jordan_elimination(A)
+function A = Alg5_gauss_jordan_elimination(A)
 
 % M – rows, N – columns
 

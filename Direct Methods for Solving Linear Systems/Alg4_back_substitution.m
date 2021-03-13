@@ -1,5 +1,5 @@
 % Argorithm 4: Back Substitution (Alg. 3.1.2)
-function b = back_substitution(U,b)
+function b = Alg4_back_substitution(U,b)
 
 [n, m] = size(U);
 if n ~= m

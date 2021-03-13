@@ -1,4 +1,4 @@
-function [P, Q, L, U] = gaussian_elimination_with_complete_pivoting(A)
+function [P, Q, L, U] = Alg2_gaussian_elimination_with_complete_pivoting(A)
 
 [n, m] = size(A);
 if n ~= m
