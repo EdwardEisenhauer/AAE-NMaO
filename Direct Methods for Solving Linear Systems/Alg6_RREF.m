@@ -1,8 +1,6 @@
 function A = Alg6_RREF(A)
-% ADDME Algorithm 6: Reduced Row Echelon Form (RREF)
+% Algorithm 6: Reduced Row Echelon Form (RREF)
 % A = Alg6_RREF(A) returns RREF of matrix A. 
-
-% M – rows, N – columns
 
 [M, N] = size(A);
 

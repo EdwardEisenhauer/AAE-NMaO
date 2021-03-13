@@ -2,19 +2,17 @@ function A = Alg5_gauss_jordan_elimination(A)
 % Algorithm 5: Gauss-Jordan Elimination
 % Argument A is an augmented matrix
 
-% M – rows, N – columns
+[m, n] = size(A);
 
-[M, N] = size(A);
-
-for m = 1 : M
+for k = 1 : m
     
-    row = A(m, :);
-    row = row/row(m);
-    A(m, :) = row;
+    row = A(k, :);
+    row = row/row(k);
+    A(k, :) = row;
     
-    for n = 1 : M
-        if n ~= m
-            A(n, :) = A(n, :)-(A(n, m))*row;
+    for i = 1 : m
+        if i ~= k
+            A(i, :) = A(i, :)-(A(i, k))*row;
         end
     end
 end

@@ -1,5 +1,5 @@
 function b = Alg4_back_substitution(U,b)
-% ADDME Argorithm 4: Back Substitution (Golub, Loan, Alg. 3.1.2)
+% Argorithm 4: Back Substitution (Golub, Loan, Alg. 3.1.2)
 % Returns vetor b with solution to he Ux = b.
 
 [m, n] = size(U);
