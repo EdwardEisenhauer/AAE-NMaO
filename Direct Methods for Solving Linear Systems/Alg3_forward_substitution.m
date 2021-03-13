@@ -3,7 +3,7 @@ function b = Alg3_forward_substitution(L, b)
 
     [m, n] = size(L);
     if m ~= n
-        error('Matrix is not squared!')
+        error('Matrix is not squar!')
     end
 
     if length(b) ~= m
