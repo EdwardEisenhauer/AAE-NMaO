@@ -18,26 +18,6 @@ for k = 1:m
     end
 end
 
-% TODO: Permutation A*P does not work
-
-
-% 
-% for i = m + 1 : M
-%    A(i:end, m+1:end); % Partial matrix (in which we are looking for non-zero pivots)
-%    A(i:end, m+1); % Left-most column
-%    if ~any(A(i:end, m+1)) % If the left-most column has only zeros check the next one
-%        m = m + 1;
-%    end
-%    A(i:end, m+1:end);
-%    if A(i, m+1) == 0
-%        non_zero_row = find(A(i:end,m+1), 1);
-%        if isempty(non_zero_row)
-%            continue
-%        end
-%        A([i, i+non_zero_row-1], :) = deal(A([i+non_zero_row-1, i], :));
-%    end
-% end
-
 for k = 1:n
     
     for j = k : n
