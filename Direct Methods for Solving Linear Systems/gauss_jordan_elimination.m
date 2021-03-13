@@ -1,25 +1,28 @@
 % Algorithm 5: Gauss-Jordan Elimination
-% Input A is an augmented matrix
+% Argument A is an augmented matrix
 function A = gauss_jordan_elimination(A)
 
-[n, m] = size(A);
+% M – rows, N – columns
 
-if n + 1 ~= m
-    error('Matrix is not squared!')
-end
-    
+[M, N] = size(A);
+% 
+% if M + 1 ~= N
+%     error('Matrix is not squared!')
+% end
+%     
 % if det(A) == 0
 %     error('Matrix is not nonsingular!') 
 % end
 
-for k = 1 : m-1
+for m = 1 : M
     
-    row = A(k, :);
-    row = row/row(k);
-    A(k, :) = row;
-    for l = 1 : m-1
-        if l ~= k
-            A(l, :) = A(l, :)-(A(l, k))*row;
+    row = A(m, :);
+    row = row/row(m);
+    A(m, :) = row;
+    
+    for n = 1 : M
+        if n ~= m
+            A(n, :) = A(n, :)-(A(n, m))*row;
         end
     end
 end
