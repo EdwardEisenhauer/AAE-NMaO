@@ -60,8 +60,8 @@ bp = [0.168; 0.066];
 
 kappa = cond(A)
 
-B = gauss_jordan_elimination([A b])
-Bp = gauss_jordan_elimination([A bp])
+B = Alg5_gauss_jordan_elimination([A b])
+Bp = Alg5_gauss_jordan_elimination([A bp])
 
 %% Problem 5
 % AX = I3
@@ -79,3 +79,18 @@ X = Q*back_substitution(U, y)
 inv(A)
 
 %% Problem 6
+
+%% Problem 10
+
+% A = [1 2 2 3 1;
+%      2 4 4 6 2;
+%      3 6 6 9 6;
+%      1 2 4 5 3]
+
+A = [0.835, 0.667;
+     0.333, 0.266];
+b = [0.168; 0.067];
+ 
+Alg6_RREF([A b])
+
+
