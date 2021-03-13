@@ -1,5 +1,6 @@
 function A = Alg6_RREF(A)
-%  Algorithm 6: Reduced Row Echelon Form (RREF)
+% ADDME Algorithm 6: Reduced Row Echelon Form (RREF)
+% A = Alg6_RREF(A) returns RREF of matrix A. 
 
 % M – rows, N – columns
 
@@ -8,17 +9,15 @@ function A = Alg6_RREF(A)
 n = 0;
 
 for m = 1 : M
-    n = n + 1
+    n = n + 1;
     if n > N
         break
     end
-    A
     % We want the left-most coefficient to be 1 (pivot)
     row = A(m, :);
     if row(m) == 0
-        n = n + 1
+        n = n + 1;
     end
-    [m ,n]
     row = row/row(n);
     A(m, :) = row;
     
@@ -27,8 +26,6 @@ for m = 1 : M
             A(i, :) = A(i, :)-(A(i, n))*row;
         end
     end
-    
-    A
     
     for i = m + 1 : M
        A(i:end, m+1:end); % Partial matrix (in which we are looking for non-zero pivots)

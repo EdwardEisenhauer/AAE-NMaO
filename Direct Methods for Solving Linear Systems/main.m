@@ -1,4 +1,5 @@
 clear all;
+clc;
 
 A = [2, -1, 0, 0;
     -1, 2, -1, 0;
@@ -9,8 +10,7 @@ b = [0;0;0;5];
 
 B = Alg1_outer_product_gaussian_elimination(A);
 U = triu(B);
-L = tril(B, -1);
-x = back_substitution(U, b);
+x = Alg4_back_substitution(U, b);
 
 %% Problem 1
 clear all;
@@ -44,9 +44,9 @@ b = [1;2;1];
 
 b = P*b;
 % Ly = b and Ux = y
-y = forward_substitution(L, b);
+y = Alg3_forward_substitution(L, b);
 
-x = Q*back_substitution(U, y)
+x = Q*Alg4_back_substitution(U, y)
 
 % L*U
 

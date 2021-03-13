@@ -1,4 +1,6 @@
 function [P, Q, L, U] = Alg2_gaussian_elimination_with_complete_pivoting(A)
+% ADDME Algorithm 2: Gaussian Elimination with Complete Pivoting.
+% [P, Q, L, U] = Alg2_gaussian_elimination_with_complete_pivoting(A) 
 
 [n, m] = size(A);
 if n ~= m

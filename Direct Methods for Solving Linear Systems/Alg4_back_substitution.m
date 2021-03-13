@@ -1,24 +1,30 @@
-% Argorithm 4: Back Substitution (Alg. 3.1.2)
 function b = Alg4_back_substitution(U,b)
+% ADDME Argorithm 4: Back Substitution (Golub, Loan, Alg. 3.1.2)
+% Returns vetor b with solution to he Ux = b.
 
-[n, m] = size(U);
-if n ~= m
+[m, n] = size(U);
+
+if U ~= triu(U)
+    error('Matrix is not upper triangular!')
+end
+
+if m ~= n
     error('Matrix is not squared!')
 end
 
-if length(b) ~= n
+if length(b) ~= m
     error('Vector b has wrong length!')
 end
 
-if det(U) == 0
-    error('Matrix is not nonsingular!')
-end
+% if det(U) < 0.001
+%     error('Matrix is not nonsingular!')
+% end
 
-% b(n, :) so that matrices are also accepted
+% b(m, :) so that matrices are also accepted
 
-b(n, :) = b(n, :)/U(n, n);
-for i = n-1:-1:1
-    b(i, :) = (b(i, :) - U(i, i+1 : n)*b(i+1 : n, :))/U(i, i);
+b(m, :) = b(m, :)/U(m, m);
+for i = m-1:-1:1
+    b(i, :) = (b(i, :) - U(i, i+1 : m)*b(i+1 : m, :))/U(i, i);
 end
 
 end
