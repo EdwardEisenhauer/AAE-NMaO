@@ -1,6 +1,7 @@
 function A = Alg5_gauss_jordan_elimination(A)
 % Algorithm 5: Gauss-Jordan Elimination
-% Argument A is an augmented matrix
+% A = Alg5_gauss_jordan_elimination(A) performs Gauss-Jordan elimination
+% on an augmented matrix A.
 
 [m, n] = size(A);
 
@@ -16,4 +17,5 @@ for k = 1 : m
         end
     end
 end
+
 end

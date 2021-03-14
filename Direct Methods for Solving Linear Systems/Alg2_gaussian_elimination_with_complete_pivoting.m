@@ -1,43 +1,47 @@
 function [P, Q, L, U] = Alg2_gaussian_elimination_with_complete_pivoting(A)
 % Algorithm 2: Gaussian Elimination with Complete Pivoting.
-% [P, Q, L, U] = Alg2_gaussian_elimination_with_complete_pivoting(A) 
+% [P, Q, L, U] = Alg2_gaussian_elimination_with_complete_pivoting(A)
+% computes the complete pivoting factorization PAQ = LU.
 
-[n, m] = size(A);
+[m, n] = size(A);
 
-if n ~= m
-    error('Matrix is not squared!')
+if m ~= n
+    error('Matrix is not square!')
 end
-    
-% if det(A) == 0
-%     error('Matrix is not nonsingular!')
-% end
 
-p = 1:n;
-q = 1:n;
+% p and q are permutation vectors – respectively rows and columns
+p = 1:m;
+q = 1:m;
 
-for k = 1 : n-1
-    i = k:n;
-    j = k:n;
+% The following algorithm is based on the Algrotihm 3.4.2 from [2].
+
+for k = 1 : m-1
+    i = k:m;
+    j = k:m;
+    % Find the maximum entry to be the next pivot
     [max_val, rows_of_max_in_col] = max(abs(A(i, j)));
     [~, max_col] = max(max_val);
     max_row = rows_of_max_in_col(max_col);
-    % Assign value of mu and lambda in respect to the main A matrix
+    % Assign value of mu and lambda in respect to the main matrix A
     [mi, lm] = deal(max_row+k-1, max_col+k-1);
-    A([k mi], 1:n) = deal(A([mi k], 1:n));
-    A(1:n, [k lm]) = deal(A(1:n, [lm k]));
+    % Interchange the rows and columns of matrix A...
+    A([k mi], 1:m) = deal(A([mi k], 1:m));
+    A(1:m, [k lm]) = deal(A(1:m, [lm k]));
+    % ...and respective permutation vectors entries.
     p([k, mi]) = p([mi, k]);
     q([k, lm]) = q([lm, k]);
-    
     % Perform Gaussian elimination with the greatest pivot
     if A(k, k) ~= 0
-        rows = k+1 : n;
+        rows = k+1 : m;
         A(rows, k) = A(rows, k)/A(k, k);
         A(rows, rows) = A(rows, rows) - A(rows, k) * A(k, rows);
     end
 end
 
-I = eye(n);
+I = eye(m);
 U = triu(A);
 L = tril(A, -1) + I;
 P = I(p, :);
 Q = I(:, q);
+
+end

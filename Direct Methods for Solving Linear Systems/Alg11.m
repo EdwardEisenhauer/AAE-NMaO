@@ -1,5 +1,5 @@
 function [Q R] = Alg11(A)
-% Algorithm 11: QR factorization via Housholder algorithm.
+% Algorithm 11: QR factorization via Householder algorithm.
 
 [m, n] = size(A);
 
@@ -16,6 +16,9 @@ for j = 1:n
 end
 
 R = triu(A)
+
+H = tril(A, -1)
+
 
 end
 
