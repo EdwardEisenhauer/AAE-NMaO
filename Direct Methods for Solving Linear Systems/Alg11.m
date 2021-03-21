@@ -1,5 +1,5 @@
 function [Q R] = Alg11(A)
-% Algorithm 11: QR factorization via Householder algorithm.
+% Algorithm 11: QR factorization via Householder transformation.
 
 [m, n] = size(A);
 

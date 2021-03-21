@@ -1,4 +1,4 @@
-function b = Alg3_forward_substitution(L, b)
+function b = Al3(L, b)
 % Algorithm 3: Forward Substitution
 % b = Alg3_forward_substitution(L, b) overwrites b with the solution to
 % Lx = b.

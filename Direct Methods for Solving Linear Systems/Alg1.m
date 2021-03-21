@@ -1,4 +1,4 @@
-function A = Alg1_outer_product_gaussian_elimination(A)
+function A = Alg1(A)
 % Algorithm 1: Outer Product Gaussian Elimination
 % Performs a gaussian eliminaion on a square matrix A.
 
@@ -23,3 +23,4 @@ for k = 1 : m-1
 end
  
 end
+

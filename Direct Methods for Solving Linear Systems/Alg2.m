@@ -1,4 +1,4 @@
-function [P, Q, L, U] = Alg2_gaussian_elimination_with_complete_pivoting(A)
+function [P, Q, L, U] = Alg2(A)
 % Algorithm 2: Gaussian Elimination with Complete Pivoting.
 % [P, Q, L, U] = Alg2_gaussian_elimination_with_complete_pivoting(A)
 % computes the complete pivoting factorization PAQ = LU.

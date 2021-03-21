@@ -1,4 +1,4 @@
-function b = Alg4_back_substitution(U,b)
+function b = Alg4(U,b)
 % Argorithm 4: Back Substitution 
 % b = Alg4_back_substitution(U,b) returns vetor b with solution to the
 % Ux = b.
@@ -17,9 +17,9 @@ if length(b) ~= m
     error('Vector b has wrong length!')
 end
 
-if det(U) < eps
-    error('Matrix is not nonsingular!')
-end
+% if det(U) < eps
+%     error('Matrix is not nonsingular!')
+% end
 
 
 % The following algorithm is based on the Algrotihm 3.1.2 from [2].

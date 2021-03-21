@@ -1,54 +1,28 @@
-clear all;
-clc;
-
-A = [2, -1, 0, 0;
-    -1, 2, -1, 0;
-    0, -1, 2, -1;
-    0, 0, -1, 2];
-
-b = [0;0;0;5];
-
-B = Alg1_outer_product_gaussian_elimination(A);
-U = triu(B);
-x = Alg4_back_substitution(U, b);
-
 %% Problem 1
 clear all;
+clc;
 A = [2, -1, 0, 0;
     -1, 2, -1, 0;
     0, -1, 2, -1;
     0, 0, -1, 2];
-
 b = [0;0;0;5];
-
-B = gauss_jordan_elimination([A b])
-
-[P, Q, L, U] = Alg2_gaussian_elimination_with_complete_pivoting(A);
-
-b = P*b;
-% Ly = b and Ux = y
-y = forward_substitution(L, b);
-
-x = Q*back_substitution(U, y);
-
-% L*U
+B = Alg5([A b])
 
 %% Problem 2
+clear all;
+clc;
 A = [1, 1, 1;
      1, 1, 2;
      1, 2, 2];
-
 b = [1;2;1];
 
-[P, Q, L, U] = Alg2_gaussian_elimination_with_complete_pivoting(A);
+[P, Q, L, U] = Alg2(A);
 
 b = P*b;
 % Ly = b and Ux = y
-y = Alg3_forward_substitution(L, b);
+y = Alg3(L, b);     % Forward substitution
+x = Q*Alg4(U, y)	% Backward substitution
 
-x = Q*Alg4_back_substitution(U, y)
-
-% L*U
 
 
 %% Problem 4
@@ -60,25 +34,34 @@ bp = [0.168; 0.066];
 
 kappa = cond(A)
 
-B = Alg5_gauss_jordan_elimination([A b])
-Bp = Alg5_gauss_jordan_elimination([A bp])
+B = Alg5([A b])
+Bp = Alg5([A bp])
 
 %% Problem 5
-% AX = I3
+clear all;
+clc;
 A = [2, 1, 2;
      1, 2, 3;
      4, 1, 2];
  
-[P, Q, L, U] = Alg2_gaussian_elimination_with_complete_pivoting(A);
+[P, Q, L, U] = Alg2(A)
 
 I = P*eye(3);
 % Ly = b and Ux = y
-y = forward_substitution(L, I);
-
-X = Q*back_substitution(U, y)
-inv(A)
+y = Alg3(L, I);     % Forward substitution
+x = Q*Alg4(U, y)    % Backward substitution
+inv(A) - x
 
 %% Problem 6
+clc;
+
+A = [1 2 3 4;
+    -1 1 2 1;
+     0 2 1 3;
+     0 0 1 1];
+
+[L, U, P] = Alg8(A)
+det(A) - prod(diag(U))
 
 %% Problem 10
 
