@@ -1,0 +1,37 @@
+\subsection{Problem 4}
+Solve the system of linear equations:
+\begin{equation*}
+    \systeme{0.835x_1 + 0.667x_2 = 0.168,0.333x_1 + 0.266x_2 = 0.067}
+\end{equation*}
+
+Then slightly perturb $b_2$ from $0.067$ to $0.066$ and compute the solution to the perturbed system. Explain the change in the solution by computing the condition number of the system matrix.
+\subsubsection*{Solution}
+\begin{equation*}
+    \begin{amatrix}{1}{1}
+        \matr{A} & \matr{b}
+    \end{amatrix} = 
+    \begin{amatrix}{2}{1}
+        0.835 & 0.667 & 0.168\\
+        0.333 & 0.266 & 0.067
+    \end{amatrix} \xrightarrow[R_2-0.333R_1]{\frac{R_1}{0.835}}
+    \begin{amatrix}{2}{1}
+        1 & 0.7988 & 0.2012\\
+        0 & 0 & 0
+    \end{amatrix}
+\end{equation*}
+
+which yields infinite many solutions. Perturbing $b_2$ we obtain:
+\begin{equation*}
+    \begin{amatrix}{1}{1}
+        \matr{A} & \matr{b'}
+    \end{amatrix} \xrightarrow[R_2-0.333R_1]{\frac{R_1}{0.835}}
+    \begin{amatrix}{2}{1}
+        1 & 0.7988 & 0.2012\\
+        0 & 0 & -0.001
+    \end{amatrix}
+\end{equation*}
+
+which yields none solutions. Performing the same calculations with Algorithm~\ref{algorithm:5}:
+\lstinputlisting[style=Matlab-editor]{problems/Problem4.m}
+
+With enough precision \MATLAB presented two valid solutions. Both of them differed by a factor of hundreds, which may be explained by a huge coefficient number (way over a million).

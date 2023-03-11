@@ -23,8 +23,6 @@ b = P*b;
 y = Alg3(L, b);     % Forward substitution
 x = Q*Alg4(U, y)	% Backward substitution
 
-
-
 %% Problem 4
 
 A = [0.835, 0.667;

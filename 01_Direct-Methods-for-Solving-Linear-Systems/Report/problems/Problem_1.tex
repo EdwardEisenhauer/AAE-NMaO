@@ -1,0 +1,65 @@
+\subsection{Problem 1}
+
+Solve the system and find the pivots when:
+\begin{equation*}
+    \systeme{2u-v=0,-u+2v-w=0,-v+2w-z=0,-w+2z=5}
+\end{equation*}
+
+\subsubsection*{Mathematics}
+The solution to a linear system like the one presented above may be obtained via Gauss-Jordan Elimination. An augmented matrix
+$\matr{B} = \begin{amatrix}{1}{1}
+        \matr{A} & \matr{b}
+\end{amatrix}$, where $\matr{A}$ is a coefficient matrix, and $\matr{b}$ is a column vector of constant terms, is assembled. Then, the algorithm implemented in \ref{algorithm:5} is performed. Note, that none of the $a_{ii}$ can be equal to zero for this algorithm to work properly\footnote{Explanation of this property is presented in \ref{problem:2}}.
+
+\subsubsection*{Solution}
+
+Manual calculations were performed. In the following transformations a row normalization is presented above the arrow and then a zeroing is below it.
+
+\begin{equation*}
+\begin{split}
+    \begin{amatrix}{1}{1}
+        \matr{A} & \matr{b}
+    \end{amatrix} = 
+    \begin{amatrix}{4}{1}
+        \phantom{-}2 & -1 & \phantom{-}0 & \phantom{-}0 & 0\\
+        -1 & \phantom{-}2 & -1 & \phantom{-}0 & 0\\
+        \phantom{-}0 & -1 & \phantom{-}2 & -1 & 0\\
+        \phantom{-}0 & \phantom{-}0 & -1 & \phantom{-}2 & 5
+    \end{amatrix} \xrightarrow[R_2 + R_1]{\frac{1}{2}R_1} 
+    \begin{amatrix}{4}{1}
+        \phantom{-}1 & -\frac{1}{2} & \phantom{-}0 & \phantom{-}0 & 0\\
+        \phantom{-}0 & \phantom{-}\frac{3}{2} & -1 & \phantom{-}0 & 0\\
+        \phantom{-}0 & -1 & \phantom{-}2 & -1 & 0\\
+        \phantom{-}0 & \phantom{-}0 & -1 & \phantom{-}2 & 5
+    \end{amatrix} \xrightarrow[\substack{R_1+\frac{1}{2}R_2\\R_3+R_2}]{\frac{2}{3}R_2} \\
+    \xrightarrow[R_3+\frac{2}{3}R_2]{\frac{2}{3}R_2}
+    \begin{amatrix}{4}{1}
+        \phantom{-}1 & \phantom{-}0 & -\frac{1}{3} & \phantom{-}0 & 0\\
+        \phantom{-}0 & \phantom{-}1 & -\frac{2}{3} & \phantom{-}0 & 0\\
+        \phantom{-}0 & \phantom{-}0 & \phantom{-}\frac{4}{3} & -1 & 0\\
+        \phantom{-}0 & \phantom{-}0 & -1 & \phantom{-}2 & 5
+    \end{amatrix} \xrightarrow[\substack{R_1+\frac{1}{3}R_3\\R_2+\frac{2}{3}R_3\\R_4+R_3}]{\frac{3}{4}R_3}
+    \begin{amatrix}{4}{1}
+        \phantom{-}1 & \phantom{-}0 & \phantom{-}0 & -\frac{1}{4} & 0\\
+        \phantom{-}0 & \phantom{-}1 & \phantom{-}0 & -\frac{1}{2} & 0\\
+        \phantom{-}0 & \phantom{-}0 & \phantom{-}1 & -\frac{3}{4} & 0\\
+        \phantom{-}0 & \phantom{-}0 & \phantom{-}0 & -\frac{4}{3} & 5
+    \end{amatrix} \xrightarrow[\substack{R_1+\frac{1}{4}R_4\\R_2+\frac{1}{2}R_4\\R_3+\frac{3}{4}R_4}]{-\frac{3}{4}R_4}\\
+    \xrightarrow[\substack{R_1+\frac{1}{4}R_4\\R_2+\frac{1}{2}R_4\\R_3+\frac{3}{4}R_4}]{-\frac{3}{4}R_4}
+    \begin{amatrix}{4}{1}
+        \phantom{-}1 & \phantom{-}0 & \phantom{-}0 & \phantom{-}0 & 1\\
+        \phantom{-}0 & \phantom{-}1 & \phantom{-}0 & \phantom{-}0 & 2\\
+        \phantom{-}0 & \phantom{-}0 & \phantom{-}1 & \phantom{-}0 & 3\\
+        \phantom{-}0 & \phantom{-}0 & \phantom{-}0 & \phantom{-}1 & 4
+    \end{amatrix} \rightarrow
+    \begin{cases}
+    u=1\\
+    v=2\\
+    w=3\\
+    z=4
+    \end{cases}
+\end{split}
+\end{equation*}
+
+Above result was verified with the Algorithm~\ref{algorithm:5}:
+\lstinputlisting[style=Matlab-editor]{problems/Problem1.m}
