@@ -1,0 +1,26 @@
+\subsection{Problem 6}
+
+Apply the LU factorization to the matrix
+\begin{equation*}
+    \matr{A} = 
+    \begin{bmatrix}
+        \phantom{-}1 & 2 & 3 & 4 \\
+        -1 & 1 & 2 & 1 \\
+        \phantom{-}0 & 2 & 1 & 3 \\
+        \phantom{-}0 & 0 & 1 & 1
+    \end{bmatrix}
+\end{equation*}
+Then calculate $\det(\matr{A})$ using the matrix $\matr{U}$. Finally solve $\matr{A}\matr{x}=\matr{b}$ for $\matr{b}=[1\dots1]^T$.
+\subsubsection*{Mathematics}
+The LU Factorization decomposes matrix $\matr{A}$ into an upper triangular matrix $\matr{U}$ and unit lower triangular matrix $\matr{L}$, so that
+\begin{equation*}
+    \matr{A} = \matr{L}\matr{U}
+\end{equation*}
+Using the property of a determinant and a fact, that $\det(\matr{L}) = 1$ one can calculate $\det(\matr{A})$ as
+\begin{equation*}
+    \det(\matr{A}) = \det(\matr{L}\matr{U}) = \det(\matr{L}) \cdot \det(\matr{U}) = \det(\matr{U}) = u_{11}\cdots u_{nn}
+\end{equation*}
+\subsubsection*{Solution}
+A glance at the matrix $\matr{A}$ tells us that it is not strictly diagonally dominant, so a pivoting algorithm should be used.
+%\footnote{$\matr{A}\in\mathbb{R}^{n\times n}$ is \textit{strictly diagonally dominant} if $|a_{ii}|>\sum_{j=1 j i}^n|a_{ij}|$}
+\lstinputlisting[style=Matlab-editor]{problems/Problem6.m}

@@ -1,0 +1,52 @@
+\subsection{Problem 2}\label{problem:2}
+Solve the following system of linear equations using the Gaussian elimination with pivoting:
+\begin{equation*}
+    \systeme{x_1+x_2+x_3=1,x_1+x_2+2x_3=2,x_1+2x_2+2x_3=1}
+\end{equation*}
+Explain why the Gaussian elimination without pivoting does not work.
+\subsubsection*{Mathematics}
+As was stated at the end of the theoretical introduction to the previous problem, Gaussian Elimination algorithms require the diagonal entry to be different than zero (to not normalize the row dividing by zero). While in manual computations such a division would be noticed, in \MATLAB their result is \texttt{Inf} and algorithm proceeds with replacing subsequent coefficients with this value, resulting in gibberish output. With pivoting this behaviour can be avoided. The basic idea is to find a maximum absolute value in the zeroed column below the pivot and interchange their rows. This is called a partial pivoting. Searching in the whole sub-matrix spanned between pivot and $A_{n,m}$, therefore interchanging not only rows but also columns, is called a complete pivoting.
+\subsubsection*{Solution}
+\begin{equation*}
+\begin{split}
+    \begin{amatrix}{1}{1}
+        \matr{A} & \matr{b}
+    \end{amatrix} = 
+    \begin{amatrix}{3}{1}
+        1 & 1 & 1 & 1\\
+        1 & 1 & 2 & 2\\
+        1 & 2 & 2 & 1
+    \end{amatrix} \xrightarrow[\substack{R_2-R_1\\R_3-R_1}]{}
+    \begin{amatrix}{3}{1}
+        1 & 1 & 1 & 1\\
+        0 & 0 & 1 & 1\\
+        0 & 1 & 1 & 0
+    \end{amatrix} \xrightarrow[R_2\leftrightarrow R_3]{}
+    \begin{amatrix}{3}{1}
+        1 & 1 & 1 & 1\\
+        0 & 1 & 1 & 0\\
+        0 & 0 & 1 & 1
+    \end{amatrix}\rightarrow\\
+    \rightarrow
+    \systeme{x_1+x_2+x_3=1,x_2+x_3=0,x_3=1}
+    \rightarrow
+    \systeme{x_1+x_2+x_3=\phantom{-}1,x_2=-1,x_3=\phantom{-}1}
+    \rightarrow
+    \begin{cases}
+    x_1=\phantom{-}1\\
+    x_2=-1\\
+    x_3=\phantom{-}1
+    \end{cases}
+\end{split}
+\end{equation*}
+
+To verify manual solution the Algorithm~\ref{algorithm:2} was used. As is explained in detail in~\cite[section 3.4.2]{GoluVanl96} it transforms matrix $\matr{P}\matr{A}\matr{U}$ into a form from which lower unit triangular and upper triangular matrices may be extracted, so that:
+\begin{align*}
+   \matr{P}\matr{A}\matr{U} &= \matr{L}\matr{U} & \matr{A}\matr{x}&=\matr{b}
+\end{align*}
+therefore
+\begin{align*}
+    \matr{A}&=\matr{P^T}\matr{L}\matr{U}\matr{Q^T} & \matr{P^T}\matr{L}\matr{U}\matr{Q^T}\matr{x} &= \matr{b}\\
+    & & \matr{L}\matr{U}\matr{Q^T}\matr{x} &= \matr{P}\matr{b}
+\end{align*}
+\lstinputlisting[style=Matlab-editor]{problems/Problem2.m}

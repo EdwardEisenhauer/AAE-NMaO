@@ -1,0 +1,145 @@
+% \iffalse meta-comment
+%
+% DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
+%
+% Author: Sergiusz Warga <sergiusz.warga@gmail.com>
+%
+% \fi
+%
+% \iffalse
+%<*driver>
+\ProvidesFile{WUST-AAE-NMaO-Report.dtx}
+%</driver>
+%<package>\NeedsTeXFormat{LaTeX2e}[2005/12/01]
+%<package>\ProvidesPackage{WUST-AAE-NMaO-Report}
+%<*package>
+  [2023/01/06 v0.1.0 WUST AAE NMaO Report package]
+%</package>
+%
+%<*driver>
+\documentclass{ltxdoc}
+\usepackage[
+  hidelinks,
+  bookmarks,
+  bookmarksopen,
+  bookmarksopenlevel=2,
+  pdftitle={WUST AAE NMaO Report LaTeX package},
+  pdfauthor={Sergiusz Warga}
+]{hyperref}
+\EnableCrossrefs
+\CodelineIndex
+\RecordChanges
+\setlength\hfuzz{15pt}      % don’t show so many
+\hbadness=7000              % over- and underfull box warnings
+\begin{document}
+  \DocInput{WUST-AAE-NMaO-Report.dtx}
+\end{document}
+%</driver>
+% \fi
+%
+% \CheckSum{0}
+%
+% \changes{v0.1.0}{2023/01/06}{Initial version}
+%
+% \GetFileInfo{WUST-AAE-NMaO-Report.dtx}
+%
+% \DoNotIndex{\@date, \@title}
+% \DoNotIndex{\\}
+% \DoNotIndex{\begin}
+% \DoNotIndex{\DeclareRobustCommand, \dimexpr, \doublerulesep}
+% \DoNotIndex{\end}
+% \DoNotIndex{\fbox, \fboxrule, \fboxsep}
+% \DoNotIndex{\gdef}
+% \DoNotIndex{\hoffset, \Huge}
+% \DoNotIndex{\Large}
+% \DoNotIndex{\newlength, \newpage, \null}
+% \DoNotIndex{\oddsidemargin}
+% \DoNotIndex{\paperwidth}
+% \DoNotIndex{\renewcommand}
+% \DoNotIndex{\setlength}
+% \DoNotIndex{\textwidth}
+% \DoNotIndex{\uppercase}
+% \DoNotIndex{\vfill}
+%
+% \title{WUST AAE NMaO Report package\thanks
+%   {This document corresponds to \texttt{WUST-AAE-NMaO-Report}~\fileversion,
+%       dated \filedate.}}\author{Sergiusz Warga\texttt{sergiusz.warga@gmail.com}}
+%
+% \maketitle
+%
+% \StopEventually{\PrintChanges \PrintIndex}
+%
+% \section{Implementation}
+%
+% \subsection{Packages}
+%    \begin{macrocode}
+\RequirePackage{graphicx}
+\RequirePackage{xspace}
+%    \end{macrocode}
+%
+% \subsection{Dimentions}
+%
+% Text area.
+%
+%    \begin{macrocode}
+\setlength{\textwidth}{140mm}
+%    \end{macrocode}
+%
+% Center the text area.
+%
+%    \begin{macrocode}
+\setlength{\hoffset}{
+  \dimexpr
+  (\paperwidth-\textwidth)/2-\oddsidemargin-1in
+}
+
+\DeclareRobustCommand*{\reportgroup}[1]{\gdef\@reportgroup{#1}}
+\DeclareRobustCommand*{\reporttutor}[1]{\gdef\@reporttutor{#1}}
+\DeclareRobustCommand*{\reportclassdate}[1]{\gdef\@reportclassdate{#1}}
+\DeclareRobustCommand*{\reportlabassistant}[1]{\gdef\@reportlabassistant{#1}}
+
+\reportgroup{}
+\reporttutor{}
+\reportclassdate{}
+\reportlabassistant{}
+
+%    \end{macrocode}
+% \DescribeMacro{\maketitle}
+%    \begin{macrocode}
+\renewcommand{\maketitle}{
+\begin{titlepage}
+  \thispagestyle{empty}
+  \begin{center}
+    \includegraphics{logo-pwr-2016.pdf}
+    \vspace{\baselineskip}
+    \rule{\linewidth}{0.2 mm}\\[0.4 cm]
+    {\huge \bfseries \@title}\\
+    \rule{\linewidth}{0.2 mm}\\[1.5 cm]
+  \vfill
+  \large
+  \textsc{\@author}\\
+  \vspace{\baselineskip}
+  \textsc{Tutor: \@reporttutor}\\
+  \textsc{Laboratory group: Monday 13:15}\\
+
+  \end{center}
+\end{titlepage}
+}
+%    \end{macrocode}
+% MATLAB command.
+%    \begin{macrocode}
+\newcommand{\MATLAB}{\textsc{Matlab}\xspace}
+%    \end{macrocode}
+% Bold letters in matrices
+%    \begin{macrocode}
+\newcommand{\matr}[1]{\mathbf{#1}}
+%    \end{macrocode}
+% Augmented matrix
+%    \begin{macrocode}
+\newenvironment{amatrix}[2]{%
+  \left[\begin{array}{@{}*{#1}{c} | c *{#2}{c} @{}}
+}{%
+  \end{array}\right]
+}
+%    \end{macrocode}
+% \Finale
