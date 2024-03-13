@@ -3,40 +3,30 @@
 \usepackage{natbib}
 
 \usepackage{amsmath}
+\usepackage{systeme}
+\usepackage{listings}
+\usepackage{matlab-prettifier}
+
+
+% \graphicspath{{images/}}
 % \usepackage{amssymb}
 % \usepackage[polish,main=english]{babel}
 % \usepackage{titlesec}
 % \usepackage{vmargin}
 % \usepackage{graphicx}
-% \graphicspath{{images/}}
 % \usepackage{fancyhdr}
-% \usepackage{systeme}
 % \usepackage{xcolor}
 % \usepackage{indentfirst}
-% \usepackage{xspace}
-% \newcommand{\MATLAB}{\textsc{Matlab}\xspace}
-% \usepackage{listings}
-% \usepackage{matlab-prettifier}
 % \usepackage{hyperref}
 % \usepackage{multicol}
 
 
 % \newcommand{\sectionbreak}{\clearpage}
-% \setmarginsrb{3 cm}{2.5 cm}{3 cm}{2.5 cm}{1 cm}{1.5 cm}{1 cm}{1.5 cm}
 
-% Augmented matrix
-% \newenvironment{amatrix}[2]{%
-  % \left[\begin{array}{@{}*{#1}{c} | c *{#2}{c} @{}}
-% }{%
-  % \end{array}\right]
-% }
-
-% Bold letters in matrices
-% \newcommand{\matr}[1]{\mathbf{#1}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\title{Numerical Algorithms – Report 1: Direct Methods for Solving Linear Systems}
+\title{Numerical Algorithms Report 1: Direct Methods for Solving Linear Systems}
 \author{Sergiusz Warga 230757}
 \date{\today}
 \reporttutor{dr hab. inż. Rafał Zdunek}
@@ -51,11 +41,11 @@
 
 \section{Problems calculations}
 \input{problems/Problem_1}
-% \input{problems/Problem2}\\
-% \input{problems/Problem3}\\
-% \input{problems/Problem4}\\
-% \input{problems/Problem5}\\
-% \input{problems/Problem6}\\
+\input{problems/Problem_2}
+\input{problems/Problem_3}
+\input{problems/Problem_4}
+\input{problems/Problem_5}
+\input{problems/Problem_6}
 % \input{problems/Problem7}\\
 % \input{problems/Problem8}\\
 % \input{problems/Problem9}\\
@@ -66,34 +56,34 @@
 % \input{problems/Problem14}\\
 % \input{problems/Problem15}
 
-% \section{Algorithms}
-% \subsection{Algorithm 1 -- Gaussian elimination}\label{algorithm:1}
-% \lstinputlisting[style=Matlab-editor]{algorithms/Alg1.m}
-% \subsection{Algorithm 2 -- Gaussian  elimination  with  Complete  Pivoting}\label{algorithm:2}
-% \lstinputlisting[style=Matlab-editor]{algorithms/Alg2.m}
-% \subsection{Algorithm 3 -- Forward Substitution}\label{algorithm:3}
-% \lstinputlisting[style=Matlab-editor]{algorithms/Alg3.m}
-% \subsection{Algorithm 4 -- Back Substitution}\label{algorithm:4}
-% \lstinputlisting[style=Matlab-editor]{algorithms/Alg4.m}
-% \subsection{Algorithm 5 -- The Gauss-Jordan elimination algorithm}\label{algorithm:5}
-% \lstinputlisting[style=Matlab-editor]{algorithms/Alg5.m}
-% \subsection{Algorithm 6 -- The RREF algorithm}\label{algorithm:6}
-% \lstinputlisting[style=Matlab-editor]{algorithms/Alg6_RREF.m}
-% \subsection{Algorithm 7 -- The LU  factorization without pivoting}\label{algorithm:7}
-% \lstinputlisting[style=Matlab-editor]{algorithms/Alg7.m}
-% \subsection{Algorithm 8 -- The LU  factorization with partial pivoting}\label{algorithm:8}
-% \lstinputlisting[style=Matlab-editor]{algorithms/Alg8.m}
-% % \subsection{Algorithm 9 -- A family of the Cholesky  factorization  algorithms}\label{algorithm:9}
-% % \lstinputlisting[style=Matlab-editor]{algorithms/Alg9.m}
-% \stepcounter{subsection}
-% \subsection{Algorithm 10 -- The Cholesky factorization}\label{algorithm:10}
-% \lstinputlisting[style=Matlab-editor]{algorithms/Alg10.m}
-% \subsection{Algorithm 11 -- The  QR  algorithm  by  the  Householder  transformation}\label{algorithm:11}
-% \lstinputlisting[style=Matlab-editor]{algorithms/Alg11.m}
-% \subsection{Algorithm 12 -- The QR algorithm by the Givens rotations}\label{algorithm:12}
-% \lstinputlisting[style=Matlab-editor]{algorithms/Alg12.m}
-% \subsection{Algorithm 13 -- The QR algorithm by the Gram-Schmidt orthogonalization}\label{algorithm:13}
-% \lstinputlisting[style=Matlab-editor]{algorithms/Alg13.m}
+\section{Algorithms}
+\subsection{Algorithm 1 -- Gaussian elimination}\label{algorithm:1}
+\lstinputlisting[style=Matlab-editor]{algorithms/Alg1.m}
+\subsection{Algorithm 2 -- Gaussian  elimination  with  Complete  Pivoting}\label{algorithm:2}
+\lstinputlisting[style=Matlab-editor]{algorithms/Alg2.m}
+\subsection{Algorithm 3 -- Forward Substitution}\label{algorithm:3}
+\lstinputlisting[style=Matlab-editor]{algorithms/Alg3.m}
+\subsection{Algorithm 4 -- Back Substitution}\label{algorithm:4}
+\lstinputlisting[style=Matlab-editor]{algorithms/Alg4.m}
+\subsection{Algorithm 5 -- The Gauss-Jordan elimination algorithm}\label{algorithm:5}
+\lstinputlisting[style=Matlab-editor]{algorithms/Alg5.m}
+\subsection{Algorithm 6 -- The RREF algorithm}\label{algorithm:6}
+\lstinputlisting[style=Matlab-editor]{algorithms/Alg6_RREF.m}
+\subsection{Algorithm 7 -- The LU  factorization without pivoting}\label{algorithm:7}
+\lstinputlisting[style=Matlab-editor]{algorithms/Alg7.m}
+\subsection{Algorithm 8 -- The LU  factorization with partial pivoting}\label{algorithm:8}
+\lstinputlisting[style=Matlab-editor]{algorithms/Alg8.m}
+% \subsection{Algorithm 9 -- A family of the Cholesky  factorization  algorithms}\label{algorithm:9}
+% \lstinputlisting[style=Matlab-editor]{algorithms/Alg9.m}
+\stepcounter{subsection}
+\subsection{Algorithm 10 -- The Cholesky factorization}\label{algorithm:10}
+\lstinputlisting[style=Matlab-editor]{algorithms/Alg10.m}
+\subsection{Algorithm 11 -- The  QR  algorithm  by  the  Householder  transformation}\label{algorithm:11}
+\lstinputlisting[style=Matlab-editor]{algorithms/Alg11.m}
+\subsection{Algorithm 12 -- The QR algorithm by the Givens rotations}\label{algorithm:12}
+\lstinputlisting[style=Matlab-editor]{algorithms/Alg12.m}
+\subsection{Algorithm 13 -- The QR algorithm by the Gram-Schmidt orthogonalization}\label{algorithm:13}
+\lstinputlisting[style=Matlab-editor]{algorithms/Alg13.m}
 
 %%%%%%%%%%%%%%%%%%%
 %% BIBLIOGRAPHY %%%
