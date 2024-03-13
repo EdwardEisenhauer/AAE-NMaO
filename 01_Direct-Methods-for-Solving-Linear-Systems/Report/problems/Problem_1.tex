@@ -6,14 +6,20 @@ Solve the system and find the pivots when:
 \end{equation*}
 
 \subsubsection*{Mathematics}
-The solution to a linear system like the one presented above may be obtained via Gauss-Jordan Elimination. An augmented matrix
+The solution to a linear system like the one presented above may be obtained via Gauss-Jordan Elimination. An augmented
+matrix
 $\matr{B} = \begin{amatrix}{1}{1}
-        \matr{A} & \matr{b}
-\end{amatrix}$, where $\matr{A}$ is a coefficient matrix, and $\matr{b}$ is a column vector of constant terms, is assembled. Then, the algorithm implemented in \ref{algorithm:5} is performed. Note, that none of the $a_{ii}$ can be equal to zero for this algorithm to work properly\footnote{Explanation of this property is presented in \ref{problem:2}}.
+    \matr{A} & \matr{b}
+\end{amatrix}$, where $\matr{A}$ is a coefficient matrix, and $\matr{b}$ is a
+column vector of constant terms, is assembled. Then, the algorithm implemented
+in \ref{algorithm:5} is performed. Note, that none of the $a_{ii}$ can be equal
+to zero for this algorithm to work properly\footnote{Explanation of this
+property is presented in \ref{problem:2}}.
 
 \subsubsection*{Solution}
 
-Manual calculations were performed. In the following transformations a row normalization is presented above the arrow and then a zeroing is below it.
+Manual calculations were performed. In the following transformations a row
+normalization is presented above the arrow and then a zeroing is below it.
 
 \begin{equation*}
 \begin{split}
@@ -62,4 +68,4 @@ Manual calculations were performed. In the following transformations a row norma
 \end{equation*}
 
 Above result was verified with the Algorithm~\ref{algorithm:5}:
-\lstinputlisting[style=Matlab-editor]{problems/Problem1.m}
+\lstinputlisting[style=Matlab-editor]{problems/Problem_1.m}
