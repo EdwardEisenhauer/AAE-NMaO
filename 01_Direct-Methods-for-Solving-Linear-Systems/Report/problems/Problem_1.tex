@@ -6,15 +6,21 @@ Solve the system and find the pivots when:
 \end{equation*}
 
 \subsubsection*{Mathematics}
-The solution to a linear system like the one presented above may be obtained via Gauss-Jordan Elimination. An augmented
-matrix
-$\matr{B} = \begin{amatrix}{1}{1}
-    \matr{A} & \matr{b}
-\end{amatrix}$, where $\matr{A}$ is a coefficient matrix, and $\matr{b}$ is a
-column vector of constant terms, is assembled. Then, the algorithm implemented
-in \ref{algorithm:5} is performed. Note, that none of the $a_{ii}$ can be equal
-to zero for this algorithm to work properly\footnote{Explanation of this
-property is presented in \ref{problem:2}}.
+The solution to a linear system like the one presented above may be found by:
+\begin{enumerate}
+  \item Representing the system as a coefficient matrix $\matr{A}$ and a column vector
+    of constant terms $\matr{b}$.
+  \item Composing an augmented matrix
+    $\matr{B} = \begin{amatrix}{1}{1}
+      \matr{A} & \matr{b}
+    \end{amatrix}$
+  \item Reducing the matrix $\matr{B}$ to the upper triangular form with the Gaussian
+    Elimination\footnote{Its implementation is presented in~\ref{algorithm:1}} and
+    obtaining the solution with the Back Substitution\footnote{Its implementation is presented in~\ref{algorithm:4}}.
+\end{enumerate}
+
+Note, that this method works only when none of the $a_{ii}$ is zero, which is further
+discussed in~\ref{problem:2}.
 
 \subsubsection*{Solution}
 
