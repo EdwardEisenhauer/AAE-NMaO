@@ -1,12 +1,21 @@
 %% Problem 1
+% Solve the system and find the pivots when:
+% 2u -  v           = 0
+% -u + 2v -  w      = 0
+%      -v + 2w -  z = 0
+%           -w + 2z = 5
 clear all;
 clc;
-A = [2, -1, 0, 0;
-    -1, 2, -1, 0;
-    0, -1, 2, -1;
-    0, 0, -1, 2];
-b = [0;0;0;5];
-B = Alg5([A b])
+A = [2, -1,  0,  0;
+    -1,  2, -1,  0;
+     0, -1,  2, -1;
+     0,  0, -1,  2];
+b = [0;
+     0;
+     0;
+     5];
+B = gaussian_elimination(A, b);
+x = back_substitution(B(:, 1:end - 1), B(:, end))
 
 %% Problem 2
 clear all;
