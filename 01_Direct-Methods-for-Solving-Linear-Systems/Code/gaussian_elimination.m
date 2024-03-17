@@ -14,7 +14,7 @@ if m ~= n
     error('The coefficient matrix A is not square!')
 end
 
-B = [A b]
+B = [A b];
 
 for k = 1:n - 1
     rows = k + 1:m;

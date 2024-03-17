@@ -74,7 +74,22 @@
 % \subsection{Packages}
 %    \begin{macrocode}
 \RequirePackage{graphicx}
+\RequirePackage{hyperref}
 \RequirePackage{xspace}
+%    \end{macrocode}
+%
+% \subsection{\texttt{hyperref} package configuration}
+%
+%    \begin{macrocode}
+\hypersetup{
+  pdfauthor={Sergiusz Warga},
+  pdftitle={\@title},
+  pdfkeywords={}
+  pdfstartview={Fit}, % Fits the page to the window
+  hidelinks,
+  pdfproducer={XeLateX with hyperref},
+  pdfcreator={Xelatex},
+}
 %    \end{macrocode}
 %
 % \subsection{Dimentions}

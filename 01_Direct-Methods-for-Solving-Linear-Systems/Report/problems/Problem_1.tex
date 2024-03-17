@@ -6,17 +6,17 @@ Solve the system and find the pivots when:
 \end{equation*}
 
 \subsubsection*{Mathematics}
-The solution to a linear system like the one presented above may be found by:
+The solution to a linear system $\matr{A}x = \matr{b}$, where $\matr{A}$ is a
+coefficient matrix and $\matr{b}$ is a column vector may be found by:
 \begin{enumerate}
-  \item Representing the system as a coefficient matrix $\matr{A}$ and a column vector
-    of constant terms $\matr{b}$.
   \item Composing an augmented matrix
     $\matr{B} = \begin{amatrix}{1}{1}
       \matr{A} & \matr{b}
-    \end{amatrix}$
+    \end{amatrix}$.
   \item Reducing the matrix $\matr{B}$ to the upper triangular form with the Gaussian
-    Elimination\footnote{\nameref{algorithm:1}} and obtaining the solution with the Back
-    Substitution\footnote{\nameref{algorithm:4}}.
+    Elimination\footnote{\nameref{algorithm:1}} algorithm.
+  \item Obtaining the solution with the Back
+    Substitution\footnote{\nameref{algorithm:4}} algorithm.
 \end{enumerate}
 
 Note, that this method works only when none of the $a_{ii}$ is zero, which is further
@@ -24,8 +24,8 @@ discussed in \nameref{problem:2}.
 
 \subsubsection*{Solution}
 
-Manual calculations were performed. In the following transformations a row
-normalization is presented above the arrow and then a zeroing is below it.
+Following the manual calculations of the Gaussian Elimination and the Back Substitution
+we obtain:
 
 \begin{equation*}
 \begin{split}
@@ -37,33 +37,26 @@ normalization is presented above the arrow and then a zeroing is below it.
         -1 & \phantom{-}2 & -1 & \phantom{-}0 & 0\\
         \phantom{-}0 & -1 & \phantom{-}2 & -1 & 0\\
         \phantom{-}0 & \phantom{-}0 & -1 & \phantom{-}2 & 5
-    \end{amatrix} \xrightarrow[R_2 + R_1]{\frac{1}{2}R_1} 
+    \end{amatrix} \xrightarrow{R_2 + \frac{1}{2}R_1} 
     \begin{amatrix}{4}{1}
-        \phantom{-}1 & -\frac{1}{2} & \phantom{-}0 & \phantom{-}0 & 0\\
+        \phantom{-}2 & -1 & \phantom{-}0 & \phantom{-}0 & 0\\
         \phantom{-}0 & \phantom{-}\frac{3}{2} & -1 & \phantom{-}0 & 0\\
         \phantom{-}0 & -1 & \phantom{-}2 & -1 & 0\\
         \phantom{-}0 & \phantom{-}0 & -1 & \phantom{-}2 & 5
-    \end{amatrix} \xrightarrow[\substack{R_1+\frac{1}{2}R_2\\R_3+R_2}]{\frac{2}{3}R_2} \\
-    \xrightarrow[R_3+\frac{2}{3}R_2]{\frac{2}{3}R_2}
+    \end{amatrix} \xrightarrow{R_3 + \frac{2}{3}R_2} \\
+    \xrightarrow{R_3 + \frac{2}{3}R_2}
     \begin{amatrix}{4}{1}
-        \phantom{-}1 & \phantom{-}0 & -\frac{1}{3} & \phantom{-}0 & 0\\
-        \phantom{-}0 & \phantom{-}1 & -\frac{2}{3} & \phantom{-}0 & 0\\
+        \phantom{-}2 & -1 & \phantom{-}0 & \phantom{-}0 & 0\\
+        \phantom{-}0 & \phantom{-}\frac{3}{2} & -1 & \phantom{-}0 & 0\\
         \phantom{-}0 & \phantom{-}0 & \phantom{-}\frac{4}{3} & -1 & 0\\
         \phantom{-}0 & \phantom{-}0 & -1 & \phantom{-}2 & 5
-    \end{amatrix} \xrightarrow[\substack{R_1+\frac{1}{3}R_3\\R_2+\frac{2}{3}R_3\\R_4+R_3}]{\frac{3}{4}R_3}
+    \end{amatrix} \xrightarrow{R_4 + \frac{3}{4}R_3}
     \begin{amatrix}{4}{1}
-        \phantom{-}1 & \phantom{-}0 & \phantom{-}0 & -\frac{1}{4} & 0\\
-        \phantom{-}0 & \phantom{-}1 & \phantom{-}0 & -\frac{1}{2} & 0\\
-        \phantom{-}0 & \phantom{-}0 & \phantom{-}1 & -\frac{3}{4} & 0\\
-        \phantom{-}0 & \phantom{-}0 & \phantom{-}0 & -\frac{4}{3} & 5
-    \end{amatrix} \xrightarrow[\substack{R_1+\frac{1}{4}R_4\\R_2+\frac{1}{2}R_4\\R_3+\frac{3}{4}R_4}]{-\frac{3}{4}R_4}\\
-    \xrightarrow[\substack{R_1+\frac{1}{4}R_4\\R_2+\frac{1}{2}R_4\\R_3+\frac{3}{4}R_4}]{-\frac{3}{4}R_4}
-    \begin{amatrix}{4}{1}
-        \phantom{-}1 & \phantom{-}0 & \phantom{-}0 & \phantom{-}0 & 1\\
-        \phantom{-}0 & \phantom{-}1 & \phantom{-}0 & \phantom{-}0 & 2\\
-        \phantom{-}0 & \phantom{-}0 & \phantom{-}1 & \phantom{-}0 & 3\\
-        \phantom{-}0 & \phantom{-}0 & \phantom{-}0 & \phantom{-}1 & 4
-    \end{amatrix} \rightarrow
+        \phantom{-}2 & -1 & \phantom{-}0 & \phantom{-}0 & 0\\
+        \phantom{-}0 & \phantom{-}\frac{3}{2} & -1 & \phantom{-}0 & 0\\
+        \phantom{-}0 & \phantom{-}0 & \phantom{-}\frac{4}{3} & -1 & 0\\
+        \phantom{-}0 & \phantom{-}0 & \phantom{-}0 & \phantom{-}\frac{4}{3} & 5
+    \end{amatrix} \xrightarrow{}
     \begin{cases}
     u=1\\
     v=2\\
@@ -73,5 +66,6 @@ normalization is presented above the arrow and then a zeroing is below it.
 \end{split}
 \end{equation*}
 
-Above result was verified with the Algorithm~\ref{algorithm:5}:
+Verifying the above calculation with our implementations in \MATLAB yields:
 \lstinputlisting[style=Matlab-editor]{problems/Problem_1.m}
+which corresponds to our solution.
