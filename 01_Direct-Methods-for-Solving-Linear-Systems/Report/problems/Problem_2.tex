@@ -1,17 +1,29 @@
-\subsection{Problem 2}\label{problem:2}
-Solve the following system of linear equations using the Gaussian elimination with pivoting:
+\subsection{Problem~2}%
+\label{sec:problem)2}
+
+Solve the following system of linear equations using the Gaussian Elimination with
+pivoting:
 \begin{equation*}
     \systeme{x_1+x_2+x_3=1,x_1+x_2+2x_3=2,x_1+2x_2+2x_3=1}
 \end{equation*}
+
 Explain why the Gaussian elimination without pivoting does not work.
+
 \subsubsection*{Mathematics}
-As was stated at the end of the theoretical introduction to the previous problem, Gaussian Elimination algorithms
-require the diagonal entry to be different than zero (to not normalize the row dividing by zero). While in manual
-computations such a division would be noticed, in \MATLAB their result is \texttt{Inf} and algorithm proceeds with
-replacing subsequent coefficients with this value, resulting in gibberish output. With pivoting this behaviour can be
-avoided. The basic idea is to find a maximum absolute value in the zeroed column below the pivot and interchange their
-rows. This is called a partial pivoting. Searching in the whole sub-matrix spanned between pivot and $A_{n,m}$,
-therefore interchanging not only rows but also columns, is called a complete pivoting.
+As stated at the end of the mathematical introduction to the \nameref{sec:problem_1},
+the \nameref{algorithm:1} requires all the diagonal entries of the coefficient
+matrix to be non-zero, to avoid the division by zero during the row normalization.
+While in manual computations such a division would be noticed, in \MATLAB their result
+is \texttt{Inf} and the algorithm proceeds with replacing subsequent coefficients with
+this value, resulting in gibberish output.
+
+This behaviour can be avoided with the use of pivoting. 
+The basic idea is to find the maximum absolute value in the zeroed column below the
+pivot and interchange their rows.
+This is called a \textit{partial pivoting}.
+Searching in the whole sub-matrix spanned between pivot and $A_{n,m}$ --- therefore
+interchanging not only rows but also columns --- is called a \textit{complete pivoting}.
+
 \subsubsection*{Solution}
 \begin{equation*}
 \begin{split}

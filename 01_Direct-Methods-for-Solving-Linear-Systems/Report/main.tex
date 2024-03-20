@@ -1,13 +1,15 @@
 \documentclass[a4paper]{article}
 \usepackage{WUST-AAE-NMaO-Report}
-\usepackage{natbib}
-
 \usepackage{amsmath}
 \usepackage[polish,main=english]{babel}
 \usepackage{indentfirst}
-\usepackage{matlab-prettifier}
 \usepackage{nameref}
+\usepackage{natbib}
 \usepackage{listings}
+\lstset{
+    breaklines=false
+}
+\usepackage{matlab-prettifier}
 \usepackage{systeme}
 \usepackage{todonotes}
 
@@ -20,9 +22,6 @@
 % \usepackage{fancyhdr}
 % \usepackage{xcolor}
 % \usepackage{multicol}
-
-
-% \newcommand{\sectionbreak}{\clearpage}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -40,7 +39,7 @@
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Problems calculations}
+\section{Problems}
 \input{problems/Problem_1}
 \input{problems/Problem_2}
 \input{problems/Problem_3}
@@ -57,19 +56,27 @@
 % \input{problems/Problem14}\\
 % \input{problems/Problem15}
 
+\clearpage
+
 \section{Algorithms}
-\subsection{Algorithm 1: Gaussian elimination}\label{algorithm:1}
-\lstinputlisting[style=Matlab-editor]{algorithms/Alg1.m}
-\subsection{Algorithm 2: Gaussian  elimination  with  Complete  Pivoting}\label{algorithm:2}
-\lstinputlisting[style=Matlab-editor]{algorithms/Alg2.m}
-\subsection{Algorithm 3: Forward Substitution}\label{algorithm:3}
-\lstinputlisting[style=Matlab-editor]{algorithms/Alg3.m}
-\subsection{Algorithm 4: Back Substitution}\label{algorithm:4}
-\lstinputlisting[style=Matlab-editor]{algorithms/Alg4.m}
-\subsection{Algorithm 5: The Gauss-Jordan elimination algorithm}\label{algorithm:5}
-\lstinputlisting[style=Matlab-editor]{algorithms/Alg5.m}
-\subsection{Algorithm 6: The RREF algorithm}\label{algorithm:6}
-\lstinputlisting[style=Matlab-editor]{algorithms/Alg6_RREF.m}
+\subsection{Algorithm~1: Gaussian elimination}%
+\label{algorithm:1}
+\lstinputlisting[style=Matlab-editor, breaklines=false]{algorithms/Alg1.m}
+\subsection{Algorithm~2: Gaussian  elimination  with  Complete  Pivoting}%
+\label{algorithm:2}
+\lstinputlisting[style=Matlab-editor, breaklines=false]{algorithms/Alg2.m}
+\subsection{Algorithm~3: Forward Substitution}%
+\label{algorithm:3}
+\lstinputlisting[style=Matlab-editor, breaklines=false]{algorithms/Alg3.m}
+\subsection{Algorithm~4: Back Substitution}%
+\label{algorithm:4}
+\lstinputlisting[style=Matlab-editor, breaklines=false]{algorithms/Alg4.m}
+\subsection{Algorithm~5: The Gauss-Jordan elimination algorithm}%
+\label{algorithm:5}
+\lstinputlisting[style=Matlab-editor, breaklines=false]{algorithms/Alg5.m}
+\subsection{Algorithm~6: The RREF algorithm}%
+\label{algorithm:6}
+\lstinputlisting[style=Matlab-editor, breaklines=false]{algorithms/Alg6_RREF.m}
 % \subsection{Algorithm 7 -- The LU  factorization without pivoting}\label{algorithm:7}
 % \lstinputlisting[style=Matlab-editor]{algorithms/Alg7.m}
 % \subsection{Algorithm 8 -- The LU  factorization with partial pivoting}\label{algorithm:8}
