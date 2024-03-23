@@ -1,0 +1,38 @@
+\subsection{Problem 4}%
+\label{sec:problem_4}
+
+Find $\matr{A}^{100}$ by diagonalizing $\matr{A} = 
+\begin{bmatrix}
+    4 & 3\\
+    1 & 2
+\end{bmatrix}$.
+
+\subsubsection*{Mathematics}
+
+\todo{Describe when the matrix is diagonizable?}
+As presented in~\cite{Zdunek}, matrix $\matr{A^{n\times n}}$ is diagonalizable if it has 
+$n$ distinct eigenvalues.
+These can be easily found by solving $\det{\matr{A} - \lambda\matr{I}} = 0$, as follows:
+\begin{equation*}
+    \det{\left(\begin{bmatrix}
+        4 & 3 \\
+        1 & 2 
+    \end{bmatrix} - 
+    \begin{bmatrix}
+        \lambda & 0 \\
+        0 & \lambda
+    \end{bmatrix}\right)} = 0 \rightarrow
+    \det{\left(\begin{bmatrix}
+        4 - \lambda & 3 \\
+        1 & 2 - \lambda
+    \end{bmatrix}\right)} = 0
+\end{equation*}
+\begin{equation*}
+    (4 - \lambda)(2 - \lambda) - 3 = 0 \rightarrow
+    \lambda^2 - 6\lambda + 5 = 0 \rightarrow
+    \lambda = \{\}
+\end{equation*}
+
+\todo{Comapare built-in MATLAB functions and matrix diagonalizatins}
+
+\subsubsection*{Solution}
