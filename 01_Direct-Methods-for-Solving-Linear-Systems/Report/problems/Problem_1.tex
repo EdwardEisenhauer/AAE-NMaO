@@ -1,5 +1,5 @@
 \subsection{Problem~1}%
-\label{sec:problem_1}
+\label{problem:1}
 
 Solve the system and find the pivots when:
 \begin{equation*}
@@ -25,9 +25,8 @@ discussed in \nameref{problem:2}.
 
 \subsubsection*{Solution}
 
-Following the manual calculations of the Gaussian Elimination and the Back Substitution
-we obtain:
-
+Following the manual calculations of the Gaussian Elimination, we transform the matrix
+to the upper triangular form:
 \begin{equation*}
 \begin{split}
     \begin{amatrix}{1}{1}
@@ -38,7 +37,7 @@ we obtain:
         -1 & \phantom{-}2 & -1 & \phantom{-}0 & 0\\
         \phantom{-}0 & -1 & \phantom{-}2 & -1 & 0\\
         \phantom{-}0 & \phantom{-}0 & -1 & \phantom{-}2 & 5
-    \end{amatrix} \xrightarrow{R_2 + \frac{1}{2}R_1} 
+    \end{amatrix} &\xrightarrow{R_2 + \frac{1}{2}R_1} 
     \begin{amatrix}{4}{1}
         \phantom{-}2 & -1 & \phantom{-}0 & \phantom{-}0 & 0\\
         \phantom{-}0 & \phantom{-}\frac{3}{2} & -1 & \phantom{-}0 & 0\\
@@ -51,13 +50,29 @@ we obtain:
         \phantom{-}0 & \phantom{-}\frac{3}{2} & -1 & \phantom{-}0 & 0\\
         \phantom{-}0 & \phantom{-}0 & \phantom{-}\frac{4}{3} & -1 & 0\\
         \phantom{-}0 & \phantom{-}0 & -1 & \phantom{-}2 & 5
-    \end{amatrix} \xrightarrow{R_4 + \frac{3}{4}R_3}
+    \end{amatrix} &\xrightarrow{R_4 + \frac{3}{4}R_3}
     \begin{amatrix}{4}{1}
         \phantom{-}2 & -1 & \phantom{-}0 & \phantom{-}0 & 0\\
         \phantom{-}0 & \phantom{-}\frac{3}{2} & -1 & \phantom{-}0 & 0\\
         \phantom{-}0 & \phantom{-}0 & \phantom{-}\frac{4}{3} & -1 & 0\\
-        \phantom{-}0 & \phantom{-}0 & \phantom{-}0 & \phantom{-}\frac{4}{3} & 5
-    \end{amatrix} \xrightarrow{}
+        \phantom{-}0 & \phantom{-}0 & \phantom{-}0 & \phantom{-}\frac{5}{4} & 5
+    \end{amatrix}
+  \end{split}
+\end{equation*}
+and then we obtain the variables' values with the Back Substitution:
+\begin{equation*}
+  \begin{split}
+    \systeme{2u-v=0,\frac{3}{2}v-2w=0,\frac{4}{3}w-z=0,\frac{5}{4}z=5}
+    &\rightarrow
+    \systeme{2u-v=0,\frac{3}{2}v-2w=0,\frac{4}{3}w-4=0,z=4}
+    \rightarrow\\
+    \rightarrow
+    \systeme{2u-v=0,\frac{3}{2}v-6=0,w=3,z=4}
+    &\rightarrow
+    \systeme{2u-v=0,v=2,w=3,z=4}
+    \rightarrow
+    \systeme{u=1,v=2,w=3,z=4}
+    \rightarrow
     \begin{cases}
     u=1\\
     v=2\\

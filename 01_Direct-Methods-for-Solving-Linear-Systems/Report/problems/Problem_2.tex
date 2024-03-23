@@ -1,5 +1,5 @@
 \subsection{Problem~2}%
-\label{sec:problem)2}
+\label{problem:2}
 
 Solve the following system of linear equations using the Gaussian Elimination with
 pivoting:
@@ -10,7 +10,7 @@ pivoting:
 Explain why the Gaussian elimination without pivoting does not work.
 
 \subsubsection*{Mathematics}
-As stated at the end of the mathematical introduction to the \nameref{sec:problem_1},
+As stated at the end of the mathematical introduction to the \nameref{problem:1},
 the \nameref{algorithm:1} requires all the diagonal entries of the coefficient
 matrix to be non-zero, to avoid the division by zero during the row normalization.
 While in manual computations such a division would be noticed, in \MATLAB their result
@@ -21,8 +21,9 @@ This behaviour can be avoided with the use of pivoting.
 The basic idea is to find the maximum absolute value in the zeroed column below the
 pivot and interchange their rows.
 This is called a \textit{partial pivoting}.
-Searching in the whole sub-matrix spanned between pivot and $A_{n,m}$ --- therefore
-interchanging not only rows but also columns --- is called a \textit{complete pivoting}.
+Searching in the whole sub-matrix spanned between pivot and $\matr{A_{n,m}}$ ---
+therefore interchanging not only rows but also columns --- is called a
+\textit{complete pivoting}.
 
 \subsubsection*{Solution}
 \begin{equation*}

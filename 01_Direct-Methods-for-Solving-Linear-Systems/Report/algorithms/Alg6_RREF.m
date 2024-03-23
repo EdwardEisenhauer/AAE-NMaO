@@ -26,9 +26,11 @@ for k = 1 : m
     end
     
     for i = k + 1 : m
-       A(i:end, k+1:end); % Partial matrix (in which we are looking for non-zero pivots)
+       A(i:end, k+1:end); % Partial matrix, where we are looking 
+                          % for non-zero pivots
        A(i:end, k+1); % Left-most column
-       if ~any(A(i:end, k+1)) % If the left-most column has only zeros check the next one
+       if ~any(A(i:end, k+1)) % If the left-most column has only zeros
+                              % then omit it
            k = k + 1;
        end
        A(i:end, k+1:end);

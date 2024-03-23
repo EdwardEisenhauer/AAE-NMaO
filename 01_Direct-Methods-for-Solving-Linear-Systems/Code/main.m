@@ -1,4 +1,4 @@
-%% Problem 1
+%% Problem 1ar
 % Solve the system and find the pivots when:
 % 2u -  v           = 0
 % -u + 2v -  w      = 0
