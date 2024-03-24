@@ -3,11 +3,30 @@
 
 Compute the eigenpairs for the following matrices:
 \begin{equation*}
-    \matr{A_1} = 
+    \matr{A}_1 = 
     \begin{bmatrix}
         1 & 0 & 0 \\
         2 & 1 & 0 \\
         0 & 0 & 3 
+    \end{bmatrix},\ 
+    \matr{A}_2 = 
+    \begin{bmatrix}
+        0 & -2 &  1 \\
+        1 &  3 & -1 \\
+        0 & 0 & 1 
+    \end{bmatrix},\ 
+    \matr{A}_3 = 
+    \begin{bmatrix}
+        4 & 1 & 0 \\
+        1 & 4 & 1 \\
+        0 & 1 & 4 
+    \end{bmatrix},\ 
+    \matr{A}_4 = 
+    \begin{bmatrix}
+         1 &  2 &  3 &  4 \\
+         5 &  6 &  7 &  8 \\
+         9 & 10 & 11 & 12 \\
+        13 & 14 & 15 & 16
     \end{bmatrix}
 \end{equation*}
 Verify that the trace equals to the sum of the eigenvalues, and the determinant equals
@@ -15,7 +34,23 @@ their product. Which matrix (if any) is singular?
 
 \subsubsection*{Mathematics}
 
-\todo{Describe what is eigenpair and what is its algebraic and geometric interpretaion.}
+As stated in~\cite{Zdunek}, an \textit{eigenpair} $(\lambda, \matr{x})$ is a solution to
+an \textit{eigenproblem}:
+\begin{equation*}
+    \matr{A}\matr{x} = \lambda\matr{x}
+\end{equation*}
+where the vector $\matr{x}$ is an \textit{eigenvector}, which if transformed by the matrix
+$\matr{A}$ behaves like it would be stretched by the scalar value $\lambda$, i.e.~the
+result of its transformation stays on its \textit{span}.
+The above equation may be transformed into:
+\begin{equation*}
+    \left(\matr{A} - \lambda\matr{I}\right)\matr{x} = 0
+\end{equation*}
+Since we are loooking for the non-zero solutions, the eigenvalues may be found by solving:
+\begin{equation*}
+    \det{\left(\matr{A} - \lambda\matr{I}\right)} = 0
+\end{equation*}
+
 \todo{Describe how to compute the eigenpairs.}
 \todo{Describe matrix' trace, determinant and its eigenvalues reliationship.}
 \todo{Explain why the matrix singularity is important.}
@@ -23,29 +58,54 @@ their product. Which matrix (if any) is singular?
 \subsubsection*{Solution}
 
 The eigenvalues for each matrix are found by finding a solution to the
-$\det{\matr{A} - \lambda\matr{I}} = 0$, as follows:
+$\det{\left(\matr{A} - \lambda\matr{I}\right)} = 0$, as follows:
 \begin{equation*}
+    \det{\left(\matr{A}_1 - \lambda\matr{I}\right)} = 
     \det{\left(\begin{bmatrix}
         1 & 0 & 0 \\
         2 & 1 & 0 \\
-        0 & 0 & 3 
+        0 & 0 & 3
     \end{bmatrix} - 
     \begin{bmatrix}
         \lambda & 0 & 0 \\
         0 & \lambda & 0 \\
         0 & 0 & \lambda 
-    \end{bmatrix}\right)} = 0 \rightarrow
+    \end{bmatrix}\right)} =
     \det{\left(\begin{bmatrix}
         1 - \lambda & 0 & 0 \\
         2 & 1 - \lambda & 0 \\
         0 & 0 & 3 - \lambda
-    \end{bmatrix}\right)} = 0
+    \end{bmatrix}\right)}
 \end{equation*}
-since there is only one non-zero value outside the diagonal:
+Since there is only one non-zero value outside the diagonal:
 \begin{equation*}
     (1 - \lambda)(1 - \lambda)(3 - \lambda) = 0 \rightarrow
     \lambda = \{1, 3\}
 \end{equation*}
+To find the eigenvectors corresponding to each of the eigenvalues we solve the
+homogeneous linear system with the Gaussian Elimination:
+\begin{equation*}
+    \left(\matr{A}_1 - \lambda_1\matr{I}\right)\matr{x} = 0 \rightarrow
+    \begin{amatrix}{3}{1}
+        0 & 0 & 0 & 0\\
+        2 & 0 & 0 & 0\\
+        0 & 0 & 2 & 0
+    \end{amatrix} \rightarrow
+    \begin{amatrix}{3}{1}
+        2 & 0 & 0 & 0\\
+        0 & 0 & 2 & 0\\
+        0 & 0 & 0 & 0
+    \end{amatrix}
+\end{equation*}
+
+
+
+
+
+
+
+
+
 Additionaly, for each matrix we calculate its trace and determinant:
 \begin{equation*}
     \det{\begin{bmatrix}
