@@ -162,46 +162,52 @@ of which once again $\lambda=1$ is an eigenvalue of multiplicity 2. Solving~\eqr
         -1 & -2 & 1 & 0\\
         1 & 2 & -1 & 0\\
         0 & 0 & 0 & 0
-    \end{amatrix} \rightarrow
+    \end{amatrix} \xrightarrow[-R_1]{R_2 + R_1}
     \begin{amatrix}{3}{1}
-        1 & 0 & 0 & 0\\
-        0 & 0 & 1 & 0\\
+        1 & 2 & -1 & 0\\
+        0 & 0 & 0 & 0\\
         0 & 0 & 0 & 0
     \end{amatrix} \rightarrow
     \matr{x}_1 = \begin{bmatrix}
-        0 \\
+        -2x_2+x_3 \\
         x_2 \\
-        0
-    \end{bmatrix} \xrightarrow{x_2 = 1}
+        x_3
+    \end{bmatrix} \xrightarrow[x_3 = 0]{x_2 = 1}
     \matr{x}_1 = \begin{bmatrix}
-        0 \\
+        -2 \\
         1 \\
         0
     \end{bmatrix}
 \end{equation*}
 \begin{equation*}
-    \left(\matr{A}_1 - \lambda_2\matr{I}\right)\matr{x}_2 = 0 \rightarrow
+    \left(\matr{A}_2 - \lambda_2\matr{I}\right)\matr{x}_2 = 0 \rightarrow
     \begin{amatrix}{3}{1}
-        -2 & 0 & 0 & 0\\
-        2 & -2 & 0 & 0\\
-        0 & 0 & 0 & 0
-    \end{amatrix} \xrightarrow[\substack{\frac{-R_1}{2}\\\frac{-R_2}{2}}]{R_2 + R_1}
+        -2 & -2 & 1 & 0\\
+        1 & 1 & -1 & 0\\
+        0 & 0 & -1 & 0
+    \end{amatrix} \xrightarrow[\frac{-R_1}{2}]{R_2 + \frac{R_1}{2}}
     \begin{amatrix}{3}{1}
-        1 & 0 & 0 & 0\\
-        0 & 1 & 0 & 0\\
+        1 & 1 & -\frac{1}{2} & 0\\
+        0 & 0 & -\frac{1}{2} & 0\\
+        0 & 0 & -1 & 0
+    \end{amatrix} \xrightarrow[-2R_2]{\substack{R_1 - R_2\\R_3 - 2R_2}}
+    \begin{amatrix}{3}{1}
+        1 & 1 & 0 & 0\\
+        0 & 0 & 1 & 0\\
         0 & 0 & 0 & 0
     \end{amatrix} \rightarrow
     \matr{x}_2 = \begin{bmatrix}
-        0 \\
-        0 \\
-        x_3
-    \end{bmatrix} \xrightarrow{x_3 = 1}
+        -x_2 \\
+        x_2 \\
+        0
+    \end{bmatrix} \xrightarrow{x_2 = 1}
     \matr{x}_2 = \begin{bmatrix}
-        0 \\
-        0 \\
-        1
+        -1 \\
+        1 \\
+        0
     \end{bmatrix}
 \end{equation*}
+Please note, that the above eigenvectors are not normalized.
 
 Continuing with the $\matr{A}_3$:
 \begin{equation*}
