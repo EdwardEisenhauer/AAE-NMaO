@@ -157,6 +157,7 @@ Continuing with the $\matr{A}_2$:
 \end{align*}
 of which once again $\lambda=1$ is an eigenvalue of multiplicity 2. Solving~\eqref{eq:eigen_vector} to get the eigenvectors gives us:
 \begin{equation*}
+\begin{split}
     \left(\matr{A}_2 - \lambda_1\matr{I}\right)\matr{x}_1 = 0 \rightarrow
     \begin{amatrix}{3}{1}
         -1 & -2 & 1 & 0\\
@@ -167,8 +168,8 @@ of which once again $\lambda=1$ is an eigenvalue of multiplicity 2. Solving~\eqr
         1 & 2 & -1 & 0\\
         0 & 0 & 0 & 0\\
         0 & 0 & 0 & 0
-    \end{amatrix} \rightarrow
-    \matr{x}_1 = \begin{bmatrix}
+    \end{amatrix} \rightarrow\\
+    \rightarrow \matr{x}_1 = \begin{bmatrix}
         -2x_2+x_3 \\
         x_2 \\
         x_3
@@ -177,9 +178,17 @@ of which once again $\lambda=1$ is an eigenvalue of multiplicity 2. Solving~\eqr
         -2 \\
         1 \\
         0
-    \end{bmatrix}
+    \end{bmatrix} \\
+    \xrightarrow[x_3 = 1]{x_2 = 0}
+    \matr{x}_1 = \begin{bmatrix}
+        1 \\
+        0 \\
+        1
+    \end{bmatrix} 
+\end{split}
 \end{equation*}
 \begin{equation*}
+\begin{split}
     \left(\matr{A}_2 - \lambda_2\matr{I}\right)\matr{x}_2 = 0 \rightarrow
     \begin{amatrix}{3}{1}
         -2 & -2 & 1 & 0\\
@@ -195,8 +204,8 @@ of which once again $\lambda=1$ is an eigenvalue of multiplicity 2. Solving~\eqr
         1 & 1 & 0 & 0\\
         0 & 0 & 1 & 0\\
         0 & 0 & 0 & 0
-    \end{amatrix} \rightarrow
-    \matr{x}_2 = \begin{bmatrix}
+    \end{amatrix} \rightarrow\\
+    \rightarrow \matr{x}_2 = \begin{bmatrix}
         -x_2 \\
         x_2 \\
         0
@@ -206,6 +215,7 @@ of which once again $\lambda=1$ is an eigenvalue of multiplicity 2. Solving~\eqr
         1 \\
         0
     \end{bmatrix}
+\end{split}
 \end{equation*}
 Please note, that the above eigenvectors are not normalized.
 
