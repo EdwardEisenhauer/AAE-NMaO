@@ -1,42 +1,47 @@
 \subsection{Problem 7}%
 \label{sec:problem_7}
 
-Draw the Gershgorin's disk, determine locations of the eigenvales for the matrices:
+Draw the Gershgorin's disk, determine locations of the eigenvalues for the matrices:
 \begin{equation*}
     \matr{A_1} = 
     \begin{bmatrix}
         -2 & -1 &  0\\
          2 &  0 &  0\\
-         0 &  0 &  2 
-    \end{bmatrix},
+         0 &  0 &  2
+    \end{bmatrix},\ 
     \matr{A_2} = 
     \begin{bmatrix}
         5 & 1 &  1\\
         0 & 6 &  1\\
-        0 & 0 &  -5 
-    \end{bmatrix},
+        0 & 0 &  -5
+    \end{bmatrix},\ 
     \matr{A_3} = 
     \begin{bmatrix}
         5.2 &  0.6 &  2.2\\
         0.6 &  6.4 &  0.5\\
-        2.2 &  0.5 &  4.7 
+        2.2 &  0.5 &  4.7
     \end{bmatrix}
 \end{equation*}
 and estimate an upper bound for $cond(\matr{A}_i) : i = 1, \ldots, 3$.
 Then, use any iteration methods to compute an approximate eigensystem.
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection*{Mathematics}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 As stated in~\cite{Zdunek}, the Gershgorin circles may be used to define the bounds in
 which the eigenvalues of a square matrix $\matr{A}\in\mathfrak{I}^{n\times{}n}$ are
 located.
 
-The Gershgorin circle is defined by:
+The Gershgorin disk is defined by:
 \begin{equation}
     R_i(\matr{A}) = \{\lambda\in\mathfrak{I}:\lvert\lambda-a_{ii}\rvert\le\sum_{j\ne{}i}\lvert{}a_{ij}\rvert\}
 \end{equation}
-which means, that for each row $i$ of the matrix $\matr{A}$, we define a circle in the complex plane with
-the center $c_i = a_{ii}$ and the radius $r_i = \sum_{j \neq i} |a_{ij}|$.
+which means, that for each row $i$ of the matrix $\matr{A}$, we define a disk in the
+complex plane with the center $c_i = a_{ii}$ and the radius $r_i = \sum_{j \neq i} |a_{ij}|$.
+All the eigenvalues of the matrix $\matr{A}$ may be found in the union of the Gershgorin
+disks $G_r(\matr{A}) = \bigcup_i R_i(\matr{a})$.
 % https://mathoverflow.net/questions/350088/can-one-gershgorin-circle-only-contain-all-eigenvalues-when-the-other-circles
+
+
 Starting with first matrix
 \begin{equation*}
     \matr{A} = 
@@ -69,57 +74,23 @@ Rest of problems and plots are in solution section.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection*{Solution}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{enumerate}
-    \item matrix 
-    
-    \begin{equation*}
-        \matr{A} = 
-        \begin{bmatrix}
-            -2 & -1 &  0\\
-            2 &  0 &  0\\
-            0 &  0 &  2 
-        \end{bmatrix}
-    \end{equation*}
+The following solutions were computed and plotted in \MATLAB{} with the~\nameref{algorithm:gershgorin}.
 
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=1\textwidth]{problems/Figures/Problem_7/first_matrix.png}
-        \caption{Gershgorin disks for first problem with true eigenvalues plotted.}
-        \label{fig:Inverse}
-    \end{figure}
-    This matrix is specific case where one of gershgorin circles doesn't contain eigenvalue inside of it, its mostly because this matrix isn't diagonally dominant.
-    \item matrix
-    
-    \begin{equation*}
-        \matr{A} = 
-        \begin{bmatrix}
-            5 & 1 &  1\\
-            0 & 6 &  1\\
-            0 & 0 &  -5 
-        \end{bmatrix}
-    \end{equation*}
-
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=1\textwidth]{problems/Figures/Problem_7/second_matrix.png}
-        \caption{Gershgorin disks for second problem with true eigenvalues plotted}
-        \label{fig:Inverse}
-    \end{figure}
-    \item matrix
-    
-    \begin{equation*}
-        \matr{A} = 
-        \begin{bmatrix}
-            5.2 &  0.6 &  2.2\\
-            0.6 &  6.4 &  0.5\\
-            2.2 &  0.5 &  4.7 
-        \end{bmatrix}
-    \end{equation*}
-
-    \begin{figure}[H]
-        \centering
-        \includegraphics[width=1\textwidth]{problems/Figures/Problem_7/last_matrix.png}
-        \caption{Gershgorin disks for last problem with true eigenvalues plotted}
-        \label{fig:Inverse}
-    \end{figure}
-\end{enumerate}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{problems/Figures/Problem_7/first_matrix.png}
+    \caption{The Gershgorin disks and eigenvalues of the matrix $\matr{A}_1$.
+    Please note, that the Gershgorin disk with the center in $-2$ does not contain any
+    of the eigenvalues, which may be due to the matrix not being diagonally dominant.
+    }
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{problems/Figures/Problem_7/second_matrix.png}
+    \caption{The Gershgorin disks and eigenvalues of the matrix $\matr{A}_2$.}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{problems/Figures/Problem_7/last_matrix.png}
+    \caption{The Gershgorin disks and eigenvalues of the matrix $\matr{A}_3$.}
+\end{figure}
