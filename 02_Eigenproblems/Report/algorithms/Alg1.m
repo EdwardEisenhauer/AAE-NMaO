@@ -1,4 +1,5 @@
-function [lambda, lambdaValues, convergenceRates] = ScaledPowerMethod(A, iter, epsilon)
+function [lambda, lambdaValues, convergenceRates]...
+    = ScaledPowerMethod(A, iter, epsilon)
     n = size(A,1);
     xi = rand(n, 1);
     xi = xi / norm(xi);  

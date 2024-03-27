@@ -1,18 +1,14 @@
 \subsection{Problem 4}%
 \label{sec:problem_4}
-
 Find $\matr{A}^{100}$ by diagonalizing $\matr{A} = 
 \begin{bmatrix}
     4 & 3\\
     1 & 2
 \end{bmatrix}$.
-
 \subsubsection*{Mathematics}
-
-\todo{Describe when the matrix is diagonizable?}
-As presented in~\cite{Zdunek}, matrix $\matr{A^{n\times n}}$ is diagonalizable if it has 
-$n$ distinct eigenvalues.
-These can be easily found by solving $\det{\matr{A} - \lambda\matr{I}} = 0$, as follows:
+As stated in~\cite{Zdunek}, the matrix $\matr{A}^{n\times{}n}$ is diagonalizable if it
+has $n$ distinct eigenvalues.
+These can be easily found by solving~\eqref{eq:eigen_value}, as follows:
 \begin{equation*}
     \det{\left(\begin{bmatrix}
         4 & 3 \\
@@ -34,15 +30,15 @@ These can be easily found by solving $\det{\matr{A} - \lambda\matr{I}} = 0$, as 
 \begin{equation*}
     \lambda_1 = 1, \lambda_2 = 5 
 \end{equation*}
-With that we're able to define our diagonal matrix of eigenvalues denoted in sources as either $\Lambda$ or $D$:
+Now we can define the diagonal matrix of eigenvalues $\matr{\Lambda}$:
 \begin{equation*}
-    x_2 = 
+    \matr{\Lambda} = 
     \begin{bmatrix}
         1 & 0 \\
         0 & 5
     \end{bmatrix} 
 \end{equation*} 
-Next step would be defining the eigenvectors
+From these we can calculate the eigenvectors:
 \begin{itemize}
     \item For $\lambda_1 = 1$:
         \begin{equation*}
@@ -65,9 +61,9 @@ Next step would be defining the eigenvectors
                 x_2
             \end{bmatrix} = 0
         \end{equation*}
-        By solving this system we end with eigenvector:
+        By solving this system we end with the eigenvector:
         \begin{equation*}
-            x_1 = 
+            \matr{x}_1 = 
             \begin{bmatrix}
                 -1 \\
                 1
@@ -94,9 +90,9 @@ Next step would be defining the eigenvectors
             x_2
         \end{bmatrix} = 0
     \end{equation*}
-    Solving equation for $x_2$ eigenvector result is as such:
+    Solving the equation for $\matr{x}_2$ eigenvector result is as such:
     \begin{equation*}
-        x_2 = 
+        \matr{x}_2 = 
         \begin{bmatrix}
             3 \\
             1
