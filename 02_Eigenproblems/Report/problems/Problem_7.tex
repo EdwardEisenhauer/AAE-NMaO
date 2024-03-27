@@ -22,14 +22,20 @@ Draw the Gershgorin's disk, determine locations of the eigenvales for the matric
         2.2 &  0.5 &  4.7 
     \end{bmatrix}
 \end{equation*}
-and estimate an upper bound for $cond(\matr{A_i}) : i = 1, \ldots, 3 3$.
+and estimate an upper bound for $cond(\matr{A}_i) : i = 1, \ldots, 3$.
 Then, use any iteration methods to compute an approximate eigensystem.
 
 \subsubsection*{Mathematics}
-Gershgorin disk theorem is simple in application way to estimate the location of eigenvalues in square matrices $\matr{A} \in \matr{C}^{n\times{}n}$.
-For each row $i$ of matrix, we can define disc in complex plane with center $c_i = a_{ii}$ with radii of sum of elements denoted by equation
-$r_i = \sum_{j \neq i} |a_{ij}|$ which is sum of absolute values of non-diagonal elements in the row.
+As stated in~\cite{Zdunek}, the Gershgorin circles may be used to define the bounds in
+which the eigenvalues of a square matrix $\matr{A}\in\mathfrak{I}^{n\times{}n}$ are
+located.
 
+The Gershgorin circle is defined by:
+\begin{equation}
+    R_i(\matr{A}) = \{\lambda\in\mathfrak{I}:\lvert\lambda-a_{ii}\rvert\le\sum_{j\ne{}i}\lvert{}a_{ij}\rvert\}
+\end{equation}
+which means, that for each row $i$ of the matrix $\matr{A}$, we define a circle in the complex plane with
+the center $c_i = a_{ii}$ and the radius $r_i = \sum_{j \neq i} |a_{ij}|$.
 % https://mathoverflow.net/questions/350088/can-one-gershgorin-circle-only-contain-all-eigenvalues-when-the-other-circles
 Starting with first matrix
 \begin{equation*}
@@ -60,8 +66,9 @@ And third row at last which doesn't have radius value
 \end{equation*}
 meaning that it's possible that one of eigenvalues would be equal to $\lambda_i = 2$.
 Rest of problems and plots are in solution section.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection*{Solution}
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{enumerate}
     \item matrix 
     
