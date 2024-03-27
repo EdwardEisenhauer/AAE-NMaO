@@ -29,10 +29,89 @@ These can be easily found by solving $\det{\matr{A} - \lambda\matr{I}} = 0$, as 
 \end{equation*}
 \begin{equation*}
     (4 - \lambda)(2 - \lambda) - 3 = 0 \rightarrow
-    \lambda^2 - 6\lambda + 5 = 0 \rightarrow
-    \lambda = \{\}
+    \lambda^2 - 6\lambda + 5 = 0
 \end{equation*}
+\begin{equation*}
+    \lambda_1 = 1, \lambda_2 = 5 
+\end{equation*}
+With that we're able to define our diagonal matrix of eigenvalues denoted in sources as either $\Lambda$ or $D$:
+\begin{equation*}
+    x_2 = 
+    \begin{bmatrix}
+        1 & 0 \\
+        0 & 5
+    \end{bmatrix} 
+\end{equation*} 
+Next step would be defining the eigenvectors
+\begin{itemize}
+    \item For $\lambda_1 = 1$:
+        \begin{equation*}
+            \begin{bmatrix}
+                4 - 1 & 3 \\
+                1 & 2 - 1
+            \end{bmatrix}
+            \begin{bmatrix}
+                x_1 \\
+                x_2
+            \end{bmatrix} = 0
+        \end{equation*}
+        \begin{equation*}
+            \begin{bmatrix}
+                3 & 3 \\
+                1 & 1
+            \end{bmatrix}
+            \begin{bmatrix}
+                x_1 \\
+                x_2
+            \end{bmatrix} = 0
+        \end{equation*}
+        By solving this system we end with eigenvector:
+        \begin{equation*}
+            x_1 = 
+            \begin{bmatrix}
+                -1 \\
+                1
+            \end{bmatrix} 
+        \end{equation*} 
+    \item For $\lambda_2 = 5$:
+    \begin{equation*}
+        \begin{bmatrix}
+            4 - 5 & 3 \\
+            1 & 2 - 5
+        \end{bmatrix}
+        \begin{bmatrix}
+            x_1 \\
+            x_2
+        \end{bmatrix} = 0
+    \end{equation*}
+    \begin{equation*}
+        \begin{bmatrix}
+            -1 & 3 \\
+            1 & -3
+        \end{bmatrix}
+        \begin{bmatrix}
+            x_1 \\
+            x_2
+        \end{bmatrix} = 0
+    \end{equation*}
+    Solving equation for $x_2$ eigenvector result is as such:
+    \begin{equation*}
+        x_2 = 
+        \begin{bmatrix}
+            3 \\
+            1
+        \end{bmatrix} 
+    \end{equation*} 
+\end{itemize}
 
+After determining the values of eigenpairs, next step in order would be defining matrix $P$ or $X$.
+\begin{equation*}
+    X = 
+    \begin{bmatrix}
+        -1 & 3 \\
+         1 & 1
+    \end{bmatrix} 
+\end{equation*} 
 
 
 \todo{Comapare built-in MATLAB functions and matrix diagonalizatins}
