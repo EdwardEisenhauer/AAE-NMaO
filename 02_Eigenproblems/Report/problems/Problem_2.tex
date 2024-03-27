@@ -17,9 +17,9 @@ Initial condition for power method requires random vector that is approximation 
 \end{equation*}
 This step is done to prevent problems with approximation, underflow, overflows and hold the convergence criterion, it helps at making successive approximations of the eigenvector where normalization helps the randomly generated vector focus on the direction rather than magnitude, reducing algorithm runtime allowing for faster honing to direction of dominant vector.\\
 Power iteration as name suggests is iterative technique which computes the result in each loop iteration.
-Update formula is similar to initial vector normalization
+Update formula is similar to initial vector normalization taking into calculation base matrix on which we are trying to define dominant eigenvector
 \begin{equation*}
-    \xi_k = \frac{\xi_{k-1}}{||\xi_{k-1}||_2}
+    \xi_k = \frac{A \xi_{k-1}}{||A \xi_{k-1}||_2}
 \end{equation*}
 Each loop step hones closer to the direction of dominant eigenvector. Because of iterative nature of algorithm, we can break out of the loop after certain amount of steps or after we reach threshold convergence rate $\epsilon$, which is calculated by normalizing the difference between $\xi_k$ and $\xi_{k-1}$.
 \begin{equation*}
@@ -31,9 +31,37 @@ Obtaining eigenvalue is bit more complex
 \begin{equation*}
     \lambda_1 \approx \xi_k^T A \xi_k 
 \end{equation*}
-\todo{Descibe the scaled power alogirthm and the shifted inverse power algorithm.}
+\\
+One of biggest disadvantages of Power method is that it can only determine dominant eigenpair, for finding other eigenpairs we need to use more complex variation which is Inverse iteration.
+Inverse power method allows for finding any eigenpair, by variable $\sigma$ also known as shift\cite{Demmel}.
+Specified $\sigma$ value allows us to converge to the closest eigenvalue to shift rather than only $\lambda_1$. Further steps in loop deviate slightly from Power method, steps that update our next $\xi_k$, we no longer multiply A by previous $\xi_{i-1}$. This calculation also takes in consideration shift modifying formula for next $\xi$ as such:
+\begin{equation*}
+    \begin{matrix}
+        y = (A - \sigma I)^-1 \xi_{i-1}\\
+        \xi_i = \frac{y}{||y||_2}
+    \end{matrix}
+\end{equation*}
+Further steps stay consistent with Power method.
 
 \subsubsection*{Solution}
+Script that plots and displays results from both methods used accordingly to it's specific task:
+\lstinputlisting[style=Matlab-editor]{problems/Codes/Problem_2/main.m}
 
+Running MATLAB script yields such results:
+\lstinputlisting[style=Matlab-editor]{problems/Results/Problem_2.m}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{problems/Figures/Problem2ScaledPowerMethod.png}
+    \caption{Eigenvalue approximation and convergence rate over each iteration of power method.}
+    \label{fig:Power}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{problems/Figures/Problem2InversePowerMethod.png}
+    \caption{Eigenvalue approximation and convergence rate over each iteration of inverse power method.}
+    \label{fig:Inverse}
+\end{figure}
 % https://tobydriscoll.net/fnc-julia/krylov/inviter.html
 % https://www.netlib.org/utk/people/JackDongarra/etemplates/node96.html
