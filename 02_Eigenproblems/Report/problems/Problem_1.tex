@@ -33,24 +33,28 @@ their product. Which matrix (if any) is singular?
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection*{Mathematics}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-As stated in~\cite{Zarowski,Zdunek}, an \textit{eigenpair} $(\lambda, \matr{x})$ is a solution to
-an \textit{eigenproblem}:
+As stated in~\cite{Zarowski,Zdunek}, an \textit{eigenpair} $(\lambda, \matr{x})$ is a
+solution to an \textit{eigenproblem}:
 \begin{equation*}
     \matr{A}\matr{x} = \lambda\matr{x}
 \end{equation*}
-where the vector $\matr{x}\in\matr{C}^n$, such that $\matr{x}\neq0$ is an \textit{eigenvector}, which if transformed by the matrix
-$\matr{A}\in\matr{C}^{n\times{}n}$ behaves like it would be stretched by the scalar value $\lambda\in\matr{C}$, i.e.~the
-result of its transformation stays on its \textit{span}.
+where the vector $\matr{x}\in\mathfrak{I}^n$, such that $\matr{x}\neq0$ is an
+\textit{eigenvector}, which if transformed by the matrix
+$\matr{A}\in\mathfrak{I}^{n\times{}n}$ behaves like it would be stretched by the scalar
+value $\lambda\in\mathfrak{I}$, i.e.~the result of its transformation stays on its
+\textit{span}.
 The above equation may be transformed into:
 \begin{equation*}
     \left(\matr{A} - \lambda\matr{I}\right)\matr{x} = 0
 \end{equation*}
-Since we are looking for the non-zero solutions, the eigenvalues may be found by solving:
+Since we are looking for the non-zero solutions, the eigenvalues may be found by
+solving:
 \begin{equation}
     \label{eq:eigen_value}
     \det{\left(\matr{A} - \lambda\matr{I}\right)} = 0
 \end{equation}
-For each of the eigenvalues $\lambda_n$, a corresponding eigenvector $\matr{x}_n$ may be then found
+For each of the eigenvalues $\lambda_n$, a corresponding eigenvector $\matr{x}_n$ may be
+then found
 by solving the homogeneous linear system:
 \begin{equation}
     \label{eq:eigen_vector}
@@ -62,7 +66,8 @@ by solving the homogeneous linear system:
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection*{Solution}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-The eigenvalues for each matrix are found by finding a solution to the~\eqref{eq:eigen_value}, as follows:
+The eigenvalues for each matrix are found by finding a solution to
+the~\eqref{eq:eigen_value}, as follows:
 \begin{equation*}
     \det{\left(\matr{A}_1 - \lambda\matr{I}\right)} = 
     \det{\left(\begin{bmatrix}
@@ -87,7 +92,8 @@ Since there is only one non-zero value outside the diagonal:
     \lambda = \{1, 3\}
 \end{equation*}
 of which $\lambda=1$ is an eigenvalue of multiplicity 2.
-To find the eigenvectors corresponding to each of the eigenvalues we solve~\eqref{eq:eigen_vector} with the Gauss-Jordan Elimination:
+To find the eigenvectors corresponding to each of the eigenvalues we
+solve~\eqref{eq:eigen_vector} with the Gauss-Jordan Elimination:
 \begin{equation*}
     \left(\matr{A}_1 - \lambda_1\matr{I}\right)\matr{x}_1 = 0 \rightarrow
     \begin{amatrix}{3}{1}
@@ -155,7 +161,8 @@ Continuing with the $\matr{A}_2$:
     (\lambda^2 - 3\lambda + 2)(1 - \lambda) &= 0\\
     (2 - \lambda)(1 - \lambda)(1 - \lambda) &= 0\rightarrow\lambda = \{1, 2\}
 \end{align*}
-of which once again $\lambda=1$ is an eigenvalue of multiplicity 2. Solving~\eqref{eq:eigen_vector} to get the eigenvectors gives us:
+of which once again $\lambda=1$ is an eigenvalue of multiplicity 2.
+Solving~\eqref{eq:eigen_vector} to get the eigenvectors gives us:
 \begin{equation*}
 \begin{split}
     \left(\matr{A}_2 - \lambda_1\matr{I}\right)\matr{x}_1 = 0 \rightarrow
