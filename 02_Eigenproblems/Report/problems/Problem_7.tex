@@ -40,42 +40,43 @@ complex plane with the center $c_i = a_{ii}$ and the radius $r_i = \sum_{j \neq 
 All the eigenvalues of the matrix $\matr{A}$ may be found in the union of the Gershgorin
 disks $G_r(\matr{A}) = \bigcup_i R_i(\matr{a})$.
 % https://mathoverflow.net/questions/350088/can-one-gershgorin-circle-only-contain-all-eigenvalues-when-the-other-circles
-
-
-Starting with first matrix
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection*{Solution}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Considering the matrix $\matr{A}_1$:
 \begin{equation*}
-    \matr{A} = 
+    \matr{A}_1 = 
     \begin{bmatrix}
         -2 & -1 &  0\\
          2 &  0 &  0\\
          0 &  0 &  2 
     \end{bmatrix}
 \end{equation*}
-We define first circle center in:
+we define the first disk's center:
 \begin{equation*}
      c_1 = a_{11} = -2
 \end{equation*}
-Then we define disk radius
+and its radius:
 \begin{equation*}
     r_1 = \sum_{j \neq 1} |a_{1j}| = |a_{12}| + |a_{13}| = 1 
 \end{equation*}
-Then second:
+Following with the second diagonal entry:
 \begin{equation*}
     c_2 = a_{22} = 0
+\end{equation*}
+\begin{equation*}
     r_2 = \sum_{j \neq 2} |a_{2j}| = 2
 \end{equation*}
-And third row at last which doesn't have radius value
+Following with the third diagonal entry:
 \begin{equation*}
     c_3 = a_{33} = 2
+\end{equation*}
+\begin{equation*}
     r_3 = \sum_{j \neq 3} |a_{3j}| = 0
 \end{equation*}
-meaning that it's possible that one of eigenvalues would be equal to $\lambda_i = 2$.
-Rest of problems and plots are in solution section.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection*{Solution}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-The following solutions were computed and plotted in \MATLAB{} with the~\nameref{algorithm:gershgorin}.
+In such a case, it may be so that one of the eigenvalues is $\lambda_3 = 2$.
 
+The following solutions were computed and plotted in \MATLAB{} with the~\nameref{algorithm:gershgorin}.
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{problems/Figures/Problem_7/first_matrix.png}
