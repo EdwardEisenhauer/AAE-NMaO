@@ -1,11 +1,36 @@
 \subsection{Problem 2}
 \label{sec:problem_2}
 
+
 Compute the largest and the smallest eigenvalue to the following matrix, using the
 scaled power alogirthm and the shifted inverse power algorithm, respectively:
 
 \subsubsection*{Mathematics}
-
+Basing on information included in ~\cite{Zdunek}, methods that allow for finding eigenpairs are \textit{Power method} 
+(in sources such as refered as \textit{Power iteration}) and \textit{shifted inverse power method}, (Also known as \textit{inverse iteration}\cite{Demmel}).\\
+\\
+Power iteration allows for quick and easy computation of dominant eigenvalue and coresponding eigenvector $(\lambda_1, x_1)$ of diagonalizable matrix 
+\textbf{A}$\in \mathfrak{R}^{n_xn}$ where eigenvalues are in following sequence $|\lambda_1| > |\lambda_2| > ... > |\lambda_n|$.
+Initial condition for power method requires random vector that is approximation of dominant eigenvector, which is symbolized as $\xi_0$. Vector generated as such is then immediately which is also normalized in the same step 
+\begin{equation*}
+    \xi_0 = \frac{\xi_0}{||\xi_0||_2} 
+\end{equation*}
+This step is done to prevent problems with approximation, underflow, overflows and hold the convergence criterion, it helps at making successive approximations of the eigenvector where normalization helps the randomly generated vector focus on the direction rather than magnitude, reducing algorithm runtime allowing for faster honing to direction of dominant vector.\\
+Power iteration as name suggests is iterative technique which computes the result in each loop iteration.
+Update formula is similar to initial vector normalization
+\begin{equation*}
+    \xi_k = \frac{\xi_{k-1}}{||\xi_{k-1}||_2}
+\end{equation*}
+Each loop step hones closer to the direction of dominant eigenvector. Because of iterative nature of algorithm, we can break out of the loop after certain amount of steps or after we reach threshold convergence rate $\epsilon$, which is calculated by normalizing the difference between $\xi_k$ and $\xi_{k-1}$.
+\begin{equation*}
+    ||\xi_k - \xi_{k-1}|| < \epsilon
+\end{equation*}
+As a final step of power method we need to extract our dominant eigenpair. 
+Method for obtaining approximation of our dominant eigenvector is taking last $\xi_k$.\\
+Obtaining eigenvalue is bit more complex
+\begin{equation*}
+    \lambda_1 \approx \xi_k^T A \xi_k 
+\end{equation*}
 \todo{Descibe the scaled power alogirthm and the shifted inverse power algorithm.}
 
 \subsubsection*{Solution}
