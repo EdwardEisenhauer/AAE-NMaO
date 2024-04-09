@@ -1,10 +1,42 @@
 \subsection{Problem 1}%
 \label{sec:problem_1}
 Find the solution that best approximates the system of inconsistent linear equations:
-\begin{equation*}
-    \systeme{3x_1-x_2=4,x_1+2x_2=0,2x_1+x_2=1}
-\end{equation*}
+\begin{tasks}(3)
+  \task $\systeme{3x_1-x_2=4,x_1+2x_2=0,2x_1+x_2=1}$
+  \task $\systeme{3x_1+x_2+x_3=6,
+  2x_1+3x_2-x_3=1,
+  2x_1-x_2+x_3=0,
+  3x_1-3x_2+3x_3=8}$
+  \task $\systeme{x_1+x_2-x_3=5,
+  2x_1-x_2+6x_3=1,
+  -x_1+4x_2+x_3=0,
+  3x_1+2x_2-x_3=6}$
+\end{tasks}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection*{Mathematics}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-The systems of equations above may be expressed in the form $\matr{Ax}=\matr{b}$.
+The systems of inconsistent linear equations comprise linear independent equations,
+which number is greater than the unknown variables.
+Once again, such systems may be expressed in the form:
+\begin{align*}
+  \matr{Ax}=\matr{b}, & \text{where} &
+  \matr{A}\in\mathfrak{R}^{m\times{}n}, &
+  \matr{b}\in\mathfrak{R}^m, &
+  \matr{x}\in\mathfrak{R}^n, & \text{and} & m\geq{}n
+\end{align*}
+For such a system, an associated system of \textit{normal equations} is defined to be:
+\begin{equation}
+  \label{eq:normal_approximation}
+  \matr{A}^T\matr{Ax}=\matr{A}^T\matr{b}
+\end{equation}
+which is always consistent.
+The solution has the form:
+\begin{equation}
+  \matr{x}=\left(\matr{A}^T\matr{A}\right)^{-1}\matr{A}^T\matr{b}
+\end{equation}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection*{Solution}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+The solutions to all the systems of linear equations above may be easily approximated
+with the \MATLAB{} function implementing~\eqref{eq:normal_approximation}:
+\lstinputlisting[style=Matlab-editor]{problems/normal_approximation.m}
