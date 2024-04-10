@@ -1,10 +1,14 @@
 \subsection{Problem 11}%
 \label{sec:problem_11}
 Generate the values of the polynomial $y = 40 + 10x + 5x^2 + 3x^3 + 2x^4 + x^5 + x^6$
-for $x = 1, 2, ..., 14$. First fit the polynomial $y = a_0 + a_1x + a_2x^2 + a_3x^3 + a_4x^4 + a_5x^5 + a_6x^6$
-to the generated data in the LS sense and compare the estimated coefficients to the true ones. Then perturb observed data with an additive Gaussian noise
-$\it{N}(0,\sigma^2)$, and illustrate the fitting error (the euclidean norm) vs the standard deviation $\sigma$. 
-Estimate the maximal value of $\sigma$ for which fitting error doesn't exceed $10^-6$.
+for $x = 1, 2, \ldots, 14$.
+First fit the polynomial $y = a_0 + a_1x + a_2x^2 + a_3x^3 + a_4x^4 + a_5x^5 + a_6x^6$
+to the generated data in the LS sense and compare the estimated coefficients
+$a_0, a_1, \ldots, a_6$ to the true ones.
+Then perturb the observed data with an additive Gaussian noise $\it{N}(0,\sigma^2)$, and
+illustrate the fitting error (the Euclidean norm) versus the standard deviation $\sigma$.
+Estimate the maximal value of $\sigma$ for which fitting error does not exceed $10^{-6}$,
+assuming double precision arithmetic operations.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection*{Exponentially Weighted Recursive Least Squares}
 \begin{enumerate}
