@@ -15,15 +15,20 @@ Find the solution that best approximates the system of inconsistent linear equat
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection*{Mathematics}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-The systems of inconsistent linear equations comprise linear independent equations,
-which number is greater than the unknown variables.
-Once again, such systems may be expressed in the form:
-\begin{align*}
-  \matr{Ax}=\matr{b}, & \text{where} &
-  \matr{A}\in\mathfrak{R}^{m\times{}n}, &
-  \matr{b}\in\mathfrak{R}^m, &
-  \matr{x}\in\mathfrak{R}^n, & \text{and} & m\geq{}n
-\end{align*}
+The system of inconsistent linear equations comprises linearly independent equations,
+whose number is greater than the number of unknown variables.
+Such a system may be expressed in the form:
+\begin{equation*}
+  \matr{Ax}=\matr{b}, \quad \text{where} \quad
+  \matr{A}\in\mathfrak{R}^{m\times{}n}, \quad
+  \matr{b}\in\mathfrak{R}^m, \quad
+  \matr{x}\in\mathfrak{R}^n, \quad \text{and} \quad m\geq{}n
+\end{equation*}
+and has no solution. We may attempt to find the best approximate solution to such a
+system by solving the minimization problem:
+\begin{equation*}
+  \min_{\matr{x}}{\left\lVert\matr{b}-\matr{A}\matr{x}\right\rVert}_2
+\end{equation*}
 For such a system, an associated system of \textit{normal equations} is defined to be:
 \begin{equation}
   \matr{A}^T\matr{Ax}=\matr{A}^T\matr{b}
