@@ -22,11 +22,40 @@ the table with an equation in the form: $y=a_0+a_1x_1+a_2x_2+a_3x_3$.
   \hline
 \end{tabular}
 \end{center}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection*{Mathematics}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\todo[inline]{Develop math description}
+The only difference between this problem and the~\nameref{sec:problem_2} is the 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection*{Solution}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Following the previous problems we have:
+\begin{equation*}
+  \matr{A} = \begin{bmatrix}
+    1 & 50 & 18 & 10 \\
+    1 & 40 & 20 & 16 \\
+    1 & 35 & 14 & 10 \\
+    1 & 40 & 12 & 12 \\
+    1 & 30 & 16 & 14
+  \end{bmatrix} \qquad
+  \matr{b} = \begin{bmatrix}
+    28 \\
+    30 \\
+    21 \\
+    23 \\
+    23
+  \end{bmatrix}
+\end{equation*}
+\lstinputlisting[style=Matlab-editor]{problems/Problem_3.m}
+\begin{equation*}
+  \matr{a} = \begin{bmatrix}
+    -5.1890 \\
+    \phantom{-}0.3384 \\
+    \phantom{-}0.5128 \\
+    \phantom{-}0.7085
+  \end{bmatrix}
+\end{equation*}
+from which we get:
+\begin{equation*}
+  y= - 5.1890 + 0.3384x_1 + 0.5128x_2 + 0.7085x_3
+\end{equation*}
