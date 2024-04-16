@@ -104,7 +104,6 @@ xlabel("x")
 ylabel("y")
 legend("Data pairs", ...
     "f(x) = " + a(1) + " + " + a(2) + " * x^2 + " + a(3) + " * sin(pi*x/2)")
-return
 %% Problem 3
 %
 % y = a_0 + a_1 * x_1 + a_2 * x_2 + a_3 * x_3
