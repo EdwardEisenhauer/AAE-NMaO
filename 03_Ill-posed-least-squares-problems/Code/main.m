@@ -74,8 +74,7 @@ plot(pairs(:,1), pairs(:,2), "*", x_fun, y_fun)
 xlabel("x")
 ylabel("y")
 legend("Data pairs", ...
-    "y = " + a(1) + " + " + a(2) + " * x^2 + " + a(3) + " * sin(pi*x/2)")
-return
+    "f(x) = " + a(1) + " + " + a(2) + " * x^2 + " + a(3) + " * sin(pi*x/2)")
 % (-1,0.5),(0,1),(2,5),(3,9)
 %
 % a_0 + a_1 * -1^2 + a_2 * sin(pi*-1/2) = 0.5
@@ -83,16 +82,28 @@ return
 % a_0 + a_1 *  2^2 + a_2 * sin(pi*2/2)  = 5
 % a_0 + a_1 *  3^2 + a_2 * sin(pi*3/2)  = 9
 %
-A = [ 1,  1, sin(-pi/2);
-      1,  0, sin(0);
-      1,  4, sin(pi);
-      1,  9, sin(pi*3/2)];
-b = [ 0.5;
-      1;
-      5;
-      9];
+A = [1, 1, sin(-pi/2);
+     1, 0, sin(0);
+     1, 4, sin(pi);
+     1, 9, sin(pi*3/2)];
+b = [0.5;
+     1;
+     5;
+     9];
 a = normal_approximation(A, b)
 solution_error = a - A\b
+
+f = @(x, a) a(1) + a(2) * x.^2 + a(3) * sin(pi.*x/2);
+
+pairs = [-1, 0.5; 0, 1; 2, 5; 3, 9];
+x_fun = -2:0.1:4;
+y_fun = f(x_fun, a);
+
+plot(pairs(:,1), pairs(:,2), "*", x_fun, y_fun)
+xlabel("x")
+ylabel("y")
+legend("Data pairs", ...
+    "f(x) = " + a(1) + " + " + a(2) + " * x^2 + " + a(3) + " * sin(pi*x/2)")
 return
 %% Problem 3
 %

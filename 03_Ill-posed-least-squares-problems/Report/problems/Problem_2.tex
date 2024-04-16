@@ -33,19 +33,58 @@ Following the~\nameref{sec:problem_1} we have:
 \lstinputlisting[style=Matlab-editor]{problems/Problem_2_a.m}
 \begin{equation*}
   \matr{a} = \begin{bmatrix}
-    \phantom{-}3.0000 \\
-    -2.2500 \\
-    -1.2500
+    \phantom{-}3.00 \\
+    -2.25 \\
+    -1.25
   \end{bmatrix}
 \end{equation*}
 
 Now we may construct the function:
 \begin{equation*}
-  3-2.25x^2-1.25\sin{\frac{\pi{}x}{2}}
+  f(x)=3-2.25x^2-1.25\sin{\frac{\pi{}x}{2}}
 \end{equation*}
-and plot it with the data pairs:
+and plot it with the data pairs in the~\autoref{fig:problem_2_a}:
 \lstinputlisting[style=Matlab-editor]{problems/Problem_2_a_plot.m}
 \begin{figure}[h]
   \centering
-  \includegraphics[]{images/Problem_2_a_plot.pdf}
+  \includegraphics[width=0.7\textwidth]{images/Problem_2_a_plot.pdf}
+  \caption{The plot of the approximated solution and predefined data pairs
+    for the Problem~2~a)}\label{fig:problem_2_a}
+\end{figure}
+
+Respectively for the second set:
+\begin{equation*}
+  \matr{A} = \begin{bmatrix}
+    1 & 1 & \sin{\frac{-\pi}{2}} \\
+    1 & 0 & \sin{0} \\
+    1 & 4 & \sin{\pi} \\
+    1 & 9 & \sin{\frac{3\pi}{2}}
+  \end{bmatrix} \qquad
+  \matr{b} = \begin{bmatrix}
+    \frac{1}{2} \\
+    1 \\
+    5 \\
+    9
+  \end{bmatrix}
+\end{equation*}
+\lstinputlisting[style=Matlab-editor]{problems/Problem_2_b.m}
+\begin{equation*}
+  \matr{a} = \begin{bmatrix}
+    0.90 \\
+    1.05 \\
+    1.40
+  \end{bmatrix}
+\end{equation*}
+
+Now we may construct the function:
+\begin{equation*}
+  f(x)=3-2.25x^2-1.25\sin{\frac{\pi{}x}{2}}
+\end{equation*}
+and plot it with the data pairs in the~\autoref{fig:problem_2_b}:
+\lstinputlisting[style=Matlab-editor]{problems/Problem_2_b_plot.m}
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.7\textwidth]{images/Problem_2_b_plot.pdf}
+  \caption{The plot of the approximated solution and predefined data pairs
+    for the Problem~2~b)}\label{fig:problem_2_b}
 \end{figure}
