@@ -10,6 +10,7 @@ b = [4;
      0;
      1];
 x = normal_approximation(A, b)
+solution_error = x - A\b
 %
 % 3x_1 +  x_2 +  x_3 = 6
 % 2x_1 + 3x_2 -  x_3 = 1
@@ -24,6 +25,8 @@ b = [6;
      0;
      8];
 x = normal_approximation(A, b)
+solution_error = x - A\b
+return
 %
 %  x_1 +  x_2 -  x_3 = 5
 % 2x_1 -  x_2 + 6x_3 = 1
@@ -38,6 +41,8 @@ b = [5;
      0;
      6];
 x = normal_approximation(A, b)
+solution_error = x - A\b
+return
 %% Problem 2
 %
 % Find the least squares approximating a_0 + a_1 * x^2 + a_2 * sin(pi*x/2)
@@ -176,13 +181,20 @@ a_0 = a(1)
 a_1 = a(2)
 a_2 = a(3)
 
-y = a_0 + a_1 * x + a_2 * x^2
+y = a_0 + a_1 * x + a_2 * x.^2
 %% Problem 7
 
 %% Functions
 function x = normal_approximation(A, b)
+% NORMAL_APPROXIMATION
+%   x = normal_approximation(A, b) returns the approximate least-squares
+%     solution to the inconsistent system of linear equations Ax = b.
+%
+%   Arguments:
+%     A --- Coefficient matrix.
+%     b --- Column vector of constant terms.
 
-x = (A' * A) \ A' * b;
+x = inv(A' * A) * A' * b;
 
 end
 

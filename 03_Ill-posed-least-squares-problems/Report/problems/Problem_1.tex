@@ -2,12 +2,12 @@
 \label{sec:problem_1}
 Find the solution that best approximates the system of inconsistent linear equations:
 \begin{tasks}(3)
-  \task $\systeme{3x_1-x_2=4,x_1+2x_2=0,2x_1+x_2=1}$
-  \task $\systeme{3x_1+x_2+x_3=6,
+  \task\label{problem:1_a} $\systeme{3x_1-x_2=4,x_1+2x_2=0,2x_1+x_2=1}$
+  \task\label{problem:1_b} $\systeme{3x_1+x_2+x_3=6,
   2x_1+3x_2-x_3=1,
   2x_1-x_2+x_3=0,
   3x_1-3x_2+3x_3=8}$
-  \task $\systeme{x_1+x_2-x_3=5,
+  \task\label{problem:1_c} $\systeme{x_1+x_2-x_3=5,
   2x_1-x_2+6x_3=1,
   -x_1+4x_2+x_3=0,
   3x_1+2x_2-x_3=6}$
@@ -29,21 +29,93 @@ system by solving the minimization problem:
 \begin{equation*}
   \min_{\matr{x}}{\left\lVert\matr{b}-\matr{A}\matr{x}\right\rVert}_2
 \end{equation*}
-For such a system, an associated system of \textit{normal equations} is defined to be:
-\begin{equation}
+This problem may be expressed in the form of the \textit{linear least-squares problem}:
+\begin{equation*}
+  \min_{\matr{x}}{\frac{1}{2}\left\lVert\matr{b}-\matr{A}\matr{x}\right\rVert_2^2}
+\end{equation*}
+Following the~\cite{Zdunek}, for our system of inconsistent linear equations, we may
+define an associated system of \textit{normal equations}:
+\begin{equation*}
   \matr{A}^T\matr{Ax}=\matr{A}^T\matr{b}
-\end{equation}
-which is always consistent.
-The solution has the form:
+\end{equation*}
+which is always consistent and whose least-squares solution has the form:
 \begin{equation}
   \label{eq:normal_approximation}
-  \matr{x}=\left(\matr{A}^T\matr{A}\right)^{-1}\matr{A}^T\matr{b}
+  \matr{x}={\left(\matr{A}^T\matr{A}\right)}^{-1}\matr{A}^T\matr{b}=\matr{A}^{+}b
 \end{equation}
+where $\matr{A}^{+}$ is the Moore-Penrose pseudoinverse.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection*{Solution}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-The solutions to all the systems of linear equations above may be easily approximated
-with the \MATLAB{} function implementing~\eqref{eq:normal_approximation}:
-\lstinputlisting[style=Matlab-editor]{problems/normal_approximation.m}
-Then, the solution may be verified with \lstinline[style=Matlab-editor]{x - A\b}:
-\lstinputlisting[style=Matlab-editor]{problems/Problem_1.m}
+The solutions to the systems of linear equations above may be easily approximated
+with~\nameref{algorithm:1}, implementing~\eqref{eq:normal_approximation}.
+Then, the solution may be verified with \lstinline[style=Matlab-editor]{x - A\b}.
+
+For the first system, we have:
+\begin{equation*}
+  \matr{A} = \begin{bmatrix}
+    3 & -1 \\
+    1 & \phantom{-}2 \\
+    2 & \phantom{-}1
+  \end{bmatrix} \qquad
+  \matr{b} = \begin{bmatrix}
+    4 \\
+    0 \\
+    1
+  \end{bmatrix}
+\end{equation*}
+\lstinputlisting[style=Matlab-editor]{problems/Problem_1_a.m}
+\begin{equation*}
+  \matr{x} = \begin{bmatrix}
+    \phantom{-}1.0482 \\
+    -0.6747
+  \end{bmatrix}
+\end{equation*}
+
+For the second system, we have:
+\begin{equation*}
+  \matr{A} = \begin{bmatrix}
+    3 & \phantom{-}1 & \phantom{-}1 \\
+    2 & \phantom{-}3 & -1 \\
+    2 & -1 & \phantom{-}1 \\
+    3 & -3 & \phantom{-}3
+  \end{bmatrix} \qquad
+  \matr{b} = \begin{bmatrix}
+    6 \\
+    1 \\
+    0 \\
+    8
+  \end{bmatrix}
+\end{equation*}
+\lstinputlisting[style=Matlab-editor]{problems/Problem_1_b.m}
+\begin{equation*}
+  \matr{x} = \begin{bmatrix}
+    -1.6667 \\
+    \phantom{-}3.8333 \\
+    \phantom{-}7.9167
+  \end{bmatrix}
+\end{equation*}
+
+For the third system, we have:
+\begin{equation*}
+  \matr{A} = \begin{bmatrix}
+    \phantom{-}1 & \phantom{-}1 & -1 \\
+    \phantom{-}2 & -1 & \phantom{-}6 \\
+    -1 & \phantom{-}4 & \phantom{-}1 \\
+    \phantom{-}3 & \phantom{-}2 & -1
+  \end{bmatrix} \qquad
+  \matr{b} = \begin{bmatrix}
+    5 \\
+    1 \\
+    0 \\
+    6
+  \end{bmatrix}
+\end{equation*}
+\lstinputlisting[style=Matlab-editor]{problems/Problem_1_c.m}
+\begin{equation*}
+  \matr{x} = \begin{bmatrix}
+    \phantom{-}1.8072 \\
+    \phantom{-}0.5585 \\
+    -0.3810
+  \end{bmatrix}
+\end{equation*}
