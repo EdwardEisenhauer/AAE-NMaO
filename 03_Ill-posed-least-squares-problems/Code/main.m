@@ -26,7 +26,6 @@ b = [6;
      8];
 x = normal_approximation(A, b)
 solution_error = x - A\b
-return
 %
 %  x_1 +  x_2 -  x_3 = 5
 % 2x_1 -  x_2 + 6x_3 = 1
@@ -42,9 +41,8 @@ b = [5;
      6];
 x = normal_approximation(A, b)
 solution_error = x - A\b
-return
 %% Problem 2
-%
+%h
 % Find the least squares approximating a_0 + a_1 * x^2 + a_2 * sin(pi*x/2)
 %  for each of the following sets of data pairs:
 %
@@ -55,15 +53,29 @@ return
 % a_0 + a_1 *  1^2 + a_2 * sin(pi*1/2)  = -1
 % a_0 + a_1 * -1^2 + a_2 * sin(pi*-1/2) =  2
 disp("PROBLEM 2")
-A = [ 1,  0, 0;
-      1,  1, sin(pi/2);
-      1,  1, sin(pi/2);
-      1,  1, sin(-pi/2)];
+A = [1, 0, 0;
+     1, 1, sin(pi/2);
+     1, 1, sin(pi/2);
+     1, 1, sin(-pi/2)];
 b = [ 3;
       0;
      -1;
       2];
 a = normal_approximation(A, b)
+solution_error = a - A\b
+
+f = @(x, a) a(1) + a(2) * x.^2 + a(3) * sin(pi.*x/2);
+
+pairs = [0, 3; 1, 0; 1, -1; -1, 2];
+x_fun = -2:0.1:2;
+y_fun = f(x_fun, a);
+
+plot(pairs(:,1), pairs(:,2), "*", x_fun, y_fun)
+xlabel("x")
+ylabel("y")
+legend("Data pairs", ...
+    "y = " + a(1) + " + " + a(2) + " * x^2 + " + a(3) + " * sin(pi*x/2)")
+return
 % (-1,0.5),(0,1),(2,5),(3,9)
 %
 % a_0 + a_1 * -1^2 + a_2 * sin(pi*-1/2) = 0.5
@@ -80,6 +92,8 @@ b = [ 0.5;
       5;
       9];
 a = normal_approximation(A, b)
+solution_error = a - A\b
+return
 %% Problem 3
 %
 % y = a_0 + a_1 * x_1 + a_2 * x_2 + a_3 * x_3
