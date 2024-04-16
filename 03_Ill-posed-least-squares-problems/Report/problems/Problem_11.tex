@@ -10,7 +10,10 @@ illustrate the fitting error (the Euclidean norm) versus the standard deviation 
 Estimate the maximal value of $\sigma$ for which fitting error does not exceed $10^{-6}$,
 assuming double precision arithmetic operations.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsection*{Exponentially Weighted Recursive Least Squares}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Recursive Least Squares
+
+\subsubsection*{Exponentially Weighted Recursive Least Squares}
 \begin{enumerate}
     \item \textbf{Parameter Vector Initialization:}
     \[ \hat{\theta} = \mathbf{0} \]
@@ -67,6 +70,49 @@ Used Exponentially Weighted Recursive Least Squares algorithm is represented as 
 \end{enumerate}
 
 This algorithm recursively updates the parameter estimates \( \hat{\theta} \) based on new observations \( (x_i, y_i) \), adjusting the estimate to minimize the error between the model predictions and the observed data. The key feature of RLS is its ability to adapt the estimates as new data arrives, with the forgetting factor \( \lambda \) moderating the influence of older observations on the current estimate.
+
+\subsubsection*{Mathematics}
+\subsubsection*{Calculating $\sigma$ for given fitting error}
+To analytically find $\sigma$ value for defined fitting error of $10^{-6}$, first would be redefinition of our regression model
+\[
+    y = a_0 + a_1 x + a_2 x^2 + a_3 x^3 + a_4 x^4 + a_5 x^5 + a_6 x^6 + \epsilon
+\]
+where \(\epsilon\) is the term denoting Gaussian noise \(N(0, \sigma^2)\).\\
+In next step the design matrix \(A\) for the polynomial regression, which includes terms for \(x, x^2, \ldots, x^6\).\\
+With observed points in \(x = 1, 2, \ldots, 14\), this matrix becomes a Vandermonde matrix.\\
+The least squares estimation of the coefficients, \(\hat{a}\), in matrix form is given by:
+\[
+    \hat{a} = (A^T A)^{-1} A^T b
+\]
+The influence of noise \(\epsilon\) on the estimation is reflected in the covariance matrix which is under the influence of noise \(\epsilon\) is:
+\[
+    \text{Cov}(\hat{a}) = \sigma^2 (A^T A)^{-1}
+\]
+Each element of this matrix represents the variance of the corresponding coefficient due to noise.
+
+\textbf{Objective:}
+Solve for \(\sigma\) such that the Euclidean norm of the difference between the original coefficients and those estimated from noisy data equals \(10^{-6}\). Formally:
+\[
+    \sqrt{\sum_{i=0}^6 (a_i - \hat{a}_i)^2} = 10^{-6}
+\]
+
+\subsubsection*{Calculation Steps}
+Each coefficient's variance can be extracted from the covariance matrix:
+\[
+    \text{Var}(\hat{a}_i) = \sigma^2 (A^T A)^{-1}_{ii}
+\]
+Assuming the noise affects each coefficient independently, the sum of squared differences due to noise is:
+\[
+    \sum_{i=0}^6 \sigma^2 (A^T A)^{-1}_{ii} = 10^{-12}
+\]
+This equation arises from setting the Euclidean norm squared of the difference (the sum of squares) to \(10^{-12}\), reflecting that the total error in terms of the Euclidean norm is \(10^{-6}\).
+
+By rearranging given equation we are able to solve for \(\sigma\):
+\[
+    \sigma = \sqrt{\frac{10^{-12}}{\sum_{i=0}^6 (A^T A)^{-1}_{ii}}}
+\]
+Denominator is the trace of \((A^T A)^{-1}\), which sums the variances across all coefficients.\\
+By using MATLAB calculated $\sigma$ value is $\approx 8.86*10^{-8}$.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
