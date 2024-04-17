@@ -119,7 +119,6 @@ b = [28;
      23];
 a = normal_approximation(A, b)
 solution_error = a - A\b
-
 %% Problem 4
 A = [1, 1;
      1, 2;
@@ -138,8 +137,19 @@ b = [1.5;
      5.0;
     11.5];
 a = normal_approximation(A, b)
-% [a, b] = least_squares_approximation(x, y)
+solution_error = a - A\b
 
+f = @(x, a) a(1) + a(2) * x;
+
+pairs = [1, 1.5; 2, 2; 3, 2.8; 4, 4.1; 5, 4.9; 6, 6.3; 7, 5; 8, 11.5];
+x_fun = 0:0.1:9;
+y_fun = f(x_fun, a);
+
+plot(pairs(:,1), pairs(:,2), "*", x_fun, y_fun)
+xlabel("x")
+ylabel("y")
+legend("Data pairs", ...
+    "f(x) = " + a(1) + " + " + a(2) + " * x")
 %% Problem 5
 %
 % y = a_2 * x^2 + a_1 * x + a_0
