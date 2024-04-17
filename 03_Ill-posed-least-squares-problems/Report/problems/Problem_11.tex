@@ -117,19 +117,68 @@ By using MATLAB calculated $\sigma$ value is $\approx 8.86*10^{-8}$.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection*{Solution}
+Estimated coefficient values for direct method are
+\begin{equation*}
+    \matr{a} = \begin{bmatrix}
+       1.0000 \\
+       1.0000 \\
+       2.0000 \\
+       3.0000 \\
+       5.0000 \\
+       9.9999 \\
+      40.0001
+    \end{bmatrix}
+  \end{equation*}
+Meanwhile RLS method performed significantly worse
+\begin{equation*}
+    \matr{a} = \begin{bmatrix}
+       1.0000 \\
+       1.0008 \\
+       1.9862 \\
+       3.1238 \\
+       4.4391 \\
+       11.1664 \\
+       39.1841
+    \end{bmatrix}
+\end{equation*}
+Weighted recursive least squares method had higher fitting error than normal equation.
 Generated curves for approximations of polynomial 
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{images/Problem_11/ApproxCurves.png}
     \caption{Approximations of polynomial using Normal equation and Recursive Least Squares method}
 \end{figure}
-During the programming of fitting error calculation, we weren't able to get such low values for fitting error. 
-It's possible that our method for calculating fitting error was incorrect, or used methods had awful stability.
-For $\sigma \in (0:0.0001:0.1)$ our lowest error was with the use of normal equation at $1.0953*10^-5$.
+Approximated curves with original dataset aswell as perturbed by estimated deviation of $\sigma \approx 6.94*10^{-8}$ are very similar in graphical sense.
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{images/Problem_11/fittingErrors.png}
     \caption{Fitting errors of approximations Normal equation and RLS with perturbed input data set}
 \end{figure}
-Weighted recursive least squares method had higher fitting error than normal equation.
+By comparing difference between coefficients approximated using original dataset and perturbed one we get more stable coefficient value on RLS method.
+Difference between both sets of coefficients for direct method:
+\begin{equation*}
+    \matr{a} = \begin{bmatrix}
+        -0.0000  * 10^{-4}\\
+        0.0001 * 10^{-4}\\
+       -0.0019 * 10^{-4}\\
+        0.0179 * 10^{-4}\\
+       -0.0841 * 10^{-4}\\
+        0.1782 * 10^{-4}\\
+       -0.1244 * 10^{-4}
+    \end{bmatrix}
+\end{equation*}
+Values of coefficient difference for RLS method:
+\begin{equation*}
+    \matr{a} = \begin{bmatrix}
+            0.0000 * 10^{-5}\\
+           -0.0004 * 10^{-5}\\
+            0.0071 * 10^{-5}\\
+           -0.0573 * 10^{-5}\\
+            0.2264 * 10^{-5}\\
+           -0.3854 * 10^{-5}\\
+            0.1753 * 10^{-5}
+    \end{bmatrix}
+\end{equation*}
+\lstinputlisting[style=Matlab-editor]{problems/Problem_11.m}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
