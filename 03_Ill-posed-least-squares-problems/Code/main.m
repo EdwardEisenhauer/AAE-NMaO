@@ -173,7 +173,7 @@ a = normal_approximation(A, b)
 a_0 = a(1);
 a_1 = a(2);
 a_2 = a(3);
-linear_regression_error = sum((y-a(1)-a(2).*x-a(3)*x.^2).^2)
+linear_regression_error = sum((y-a_0-a_1.*x-a_2*x.^2).^2)
 discriminant = a_1^2-4*a_2*a_0;
 x_1 = (-a_1-sqrt(discriminant)) / (2*a_2)
 x_2 = (-a_1+sqrt(discriminant)) / (2*a_2)
@@ -192,52 +192,35 @@ legend("Data pairs", ...
     "f(x) = " + a(1) + " + " + a(2) + " * x" + a(3) + " * x^2")
 %% Problem 6
 %
-disp("PROBLEM 6")
+x = [-5; -4; -3; -2; -1; 0; 1; 2; 3; 4; 5];
+y = [2; 7; 9; 12; 13; 14; 14; 13; 10; 8; 4];
 % y = a_0 + a_1 * x
-A = [ 1,  -5;
-      1,  -4;
-      1,  -3;
-      1,  -2;
-      1,  -1];
-b = [2;
-     7;
-     9;
-    12;
-    13];
-a = normal_approximation(A, b);
-a_0 = a(1)
-a_1 = a(2)
+A = [ones(size(x)), x];
+b = y;
+a_lin = normal_approximation(A, b);
+
+x_fun = min(x)-1:0.1:max(x)+1;
+
+f_lin = @(x, a) a(1) + a(2) .* x;
+y_fun_lin = f_lin(x_fun, a_lin);
 % y = a_0 + a_1 * x + a_2 * x^2
-A = [ 1,  -5, 25;
-      1,  -4, 16;
-      1,  -3,  9;
-      1,  -2,  4;
-      1,  -1,  1;
-      1,   0,  1;
-      1,   1,  1;
-      1,   2,  4;
-      1,   3,  9;
-      1,   4, 16;
-      1,   5, 25];
-b = [2;
-     7;
-     9;
-    12;
-    13;
-    14;
-    14;
-    13;
-    10;
-     8;
-     4];
-a = normal_approximation(A, b);
-a_0 = a(1)
-a_1 = a(2)
-a_2 = a(3)
+A = [ones(size(x)), x, x.^2];
+b = y;
+a_qua = normal_approximation(A, b);
 
-y = a_0 + a_1 * x + a_2 * x.^2
-%% Problem 7
+f_qua = @(x, a) a(1) + a(2) .* x + a(3) * x.^2;
+y_fun_qua = f_qua(x_fun, a_qua);
 
+linear_regression_error = norm(y - f_lin(x, a_lin))
+quadratic_regression_error = norm(y - f_qua(x, a_qua))
+
+plot(x, y, "*", x_fun, y_fun_lin, x_fun, y_fun_qua)
+xlabel("x")
+ylabel("y")
+ylim([min(y)-1, max(y)+1])
+legend("Data pairs", ...
+    sprintf("f(x) = %f + %f * x", a_lin), ...
+    sprintf("g(x) = %f + %f * x + %f * x^2", a_qua))
 %% Functions
 function x = normal_approximation(A, b)
 % NORMAL_APPROXIMATION
