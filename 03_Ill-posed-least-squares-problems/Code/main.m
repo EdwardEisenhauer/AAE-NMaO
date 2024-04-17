@@ -10,7 +10,7 @@ b = [4;
      0;
      1];
 x = normal_approximation(A, b)
-solution_error = x - A\b
+implementation_error = x - A\b
 %
 % 3x_1 +  x_2 +  x_3 = 6
 % 2x_1 + 3x_2 -  x_3 = 1
@@ -25,7 +25,7 @@ b = [6;
      0;
      8];
 x = normal_approximation(A, b)
-solution_error = x - A\b
+implementation_error = x - A\b
 %
 %  x_1 +  x_2 -  x_3 = 5
 % 2x_1 -  x_2 + 6x_3 = 1
@@ -40,7 +40,7 @@ b = [5;
      0;
      6];
 x = normal_approximation(A, b)
-solution_error = x - A\b
+implementation_error = x - A\b
 %% Problem 2
 %h
 % Find the least squares approximating a_0 + a_1 * x^2 + a_2 * sin(pi*x/2)

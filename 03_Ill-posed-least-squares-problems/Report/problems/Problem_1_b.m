@@ -7,7 +7,7 @@ b = [6;
      0;
      8];
 x = normal_approximation(A, b)
-solution_error = x - A\b
+implementation_error = x - A\b
 
 x =
 
@@ -15,7 +15,7 @@ x =
     3.8333
     7.9167
 
-solution_error =
+implementation_error =
 
    1.0e-14 *
 
