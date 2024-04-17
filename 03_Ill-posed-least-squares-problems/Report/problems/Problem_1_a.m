@@ -5,14 +5,14 @@ b = [4;
      0;
      1];
 x = normal_approximation(A, b)
-solution_error = x - A\b
+implementation_error = x - A\b
 
 x =
 
     1.0482
    -0.6747
 
-solution_error =
+implementation_error =
 
    1.0e-15 *
 
