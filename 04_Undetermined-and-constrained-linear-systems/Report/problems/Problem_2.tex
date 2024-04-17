@@ -21,6 +21,63 @@ Which metrics are best to solbe this problem?
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection*{Mathematics}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+First step towards solving the problem would be obtaining matrix b by calculating.
+\begin{equation*}
+    \matr{A}\matr{x} = \matr{b} \rightarrow 
+    \begin{bmatrix}
+        1 & 2 & 3 & 2 & 1 \\
+        2 & 4 & 4 & 6 & 2 \\
+        3 & 6 & 6 & 9 & 6 \\
+        1 & 2 & 4 & 5 & 3
+    \end{bmatrix}
+    \begin{bmatrix}
+        1 \\
+        0 \\
+        1 \\
+        1 \\
+        0
+    \end{bmatrix} =
+    \begin{bmatrix}
+        6 \\
+        12 \\
+        18 \\
+        10
+\end{bmatrix}
+\end{equation*}
+With calculated solution we're able to create estimated "true" solution.
+\begin{equation*}
+    \matr{A}^T\matr{A}\matr{\hat{x}} = \matr{A}^T\matr{b} \rightarrow
+    \matr{\hat{x}} = (\matr{A}^T\matr{A})^-1 \matr{A}^T\matr{b} = \matr{A}^+\matr{b}
+\end{equation*}
+Since our matrix is not square we are forced to use pseudo-ivnerse which is denoted as $A^+$.\\
+This way least squares solution has form:
+\begin{equation*}
+    \matr{\hat{x}} = \matr{A}^+ \matr{b}
+\end{equation*}
+Calculating $\matr{A^+}$ requires using SVD of base matrix $\matr{\matr{A}}$
+\begin{equation*}
+    \matr{A^+} = \matr{V} 
+    \begin{bmatrix}
+        \matr{\Sigma^{-1}} && 0 \\
+        0 && 0
+    \end{bmatrix}
+    \matr{U}^H = \sum_{i=1}^{r} \sigma_i^{-1} \matr{v}_i\matr{u}_i^H \in \matr{\Im}^{N \times M} 
+\end{equation*}
+Pseudo-inverse of matrix a was calculated using MATLAB
+
+\begin{equation*}
+    \matr{A^+ = }
+    \begin{bmatrix}
+        0.0273  &  0.0545  &  0.0909  & -0.2273 \\
+        0.0545  &  0.1091  &  0.1818  & -0.4545 \\
+        0.0364  &  0.0727  & -0.2121  &  0.3636 \\
+        0.0636  &  0.1273  & -0.1212  &  0.1364 \\
+        -0.2000 &  -0.4000 &   0.3333 &  -1.32 * 10^-16 \\
+    \end{bmatrix}
+\end{equation*}
+Discrepancy as to why true solution differs when we change $a_{21}$ entry to 0 from 2 is quite trivial, if the step of calculating the rank of matrix wasn't skipped.\\
+For base matrix $\matr{A}$ rank is 3, meaning it is not a full rank matrix, hence solution using least squares is not accurate.\\
+Modified $\matr{A}$ rank is 4 being full rank matrix. This implies unique solution for least squares problem given that $\matr{b}$ is in the column space of $\matr{A}$.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection*{Solution}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
