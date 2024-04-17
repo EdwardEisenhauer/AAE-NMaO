@@ -155,26 +155,41 @@ legend("Data pairs", ...
 
 %% Problem 5
 %
-% y = a_2 * x^2 + a_1 * x + a_0
-disp("PROBLEM 5")
-A = [  0^2,    0, 1;
-     250^2,  250, 1;
-     500^2,  500, 1;
-     750^2,  750, 1;
-     1000^2, 1000, 1];
-b = [0;
-     8;
-    15;
-    19;
-    20];
+% y = a_0 + a_1 * x + a_2 * x^2
+pairs = [0, 0; 0.25, 8; 0.5, 15; 0.75, 19; 1, 20];
+x = pairs(:,1);
+y = pairs(:,2);
+A = [1,    0,    0^2;
+     1, 0.25, 0.25^2;
+     1, 0.50, 0.50^2;
+     1, 0.75, 0.75^2;
+     1, 1.00, 1.00^2];
+b = [ 0;
+      8;
+     15;
+     19;
+     20];
 a = normal_approximation(A, b)
-a_2 = a(1)
-a_1 = a(2)
-a_0 = a(3)
+a_0 = a(1);
+a_1 = a(2);
+a_2 = a(3);
+linear_regression_error = sum((y-a(1)-a(2).*x-a(3)*x.^2).^2)
+discriminant = a_1^2-4*a_2*a_0;
+x_1 = (-a_1-sqrt(discriminant)) / (2*a_2)
+x_2 = (-a_1+sqrt(discriminant)) / (2*a_2)
 
-determinant = a_1^2-4*a_2*a_0
-x_1 = (-a_1-sqrt(determinant)) / (2*a_2)
-x_2 = (-a_1+sqrt(determinant)) / (2*a_2)
+f = @(x, a) a(1) + a(2) * x + a(3) * x.^2;
+
+x_fun = -1:0.1:2.1;
+y_fun = f(x_fun, a);
+
+plot(pairs(:,1), pairs(:,2), "*", x_fun, y_fun)
+xlabel("x")
+ylabel("y")
+xlim([0 1.1*max([x_1, x_2])])
+ylim([0 1.1*max(y)])
+legend("Data pairs", ...
+    "f(x) = " + a(1) + " + " + a(2) + " * x" + a(3) + " * x^2")
 %% Problem 6
 %
 disp("PROBLEM 6")
