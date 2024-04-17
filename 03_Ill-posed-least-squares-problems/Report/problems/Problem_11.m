@@ -1,4 +1,3 @@
-
 originalRLS =
 
     1.0000    1.0008    1.9862    3.1238    4.4391   11.1664   39.1841
@@ -7,6 +6,9 @@ originalRLS =
 originalDirect =
 
     1.0000    1.0000    2.0000    3.0000    5.0000    9.9999   40.0001
+
+
+Required sigma for error < 10^-6: 8.858252e-08
 
 
 noisyRLS =
