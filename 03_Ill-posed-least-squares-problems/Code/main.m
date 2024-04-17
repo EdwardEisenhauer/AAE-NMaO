@@ -137,11 +137,13 @@ b = [1.5;
      5.0;
     11.5];
 a = normal_approximation(A, b)
-solution_error = a - A\b
+normal_approximation_error = a - A\b
+pairs = [1, 1.5; 2, 2; 3, 2.8; 4, 4.1; 5, 4.9; 6, 6.3; 7, 5; 8, 11.5];
+a = linear_regression(pairs(:,1), pairs(:,2))
+linear_regression_error = sum((pairs(:,2)-a(1)-a(2).*pairs(:,1)).^2)
 
 f = @(x, a) a(1) + a(2) * x;
 
-pairs = [1, 1.5; 2, 2; 3, 2.8; 4, 4.1; 5, 4.9; 6, 6.3; 7, 5; 8, 11.5];
 x_fun = 0:0.1:9;
 y_fun = f(x_fun, a);
 
@@ -150,6 +152,7 @@ xlabel("x")
 ylabel("y")
 legend("Data pairs", ...
     "f(x) = " + a(1) + " + " + a(2) + " * x")
+
 %% Problem 5
 %
 % y = a_2 * x^2 + a_1 * x + a_0
@@ -234,12 +237,24 @@ x = inv(A' * A) * A' * b;
 
 end
 
-function [a, b] = least_squares_approximation(x, y)
+function a = linear_regression(x, y)
+% LINEAR_REGRESSION
+%   a = linear_regression(x, y) returns the vector with the slope and
+%     intercept of the line y = a_0 + a_1*x, which best fits
+%     the data set of points (x_i, y_i).
+%
+%   Arguments:
+%     x --- Vector of the first data point elements.
+%     y --- Vector of the second data point elements.
 
-N = size(x, 1);
+N = length(x);
+M = length(y);
+if N ~= M
+     error('The data set vectors must have the same length!')
+end
 
-a = N .* sum(x.*y) - sum(x) .* sum(y) / ( N .* sum(x.^2) - sum(x).^2);
-
-b = sum(y) - a * sum(x) / N;
+a_1 = ( sum(y.*x) - M*mean(y)*mean(x) ) / ( sum(x.^2) - M*mean(x)^2 );
+a_0 = mean(y) - a_1 * mean(x);
+a = [a_0; a_1];
 
 end
