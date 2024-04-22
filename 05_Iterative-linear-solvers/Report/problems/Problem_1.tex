@@ -9,15 +9,17 @@ Start the iterations from zero-value initial guess.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection*{Mathematics}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-The principle of the iterative linear solvers of the $\matr{A}\matr{x}=\matr{b}$ is to
-start with some initial guess $\matr{x}^0$ and approximate the solution with each step.
-
+The principle of the iterative linear solvers of the linear system of equations
+expressed as $\matr{A}\matr{x}=\matr{b}$ is to start with some initial guess
+$\matr{x}^{(0)}$ and approximate the solution with each step.
+\todo[inline]{Develop the iterative methods' mathematical description.}
 \begin{equation*}
   \matr{S}\matr{}
   \matr{x}^{(k+1)} = \matr{G}\matr{x}^{(k)} + \matr{c}
 \end{equation*}
 
-To determine if there is a sense of using a given method we should look into the error.
+As an iterative method may not converge, a good idea is to determine it for a given problem, calculating the error.
+\todo[inline]{Describe the error calculation.}
 
 Assuming we know the exact solution $\matr{x}^*$:
 \begin{equation*}
@@ -28,16 +30,12 @@ Assuming we know the exact solution $\matr{x}^*$:
   e^k = \matr{G}^k * \matr{e}^0
 \end{equation*}
 
-
-\begin{equation*}
-  e^k = \matr{G}^k * \matr{e}^0
-\end{equation*}
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection*{Solution}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-The considered system of the linear equations may be expressed as the matrices:
+Since the considered system of linear equations is simple and consistent, we may use the
+\MATLAB's backslash operator \lstinline[style=Matlab-editor]{A\b}, to determine the
+exact solution:
 \begin{equation*}
   \matr{A} = \begin{bmatrix}
     \phantom{-}2 & -1 & \phantom{-}0 & \phantom{-}0 \\
@@ -50,6 +48,12 @@ The considered system of the linear equations may be expressed as the matrices:
     0 \\
     0 \\
     5
+  \end{bmatrix}, \qquad
+  \matr{x}^* = \begin{bmatrix}
+    1 \\
+    2 \\
+    3 \\
+    4
   \end{bmatrix}
 \end{equation*}
 Before proceeding with finding the solution it is reasonable to enusre that the used
