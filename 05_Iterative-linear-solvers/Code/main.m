@@ -13,23 +13,27 @@ b = [0;
      0;
      0;
      5];
-x_exact = A\b
-
-x_init = zeros(size(A,2), 1)
+% As this is the same system as the one ine the List 1 Problem 1:
+x_exact = A\b;
+% Following the suggestion from the Problem's description
+x_init = zeros(size(A,2), 1);
 % Landweber (gradient descent)
 n = length(A)
 alpha = 0.1
 G = eye(n) - alpha * A' * A
-k = 100
+k = 50
 e_0 = abs(x_init - x_exact)
 e = G^k * e_0
-return
 
-[x, r_err] = gaussSeidel(A, b, x_init, 50, 1e-6, A\b);
+results = struct;
+errors = struct;
+[results.landweber, errors.landweber] = landweber(A, b, x_init, k, 1e-6, A\b, alpha)
+[results.jacobi, errors.jacobi] = jacobi(A, b, x_init, k, 1e-6, A\b);
 
-plot(r_err)
+plot(1:k,errors.landweber,1:k,errors.jacobi)
 xlabel("Iteration")
 ylabel("Residual error")
+legend("Landweber", "Jacobi")
 
 return
 
