@@ -13,12 +13,25 @@ b = [0;
      0;
      0;
      5];
-x_init = zeros(size(A,2), 1);
+x_exact = A\b
+
+x_init = zeros(size(A,2), 1)
+% Landweber (gradient descent)
+n = length(A)
+alpha = 0.1
+G = eye(n) - alpha * A' * A
+k = 100
+e_0 = abs(x_init - x_exact)
+e = G^k * e_0
+return
+
 [x, r_err] = gaussSeidel(A, b, x_init, 50, 1e-6, A\b);
 
 plot(r_err)
 xlabel("Iteration")
 ylabel("Residual error")
+
+return
 
 %% Problem 2
 clear all;
