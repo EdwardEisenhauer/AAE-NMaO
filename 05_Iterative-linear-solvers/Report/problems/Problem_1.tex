@@ -26,16 +26,16 @@ Assuming we know the exact solution $\matr{x}^*$:
   e^k = \matr{x}^k - \matr{x}^*
 \end{equation*}
 
-\begin{equation*}
+\begin{equation}
   e^k = \matr{G}^k * \matr{e}^0
-\end{equation*}
+\end{equation}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection*{Solution}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 Since the considered system of linear equations is simple and consistent, we may use the
-\MATLAB's backslash operator \lstinline[style=Matlab-editor]{A\b}, to determine the
-exact solution:
+\MATLAB's backslash operator in the form of \lstinline[style=Matlab-editor]{A\b}, to
+determine the exact solution:
 \begin{equation*}
   \matr{A} = \begin{bmatrix}
     \phantom{-}2 & -1 & \phantom{-}0 & \phantom{-}0 \\
@@ -56,8 +56,9 @@ exact solution:
     4
   \end{bmatrix}
 \end{equation*}
-Before proceeding with finding the solution it is reasonable to enusre that the used
-method will converge. The convergence criterion is:
+Before proceeding with calculating the approximate solution, we check the residual error
+at the 100th iteration for each of the implemented algorithms to verify if the method
+converges. The convergence criterion is:
 \begin{equation*}
   \lim_{k\to\infty}{e} = 0
   \quad \text{if} \quad
@@ -65,7 +66,8 @@ method will converge. The convergence criterion is:
   \quad \text{for} \quad
   \matr{G}^{k}
 \end{equation*}
-
+Let's verify it for each of our algorithms:
+\lstinputlisting[style=Matlab-editor]{problems/Problem_1.m}
 
 \todo[inline]{Calculate the solution error for each method.}
 \todo[inline]{If the error converges --- apply the method.}
