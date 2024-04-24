@@ -11,22 +11,47 @@ Start the iterations from zero-value initial guess.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 The principle of the iterative linear solvers of the linear system of equations
 expressed as $\matr{A}\matr{x}=\matr{b}$ is to start with some initial guess
-$\matr{x}^{(0)}$ and approximate the solution with each step.
+$\matr{x}^{(0)}$ and approximate the solution with each iteration.
 
+Stationary basic iterative methods, such as those presented in~\nameref{sec:algorithms},
+perform a linear transformation $\matr{G}$ of the initial guess $\matr{x}^{(0)}$ at each
+iteration:
+\begin{equation*}
+  \matr{x}^{(k+1)} = \matr{G}\matr{x}^{(k)} + \matr{c}
+\end{equation*}
+
+For any starting guess $\matr{x}^{(0)}$ the iterations are convergent to the real
+solution $\matr{x}^{*}$ if and only if all of the eigenvalues of $\matr{G}$ are smaller
+than $1$.
+If we define the \textit{spectral radius} $\rho$:
+\begin{equation*}
+  \rho(\matr{G}) = \max_i{\lvert\lambda_i\rvert}
+\end{equation*}
+and the \textit{solution error} $e$:
+\begin{equation*}
+  \lim_{k\to\infty}{e} = 0
+  \quad \text{if} \quad
+  \max{\lvert\lambda_n\rvert}<1
+  \quad \text{for} \quad
+  \matr{G}^{k}
+\end{equation*}
+
+Assuming we know the exact solution $\matr{x}^*$:
+\begin{equation*}
+  e^k = \matr{x}^k - \matr{x}^*
+\end{equation*}
+
+\begin{equation}
+  e^k = \matr{G}^k * \matr{e}^0
+\end{equation}
 
 \todo[inline]{Develop the iterative methods' mathematical description.}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Explainations
-\input{algorithms/gaussSeidel.tex}
-\input{algorithms/kaczmarz.tex}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Spectral radius
 One of steps that can allow us to check if iterations $\{x_k\}$ are convergent to $\matr{x} = \matr{A}^-1\matr{b}$ would be checking spectral radius.
 
-\begin{equation*}
-  \rho(\matr{S}^-1\matr{T}) = \max \lvert\lambda_i\rvert
-\end{equation*}
+
 \begin{enumerate}
   \item Gauss-Seidel\\
     
@@ -69,28 +94,11 @@ One of steps that can allow us to check if iterations $\{x_k\}$ are convergent t
   In case of Landwebber our convergence criteria changes to form with pseudoinverse of $\matr{A}$ noted as $\matr{x} = \matr{A}^+ \matr{b}$:
   
   \begin{equation*}
-    0 < \alfa < \frac{2}{\lambda_{max}(A^TA)}
+    0 < \alpha < \frac{2}{\lambda_{max}(A^TA)}
   \end{equation*}
 \end{enumerate}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection*{Solving}
 
-\begin{equation*}
-  \matr{S}\matr{x}_{k+1} = Tx_k + b
-  \matr{x}^{(k+1)} = \matr{G}\matr{x}^{(k)} + \matr{c}
-\end{equation*}
 
-As an iterative method may not converge, a good idea is to determine it for a given problem, calculating the error.
-\todo[inline]{Describe the error calculation.}
-
-Assuming we know the exact solution $\matr{x}^*$:
-\begin{equation*}
-  e^k = \matr{x}^k - \matr{x}^*
-\end{equation*}
-
-\begin{equation}
-  e^k = \matr{G}^k * \matr{e}^0
-\end{equation}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection*{Solution}
@@ -118,16 +126,10 @@ determine the exact solution:
     4
   \end{bmatrix}
 \end{equation*}
-Before proceeding with calculating the approximate solution, we check the residual error
-at the 100th iteration for each of the implemented algorithms to verify if the method
+Before proceeding with approximating the solution, we check the residual error
+at the $k$-th iteration for each of the implemented algorithms to verify if the method
 converges. The convergence criterion is:
-\begin{equation*}
-  \lim_{k\to\infty}{e} = 0
-  \quad \text{if} \quad
-  \max{\lvert\lambda_n\rvert}<1
-  \quad \text{for} \quad
-  \matr{G}^{k}
-\end{equation*}
+
 Let's verify it for each of our algorithms:
 \lstinputlisting[style=Matlab-editor]{problems/Problem_1.m}
 
