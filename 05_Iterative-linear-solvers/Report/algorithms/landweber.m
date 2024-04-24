@@ -31,9 +31,13 @@ if alpha < 0
     error('Alpha cannot be smaller than 0!')
 end
 
+alpha_max = 2/norm(eigs(A,1)*(A'*A));
+if alpha > alpha_max
+    error('Alpha cannot be greater than %d!', alpha_max)
+end
+
 x = x_init;
-r_err = zeros(n,1);
-G = eye(n) - alpha * A' * A
+r_err = NaN(maxIterations);
 
 for k = 1:maxIterations
     x_prev = x;
@@ -47,7 +51,7 @@ for k = 1:maxIterations
 end
 
 if k == maxIterations
-    disp('Maximum number of iterations reached.');
+    fprintf('Maximum number of %d iterations reached!\n', maxIterations);
 end
 
 end

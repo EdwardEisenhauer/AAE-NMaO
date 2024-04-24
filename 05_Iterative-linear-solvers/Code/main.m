@@ -47,7 +47,10 @@ plot(1:k,e_landweber,1:k,e_jacobi,1:k,e_gauss_seidel,1:k,e_sor)
 xlabel("Iteration")
 ylabel("Solution error")
 legend("Landweber", "Jacobi", "Gauss-Seidel", "SOR")
-
+x_landweber
+x_jacobi
+x_gauss_seidel
+x_sor
 
 e_0 = abs(x_init - x_exact);
 e_landweber = norm(G_landweber^k * e_0);
