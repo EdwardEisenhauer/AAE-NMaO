@@ -22,6 +22,7 @@ x_init = zeros(size(A,2), 1);
 % Landweber (gradient descent)
 alpha = 2/norm(eigs(A,1)*(A'*A));
 G_landweber = eye(n) - alpha * (A' * A);
+rho_landweber = eigs(G_landweber, 1, 'lm')
 e_0 = abs(x_init - x_exact);
 e_landweber = norm(G_landweber^k * e_0)
 % Jacobi

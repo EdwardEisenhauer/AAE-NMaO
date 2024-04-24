@@ -30,11 +30,12 @@ Assuming we know the exact solution $\matr{x}^*$, we may define the
   e^{(k)} = {\left\lVert\matr{x}^{*}-\matr{x}^{(k)}\right\rVert}_2
 \end{equation*}
 The method converges if the solution error converges to zero:
-\begin{equation*}
+\begin{equation}
+  \label{eqn:convergence_criterion}
   \lim_{k\to\infty}{e^{(k)}} = 0
   \quad \text{if} \quad
   \rho\left(\matr{G}^{(k)}\right) < 1
-\end{equation*}
+\end{equation}
 where $\rho$ is the \textit{spectral radius}:
 \begin{equation*}
   \rho(\matr{G}) = \max_i{\lvert\lambda_i\rvert} = \lVert\matr{\Lambda}\rVert_2
@@ -46,13 +47,6 @@ calculated via:
   \matr{e}^{(k)} = \matr{G}^k * \matr{e}^{(0)}
 \end{equation}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Spectral radius
-One of steps that can allow us to check if iterations $\{x_k\}$ are convergent to $\matr{x} = \matr{A}^-1\matr{b}$ would be checking spectral radius.
-
-\begin{equation*}
-  \rho(\matr{S}^-1\matr{T}) = \max \lvert\lambda_i\rvert
-\end{equation*}
 \begin{itemize}
   \item Gauss-Seidel\\
     
@@ -182,11 +176,11 @@ determine the exact solution:
     4
   \end{bmatrix}
 \end{equation*}
-Before proceeding with approximating the solution, we check the residual error
-at the $k$-th iteration for each of the implemented algorithms to verify if the method
-converges. The convergence criterion is:
-
-Let's verify it for each of our algorithms:
+Throughout solving this problem we attempt to use all the methods described in
+the~\nameref{sec:algorithms}.
+Before proceeding with approximating the solution, we want to check if the given method
+converges.
+To do so we verify~\autoref{eqn:convergence_criterion}:
 \lstinputlisting[style=Matlab-editor]{problems/Problem_1.m}
 
 \todo[inline]{Calculate the solution error for each method.}
