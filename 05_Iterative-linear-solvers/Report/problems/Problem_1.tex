@@ -51,8 +51,10 @@ Assuming we know the exact solution $\matr{x}^*$:
 %% Spectral radius
 One of steps that can allow us to check if iterations $\{x_k\}$ are convergent to $\matr{x} = \matr{A}^-1\matr{b}$ would be checking spectral radius.
 
-
-\begin{enumerate}
+\begin{equation*}
+  \rho(\matr{S}^-1\matr{T}) = \max \lvert\lambda_i\rvert
+\end{equation*}
+\begin{itemize}
   \item Gauss-Seidel\\
     
     $ \matr{A} = \matr{S} - \matr{T} $
@@ -91,12 +93,47 @@ One of steps that can allow us to check if iterations $\{x_k\}$ are convergent t
     The spectral radius of the iteration matrix, $ \rho(\matr{G}) = 0.8090$
 
   \item Landwebber
-  In case of Landwebber our convergence criteria changes to form with pseudoinverse of $\matr{A}$ noted as $\matr{x} = \matr{A}^+ \matr{b}$:
-  
+  The convergence of the Richardson's first-order method, depends on the appropriate choice of the relaxation parameter \( \alpha \). 
+  For a given matrix $\matr{A}$, the iterations converge to the least-squares solution \( x = A^+b \) if \( \alpha \) is chosen within the range:
   \begin{equation*}
-    0 < \alpha < \frac{2}{\lambda_{max}(A^TA)}
+    0 < \alpha < \frac{2}{\lambda_{max}}(\matr{A}^T\matr{A}) 
   \end{equation*}
-\end{enumerate}
+
+  where  $\lambda_{max}(\matr{A}^T\matr{A})$ is the largest eigenvalue of $ \matr{A}^T\matr{A} $.
+
+  Given the matrix $\matr{A}$ used in previous sections, we compute $\max{A}^T\matr{A}$ and then find its eigenvalues. 
+  The maximum eigenvalue from this set determines the upper limit for the relaxation parameter. 
+  
+  The calculation is as follows:
+  \begin{enumerate}
+      \item Compute $ \matr{A}^T\max{A} $:
+      \begin{equation*}
+          A^TA = \matr{A}^\top \matr{A}
+      \end{equation*}
+      
+      \item Find the eigenvalues of $\matr{A}^T\matr{A}$, denoted $\lambda_i$.
+      
+      \item Identify the maximum eigenvalue:
+      \begin{equation*}
+        \lambda_{max} = \max(\lambda_i)
+      \end{equation*}
+      
+      \item Calculate the upper bound for \( \alpha \):
+      \begin{equation*}
+        \alpha < \frac{2}{\lambda_{max}}
+      \end{equation*}
+  \end{enumerate}
+
+  Computed result using MATLAB gives us $\lambda_{max} \approx 13.0902$ giving us resulting convergence criterion range as:
+  \begin{equation*}
+    0 < \alpha < 0.1528
+  \end{equation*}
+
+  Choosing \( \alpha \) within this range ensures that the Landweber iterations will converge.
+
+\end{itemize}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection*{Solving}
 
 
 
