@@ -55,3 +55,15 @@ rho_gauss_seidel =
 rho_sor =
 
     0.6545
+
+x_init = zeros(n, 1);
+k = 100;
+
+[x_landweber, e_landweber] = landweber(A, b, x_init, k, 1e-6, A\b, alpha);
+[x_jacobi, e_jacobi] = jacobi(A, b, x_init, k, 1e-6, A\b);
+[x_gauss_seidel, e_gauss_seidel] = gaussSeidel(A, b, x_init, k, 1e-6, A\b);
+[x_sor, e_sor] = sor(A, b, x_init, k, 1e-6, A\b, 0.1);
+plot(1:k,e_landweber,1:k,e_jacobi,1:k,e_gauss_seidel,1:k,e_sor)
+xlabel("Iteration")
+ylabel("Solution error")
+legend("Landweber", "Jacobi", "Gauss-Seidel", "SOR")

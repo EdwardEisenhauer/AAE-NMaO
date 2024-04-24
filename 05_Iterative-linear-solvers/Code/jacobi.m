@@ -33,7 +33,6 @@ r_err = NaN(maxIterations);
 
 S = diag(diag(A))
 T = S - A
-G = inv(S)*T
 
 for k = 1:maxIterations
     x_prev = x;
@@ -41,13 +40,13 @@ for k = 1:maxIterations
     x = inv(S)*(T*x_prev + b);
 
     if r_err(k) < tolerance
-        disp(sprintf('Converged successfully after %d iterations.', k));
+        fprintf('Converged successfully after %d iterations.\n', k);
         break;
     end
 end
 
 if k == maxIterations
-    disp('Maximum number of iterations reached.');
+    fprintf('Maximum number of %d iterations reached!\n', maxIterations);
 end
 
 end

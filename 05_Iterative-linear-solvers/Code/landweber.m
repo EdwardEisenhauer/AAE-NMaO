@@ -38,7 +38,6 @@ end
 
 x = x_init;
 r_err = NaN(maxIterations);
-G = eye(n) - alpha * A' * A
 
 for k = 1:maxIterations
     x_prev = x;
@@ -52,7 +51,7 @@ for k = 1:maxIterations
 end
 
 if k == maxIterations
-    disp('Maximum number of iterations reached.');
+    fprintf('Maximum number of %d iterations reached!\n', maxIterations);
 end
 
 end
