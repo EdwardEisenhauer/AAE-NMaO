@@ -1,53 +1,57 @@
-function [x, r_err] = landweber(A, b, x_init, maxIterations, tolerance, x_real, alpha)
-% LANDWEBER The Landweber iterative method.
-%
-%   x = LANDWEBER(A, b) approximates a solution to the system A*x=b.
-%
-%   Arguments:
-%     A --- Square coefficient matrix.
-%     b --- Column vector of constant terms.
-%     x_init --- An initial guess of the solution vector.
-%     alpha --- The relaxation parameter.
-%
-% Input:
-%   maxIterations: Maximum number of iterations
-%   tolerance: Error tolerance for convergence
+A = [ 2, -1,  0,  0;
+     -1,  2, -1,  0;
+      0, -1,  2, -1;
+      0,  0, -1,  2];
+b = [0;
+     0;
+     0;
+     5];
+x_exact = A\b
 
-[m, n] = size(A);
+x_exact =
 
-if m ~= n
-    error('The coefficient matrix A is not square!')
-end
+    1.0000
+    2.0000
+    3.0000
+    4.0000
+% As this is the same system as the one ine the List 1 Problem 1:
+% Following the suggestion from the Problem's description
+x_init = zeros(size(A,2), 1);
+% Calculating the spectral radii for each method
+n = length(A);
+% Landweber (gradient descent)
+alpha = 2/norm(eigs(A,1)*(A'*A));
+G_landweber = eye(n) - alpha * (A' * A);
+rho_landweber = eigs(G_landweber, 1, 'lm')
+% Jacobi
+S_jacobi = diag(diag(A));
+G_jacobi = eye(n) - inv(S_jacobi)*A;
+rho_jacobi = eigs(G_jacobi, 1, 'lm')
+% Gauss-Seidel
+S_gauss_seidel = tril(A);
+G_gauss_seidel = eye(n) - inv(S_gauss_seidel)*A;
+rho_gauss_seidel = eigs(G_gauss_seidel, 1, 'lm')
+% Successive Over-Relaxation (SOR)
+omega = 1;
+S_sor = tril(A,-1) + diag(diag(A))/omega;
+G_sor = eye(n) - inv(S_sor)*A;
+rho_sor = eigs(G_sor, 1, 'lm')
 
-if det(A) < eps
-    error('The coefficient matrix A is singular!')
-end
+rho_landweber =
 
-if length(b) ~= n
-    error('Vector b has wrong length!')
-end
+    0.9938
 
-if alpha < 0
-    error('Alpha cannot be smaller than 0!')
-end
 
-x = x_init;
-r_err = zeros(n,1);
-G = eye(n) - alpha * A' * A
+rho_jacobi =
 
-for k = 1:maxIterations
-    x_prev = x;
-    r_err(k) = norm(x_real - x)/n;
-    x = x_prev + alpha * A' * (b - A*x_prev);
+    0.8090
 
-    if r_err(k) < tolerance
-        fprintf('Converged successfully after %d iterations.\n', k);
-        break;
-    end
-end
 
-if k == maxIterations
-    disp('Maximum number of iterations reached.');
-end
+rho_gauss_seidel =
 
-end
+    0.6545
+
+
+rho_sor =
+
+    0.6545

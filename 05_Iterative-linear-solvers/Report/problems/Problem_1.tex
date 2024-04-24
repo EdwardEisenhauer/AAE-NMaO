@@ -156,6 +156,7 @@ calculated via:
 Since the considered system of linear equations is simple and consistent, we may use the
 \MATLAB's backslash operator in the form of \lstinline[style=Matlab-editor]{A\b}, to
 determine the exact solution:
+\lstinputlisting[linerange={1-16},style=Matlab-editor]{problems/Problem_1.m}
 \begin{equation*}
   \matr{A} = \begin{bmatrix}
     \phantom{-}2 & -1 & \phantom{-}0 & \phantom{-}0 \\
@@ -181,7 +182,8 @@ the~\nameref{sec:algorithms}.
 Before proceeding with approximating the solution, we want to check if the given method
 converges.
 To do so we verify~\autoref{eqn:convergence_criterion}:
-\lstinputlisting[style=Matlab-editor]{problems/Problem_1.m}
-
+\lstinputlisting[linerange={21-57},style=Matlab-editor]{problems/Problem_1.m}
+Since all of our methods converge, we proceed with the approximation:
+\lstinputlisting[linerange={57-},style=Matlab-editor]{problems/Problem_1.m}
 \todo[inline]{Calculate the solution error for each method.}
 \todo[inline]{If the error converges --- apply the method.}
