@@ -12,9 +12,71 @@ Start the iterations from zero-value initial guess.
 The principle of the iterative linear solvers of the linear system of equations
 expressed as $\matr{A}\matr{x}=\matr{b}$ is to start with some initial guess
 $\matr{x}^{(0)}$ and approximate the solution with each step.
+
+
 \todo[inline]{Develop the iterative methods' mathematical description.}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Explainations
+\input{algorithms/gaussSeidel.tex}
+\input{algorithms/kaczmarz.tex}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Spectral radius
+One of steps that can allow us to check if iterations $\{x_k\}$ are convergent to $\matr{x} = \matr{A}^-1\matr{b}$ would be checking spectral radius.
+
 \begin{equation*}
-  \matr{S}\matr{}
+  \rho(\matr{S}^-1\matr{T}) = \max \lvert\lambda_i\rvert
+\end{equation*}
+\begin{enumerate}
+  \item Gauss-Seidel\\
+    
+    $ \matr{A} = \matr{S} - \matr{T} $
+    where $ \matr{S} $ is the lower triangular part of $ \matr{A} $ including the diagonal, and $ \matr{T} $ is the strict upper triangular part of $ \matr{A} $.
+
+    The iterative formula for the Gauss-Seidel method is
+    $ \matr{Sx}_{k+1} = \matr{Tx}_k + \matr{b}, $
+    which can be rewritten as
+    $ \matr{x}_{k+1} = \matr{Gx}_k + \matr{c}, $
+    where $ \matr{G} = \matr{S}^{-1}\matr{T} $ and $ \matr{c} = \matr{S}^{-1}\matr{b} $.
+
+    The convergence of the Gauss-Seidel method is determined by the spectral radius of $ \matr{G} $, denoted by $ \rho(\matr{G}) $. The method converges if $ \rho(\matr{G}) < 1 $.
+
+    To find $ \rho(\matr{G}) $, we first decompose $ \matr{A} $ into $ \matr{D} $, $ \matr{L} $, and $ \matr{U} $, where $ \matr{D} $ is the diagonal of $ \matr{A} $, $ \matr{L} $ is the strict lower triangular part of $ \matr{A} $, and $ \matr{U} $ is the strict upper triangular part of $ \matr{A} $. Then, we compute $ \matr{G} $ as follows:
+    $ \matr{G} = (\matr{D} + \matr{L})^{-1}\matr{U}. $
+
+    The spectral radius $ \rho(\matr{G}) $ is the maximum absolute value of the eigenvalues of $ \matr{G} $, given by
+    $ \rho(\matr{G}) = \max_i |\lambda_i|, $
+    where $ \lambda_i $ are the eigenvalues of $ \matr{G} $.
+
+    Given a matrix $ \matr{A} $, the spectral radius $ \rho(\matr{G}) $ for the Gauss-Seidel method was calculated to be approximately 0.6, indicating that the iterations will converge.
+  
+  \item Jacobi \\
+    For the Jacobi method, the splitting of matrix $ \matr{A} $ is slightly different:
+    $ \matr{A} = \matr{D} - \matr{R}, $
+    where $ \matr{D} $ is the diagonal part of $ \matr{A} $, and $ \matr{R} $ is the remainder of $ \matr{A} $ (i.e., $ \matr{R} = \matr{L} + \matr{U} $).
+
+    The iteration formula for the Jacobi method is:
+    $ \matr{Dx}_{k+1} = \matr{Rx}_k + \matr{b}, $
+    which can be rearranged to get the new estimate of $ \matr{x} $ at each iteration:
+    $ \matr{x}_{k+1} = \matr{D}^{-1}(\matr{b} - \matr{Rx}_k). $
+
+    In this case, the iteration matrix $ \matr{G} $ for the Jacobi method is defined as:
+    $ \matr{G} = \matr{D}^{-1}\matr{R}. $
+
+    The spectral radius of the iteration matrix, $ \rho(\matr{G}) = 0.8090$
+
+  \item Landwebber
+  In case of Landwebber our convergence criteria changes to form with pseudoinverse of $\matr{A}$ noted as $\matr{x} = \matr{A}^+ \matr{b}$:
+  
+  \begin{equation*}
+    0 < \alfa < \frac{2}{\lambda_{max}(A^TA)}
+  \end{equation*}
+\end{enumerate}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection*{Solving}
+
+\begin{equation*}
+  \matr{S}\matr{x}_{k+1} = Tx_k + b
   \matr{x}^{(k+1)} = \matr{G}\matr{x}^{(k)} + \matr{c}
 \end{equation*}
 
