@@ -9,9 +9,6 @@ Start the iterations from $\matr{x}^{(0)}=\matr{0}$.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection*{Mathematics}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection*{Solution}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 First step that was taken before creating plots, convergence of methods has been checked.
 \begin{itemize}
   \item Jacobi \\
@@ -85,5 +82,46 @@ First step that was taken before creating plots, convergence of methods has been
     0 < \alpha < 0.1144
   \end{equation*}
 \end{itemize}
-\todo[inline]{Calculate the solution error for each method.}
-\todo[inline]{If the error converges --- apply the method.}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection*{Solution}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Exact solution for this problem is 
+\begin{equation*}
+  x =
+  \begin{bmatrix}
+    1 \\
+    -1 \\
+    1
+  \end{bmatrix}
+\end{equation*} 
+Because of calculated spectral radii of Jacobi, Gauss-Seidel and SOR methods weren't fulfilling the condition $\rho < 1$ these methods couldn't be used in this problem.
+For Landweber solution we used $\alpha$ with value of $0.0572$.
+\lstinputlisting[linerange={1-10},style=Matlab-editor]{problems/Problem_2.m}
+Executing the script results in output:
+\lstinputlisting[linerange={11-37},style=Matlab-editor]{problems/Problem_2.m}
+\begin{table}[H]
+  \centering
+  \caption{Calculated results using MATLAB}
+  \label{tab:my-table}
+  \begin{tabular}{|l|l|l|}
+  \hline
+  Method               & Landweber                     & Kaczmarz                      \\ \hline
+  x\_1                 & 1.0000                        & 1.0000                        \\ \hline
+  x\_2                 & -1.0000                       & -1.0000                       \\ \hline
+  x\_3                 & 1.0000                        & 1.0000                        \\ \hline
+  iterations           & 1046                          & 146                           \\ \hline
+  time elapsed {[}s{]} & 2.48 * 10\textasciicircum{}-3 & 8.97 * 10\textasciicircum{}-5 \\ \hline
+  \end{tabular}
+  \end{table}
+
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{images/Residuals_Problem2.png}
+    \caption{Residuals of Kaczmarz and Landweber methods}
+\end{figure}
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=1\textwidth]{images/Solution_Problem2.png}
+  \caption{Solution errors of Kaczmarz and Landweber methods}
+\end{figure}
