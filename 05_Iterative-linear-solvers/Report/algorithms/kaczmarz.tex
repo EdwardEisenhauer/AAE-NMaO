@@ -1,0 +1,37 @@
+\subsubsection*{Kaczmarz method}
+Kaczmarz algorithm is differently than previously mentioned algorithms in a sense 
+that it operates purely by sequentially projecting solution onto the solution spaces,
+defined by each row of the matrix $\matr{A}$ in sequence. 
+This approach is inherently geometric and relies on adjusting the solution to minimize 
+the error perpendicular to each hyperplane at each step, whereas methods such as Gauss-Seidel decompose matrix $\matr{A}$ into its lower triangular component, 
+where it iteratively refines solution by solving portion of system equation at each step using previous step value.\\
+Another part differentiating the Kaczmarz method from other methods is that it is not really dependent on spectral radius although $\matr{G}$ can be generalized as $\matr{A^-1}$, but rather on properties of matrix $\matr{A}$, 
+such as orthogonality, norm. Method is convergent to any consistent system where $\matr{A}$ is full rank.
+
+
+Each row $i$ of the matrix $\matr{A}$ represents a hyperplane in $n$-dimensional space, and the goal of the Kaczmarz method is to find the point of intersection of these hyperplanes, which corresponds to the solution of the system.
+
+The iterative step of the Kaczmarz method is given by:
+\begin{equation}
+    x_{k+1} = x_{k} + \alpha \frac{b_{i} - \langle a_{i}, x_{k} \rangle}{\|a_{i}\|_{2}^{2}} a_{i},
+\end{equation}
+where:
+\begin{itemize}
+    \item $x_{k}$ is the current estimate of the solution.
+    \item $x_{k+1}$ is the next estimate of the solution.
+    \item $a_{i}$ is the \(i\)-th row of $\matr{A}$ treated as a column vector.
+    \item $b_{i}$ is the \(i\)-th component of the vector \(b\).
+    \item $\langle \cdot, \cdot \rangle$ denotes the dot product.
+    \item $\|a_{i}\|_{2}$ is the \(L_2\) norm of the vector \(a_{i}\).
+    \item $i = k \mod m$, which means the rows are cycled through sequentially.
+    \item $\alpha$ is the relaxation parameter.
+\end{itemize}
+
+
+
+The relaxation parameter $\alpha$ allows control over the convergence of the method. 
+\begin{itemize}
+    \item $\alpha = 1$ default state, each step has to project directly onto the hyperplane.
+    \item $\alpha > 1$ more aggressive approach that goes beyond solution space, this can accelerate convergence if successive hyperplanes are distanced apart.
+    \item $\alpha < 1$ used when method overshoots, this can happen due to noisy data set that method operates on. 
+\end{itemize}
