@@ -103,7 +103,7 @@ calculated via:
   The convergence of the Richardson's first-order method, depends on the appropriate choice of the relaxation parameter \( \alpha \). 
   For a given matrix $\matr{A}$, the iterations converge to the least-squares solution \( x = A^+b \) if \( \alpha \) is chosen within the range:
   \begin{equation*}
-    0 < \alpha < \frac{2}{\lambda_{max}}(\matr{A}^T\matr{A}) 
+    0 < \alpha < 2|\lambda_{max}(\matr{A}^T\matr{A})| 
   \end{equation*}
 
   where  $\lambda_{max}(\matr{A}^T\matr{A})$ is the largest eigenvalue of $ \matr{A}^T\matr{A} $.
@@ -127,7 +127,7 @@ calculated via:
       
       \item Calculate the upper bound for \( \alpha \):
       \begin{equation*}
-        \alpha < \frac{2}{\lambda_{max}}
+        \alpha < 2\lambda_{max}
       \end{equation*}
   \end{enumerate}
 
