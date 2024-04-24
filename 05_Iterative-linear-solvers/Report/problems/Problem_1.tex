@@ -76,8 +76,21 @@ One of steps that can allow us to check if iterations $\{x_k\}$ are convergent t
     where $ \lambda_i $ are the eigenvalues of $ \matr{G} $.
 
     Given a matrix $ \matr{A} $, the spectral radius $ \rho(\matr{G}) $ for the Gauss-Seidel method was calculated to be approximately 0.6, indicating that the iterations will converge.
-  
+      
+  \item Successive Over-Relaxation \\
+
+    SOR method is an improvement over the Gauss-Seidel method, it introduces a relaxation parameter $ \omega $ to accelerate convergence or correct overshooting of the function.
+    For $\omega = 1$ method simplifies to Gauss-Seidel.
+
+    The iteration scheme for the SOR method is given by:
+    $$ \matr{x}_{k+1} = (1-\omega)\matr{x}_k + \omega \matr{D}^{-1}(\matr{b} - (\matr{L} + \matr{U})\matr{x}_k), $$
+    where $ \matr{D} $ is the diagonal, $ \matr{L} $ is the strict lower triangular, and $ \matr{U} $ is the strict upper triangular part of the matrix $ \matr{A} $, and $ \omega $ is the relaxation factor such that $ 0 < \omega < 2 $.
+
+    The matrix $ \matr{A} $ is split as $ \matr{A} = \matr{D} - \matr{L} - \matr{U} $, and the SOR iteration matrix $ \matr{G}$ is defined as:
+    $$ \matr{G}  = (\matr{D} - \omega \matr{L})^{-1}[(1-\omega)\matr{D} + \omega \matr{U}]. $$
+
   \item Jacobi \\
+  
     For the Jacobi method, the splitting of matrix $ \matr{A} $ is slightly different:
     $ \matr{A} = \matr{D} - \matr{R}, $
     where $ \matr{D} $ is the diagonal part of $ \matr{A} $, and $ \matr{R} $ is the remainder of $ \matr{A} $ (i.e., $ \matr{R} = \matr{L} + \matr{U} $).
@@ -92,7 +105,8 @@ One of steps that can allow us to check if iterations $\{x_k\}$ are convergent t
 
     The spectral radius of the iteration matrix, $ \rho(\matr{G}) = 0.8090$
 
-  \item Landwebber
+  \item Landwebber \\
+  
   The convergence of the Richardson's first-order method, depends on the appropriate choice of the relaxation parameter \( \alpha \). 
   For a given matrix $\matr{A}$, the iterations converge to the least-squares solution \( x = A^+b \) if \( \alpha \) is chosen within the range:
   \begin{equation*}
@@ -131,6 +145,12 @@ One of steps that can allow us to check if iterations $\{x_k\}$ are convergent t
 
   Choosing \( \alpha \) within this range ensures that the Landweber iterations will converge.
 
+  \item Kaczmarz \\
+  
+    The convergence criterion for the Kaczmarz method is that the matrix $ \matr{A} $ must have no zero rows, 
+    which ensures that each equation contributes to the determination of the solution. \\
+    Additionally, for the method to converge, the following condition should be satisfied: 
+    $ \matr{Ax} = \matr{b} $ must be consistent, meaning that at least one solution exists.
 \end{itemize}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection*{Solving}
