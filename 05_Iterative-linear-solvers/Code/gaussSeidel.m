@@ -8,7 +8,7 @@ function [x, r_err] = gaussSeidel(A, b, initialGuess, maxIterations, tolerance, 
 
 n = length(b);
 x = initialGuess;
-r_err = zeros(n,1);
+r_err = NaN(maxIterations);
 S = tril(A)
 T = S - A
 G = inv(S)*T

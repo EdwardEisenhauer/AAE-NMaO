@@ -20,7 +20,7 @@ x_init = zeros(size(A,2), 1);
 % Calculating the spectral radii for each method
 n = length(A);
 % Landweber (gradient descent)
-alpha = 2/norm(eigs(A,1)*(A'*A));
+alpha = 0.04;
 G_landweber = eye(n) - alpha * (A' * A);
 rho_landweber = eigs(G_landweber, 1, 'lm')
 % Jacobi
@@ -39,7 +39,7 @@ rho_sor = eigs(G_sor, 1, 'lm')
 
 rho_landweber =
 
-    0.9938
+     0.9942
 
 
 rho_jacobi =

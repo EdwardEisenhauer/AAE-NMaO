@@ -37,7 +37,7 @@ if alpha > alpha_max
 end
 
 x = x_init;
-r_err = zeros(n,1);
+r_err = NaN(maxIterations);
 G = eye(n) - alpha * A' * A
 
 for k = 1:maxIterations

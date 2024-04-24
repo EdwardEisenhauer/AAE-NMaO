@@ -8,7 +8,7 @@ function [x, r_err] = sor(A, b, initialGuess, maxIterations, tolerance, x_real, 
 
 n = length(b);
 x = initialGuess;
-r_err = zeros(n,1);
+r_err = NaN(maxIterations);
 S = tril(A) + diag(diag(A)) ./ omega;
 T = S - A
 G = inv(S)*T

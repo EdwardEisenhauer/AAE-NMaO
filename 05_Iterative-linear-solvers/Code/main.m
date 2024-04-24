@@ -18,7 +18,7 @@ x_exact = A\b
 % Calculating the spectral radii for each method
 n = length(A);
 % Landweber (gradient descent)
-alpha = 0.1;
+alpha = 0.04;
 G_landweber = eye(n) - alpha * (A' * A);
 rho_landweber = eigs(G_landweber, 1, 'lm')
 % Jacobi
@@ -39,14 +39,14 @@ rho_sor = eigs(G_sor, 1, 'lm')
 x_init = zeros(n, 1);
 k = 100;
 
-x_landweber = landweber(A, b, x_init, k, 1e-6, A\b, alpha)
-x_jacobi = jacobi(A, b, x_init, k, 1e-6, A\b)
-x_gauss_seidel = gaussSeidel(A, b, x_init, 50, 1e-6, A\b)
-x_sor = sor(A, b, x_init, 50, 1e-6, A\b, 0.1)
-% plot(1:k,errors.landweber,1:k,errors.jacobi)
-% xlabel("Iteration")
-% ylabel("Residual error")
-% legend("Landweber", "Jacobi")
+[x_landweber, e_landweber] = landweber(A, b, x_init, k, 1e-6, A\b, alpha);
+[x_jacobi, e_jacobi] = jacobi(A, b, x_init, k, 1e-6, A\b);
+[x_gauss_seidel, e_gauss_seidel] = gaussSeidel(A, b, x_init, k, 1e-6, A\b);
+[x_sor, e_sor] = sor(A, b, x_init, k, 1e-6, A\b, 0.1);
+plot(1:k,e_landweber,1:k,e_jacobi,1:k,e_gauss_seidel,1:k,e_sor)
+xlabel("Iteration")
+ylabel("Solution error")
+legend("Landweber", "Jacobi", "Gauss-Seidel", "SOR")
 
 
 e_0 = abs(x_init - x_exact);

@@ -29,7 +29,7 @@ if length(b) ~= n
 end
 
 x = x_init;
-r_err = zeros(n,1);
+r_err = NaN(maxIterations);
 
 S = diag(diag(A))
 T = S - A
