@@ -23,29 +23,28 @@ iteration:
 For any starting guess $\matr{x}^{(0)}$ the iterations are convergent to the real
 solution $\matr{x}^{*}$ if and only if all of the eigenvalues of $\matr{G}$ are smaller
 than $1$.
-If we define the \textit{spectral radius} $\rho$:
+
+Assuming we know the exact solution $\matr{x}^*$, we may define the
+\textit{solution error} $e$:
 \begin{equation*}
-  \rho(\matr{G}) = \max_i{\lvert\lambda_i\rvert}
+  e^{(k)} = {\left\lVert\matr{x}^{*}-\matr{x}^{(k)}\right\rVert}_2
 \end{equation*}
-and the \textit{solution error} $e$:
+The method converges if the solution error converges to zero:
 \begin{equation*}
-  \lim_{k\to\infty}{e} = 0
+  \lim_{k\to\infty}{e^{(k)}} = 0
   \quad \text{if} \quad
-  \max{\lvert\lambda_n\rvert}<1
-  \quad \text{for} \quad
-  \matr{G}^{k}
+  \rho\left(\matr{G}^{(k)}\right) < 1
 \end{equation*}
-
-Assuming we know the exact solution $\matr{x}^*$:
+where $\rho$ is the \textit{spectral radius}:
 \begin{equation*}
-  e^k = \matr{x}^k - \matr{x}^*
+  \rho(\matr{G}) = \max_i{\lvert\lambda_i\rvert} = \lVert\matr{\Lambda}\rVert_2
 \end{equation*}
 
+Following~\cite{Zdunek}, the value of the solution error at the $k$-th iteration may be
+calculated via:
 \begin{equation}
-  e^k = \matr{G}^k * \matr{e}^0
+  \matr{e}^{(k)} = \matr{G}^k * \matr{e}^{(0)}
 \end{equation}
-
-\todo[inline]{Develop the iterative methods' mathematical description.}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Spectral radius
