@@ -1,3 +1,9 @@
 \subsection{Problem 13}
 
-Let $\mathbf{Ax = b}$ , where $A = I_N \bigotimes C^TC$, the symbol $\bigotimes$ denotes the Kronecker product, $I_N \in R^{N \times N}$ is an identity matrix, $C \in R^{M \times M}$ is a random matrix with a uniform distribution, $M = 100$, and $N=50$, and $x \square N(0, I_{MN})$. Find the direct method that solves the above system  of  linear  equations  with  the  lowest  computational  cost.  Estimate  the  cost  with  a  roughly calculated number of flops and with the elapsed time.
+Let $\matr{A}\matr{x} = \matr{b}$ , where $\matr{A} = \matr{I}_N \bigotimes \matr{C}^T\matr{C}$, the symbol $\bigotimes$ denotes the Kronecker product,
+$\matr{I}_N \in R^{N \times N}$ is an identity matrix, $\matr{C} \in R^{M \times M}$ is a random matrix with a uniform distribution,
+$M = 100$, and $N=50$, and $\matr{x} \sim N(0, I_{MN})$.
+Find the direct method that solves the above system of linear equations with the lowest computational cost.
+Estimate the cost with a roughly calculated number of flops and with the elapsed time.
+
+MATLAB function rand and randn
