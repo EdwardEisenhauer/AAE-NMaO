@@ -1,4 +1,4 @@
-%% Problem 1ar
+%% Problem 1
 % Solve the system and find the pivots when:
 % 2u -  v           = 0
 % -u + 2v -  w      = 0
@@ -70,17 +70,47 @@ A = [1 2 3 4;
 [L, U, P] = Alg8(A)
 det(A) - prod(diag(U))
 
-%% Problem 10
+%% Problem 8
+clear all;
+clc;
 
+A = [1 -1  0  0;
+    -1  2 -1  0;
+     0 -1  2 -1;
+     0  0 -1  2]
+Alg10(A)
+inv(Alg10(A))
+
+%% Problem 9
+clear all;
+clc;
+
+A = pascal(100)
+Alg10(A)
+%Alg10(A)*Alg10(A)'
+A - Alg10(A)*Alg10(A)'
+
+%% Problem 10
+% basic variable:
+%    any variable that corresponds to a pivot column in the aug-
+%    mented matrix of a system.
+% free variables:
+%    all nonbasic variables.
 % A = [1 2 2 3 1;
 %      2 4 4 6 2;
 %      3 6 6 9 6;
 %      1 2 4 5 3]
+clear all;
+clc;
 
-A = [0.835, 0.667;
-     0.333, 0.266];
-b = [0.168; 0.067];
+A = [1 2 2 3 1;
+     2 4 4 6 2;
+     3 6 6 9 6;
+     1 2 4 5 3]
  
-Alg6_RREF([A b])
+A_RREF= Alg6_RREF(A)
+rank(A_RREF)
+
+%% Problem 13
 
 

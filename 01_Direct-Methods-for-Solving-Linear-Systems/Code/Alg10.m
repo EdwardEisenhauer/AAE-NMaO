@@ -2,7 +2,8 @@ function A = Alg10(A)
 % Algorithm 10: Cholesky (Banachiewicz) factorization.
 % Matrix A has to be symmetric and positive-definite:
 % all d(i, i) > 0 for A = LDL^T.
-% We are using Outer product Version (Golub, Load, Alg. 4.2.2).
+% We are using Outer product Version (Golub, Load, Alg. 4.2.2), which
+% computes lower triangular G, such that A = G*G^T
 
 [m, n] = size(A);
 
@@ -21,4 +22,3 @@ end
 A = tril(A);
 
 end
-
