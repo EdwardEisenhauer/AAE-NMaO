@@ -8,12 +8,12 @@
 %
 % \iffalse
 %<*driver>
-\ProvidesFile{WUST-AAE-NMaO-Report.dtx}
+\ProvidesFile{WUSTReport.dtx}
 %</driver>
 %<package>\NeedsTeXFormat{LaTeX2e}[2005/12/01]
-%<package>\ProvidesPackage{WUST-AAE-NMaO-Report}
+%<package>\ProvidesPackage{WUSTReport}
 %<*package>
-  [2023/01/06 v0.1.0 WUST AAE NMaO Report package]
+  [2024/06/21 v0.1.0 WUST Report package]
 %</package>
 %
 %<*driver>
@@ -23,25 +23,25 @@
   bookmarks,
   bookmarksopen,
   bookmarksopenlevel=2,
-  pdftitle={WUST AAE NMaO Report LaTeX package},
+  pdftitle={WUST Report LaTeX package},
   pdfauthor={Sergiusz Warga}
 ]{hyperref}
 \EnableCrossrefs
 \CodelineIndex
 \RecordChanges
-\setlength\hfuzz{15pt}      % don’t show so many
+\setlength\hfuzz{15pt}      % don't show so many
 \hbadness=7000              % over- and underfull box warnings
 \begin{document}
-  \DocInput{WUST-AAE-NMaO-Report.dtx}
+  \DocInput{WUSTReport.dtx}
 \end{document}
 %</driver>
 % \fi
 %
 % \CheckSum{0}
 %
-% \changes{v0.1.0}{2023/01/06}{Initial version}
+% \changes{v0.1.0}{2024/06/21}{Initial version}
 %
-% \GetFileInfo{WUST-AAE-NMaO-Report.dtx}
+% \GetFileInfo{WUSTReport.dtx}
 %
 % \DoNotIndex{\@date, \@title}
 % \DoNotIndex{\\}
@@ -61,8 +61,8 @@
 % \DoNotIndex{\uppercase}
 % \DoNotIndex{\vfill}
 %
-% \title{WUST AAE NMaO Report package\thanks
-%   {This document corresponds to \texttt{WUST-AAE-NMaO-Report}~\fileversion,
+% \title{WUST Report package\thanks
+%   {This document corresponds to \texttt{WUSTReport}~\fileversion,
 %       dated \filedate.}}\author{Sergiusz Warga\texttt{sergiusz.warga@gmail.com}}
 %
 % \maketitle
@@ -87,6 +87,8 @@
   pdfkeywords={}
   pdfstartview={Fit}, % Fits the page to the window
   hidelinks,
+  bookmarksopen=false,
+  pdfpagemode=UseNone,
   pdfproducer={XeLateX with hyperref},
   pdfcreator={Xelatex},
 }
@@ -126,18 +128,18 @@
   \thispagestyle{empty}
   \begin{center}
     \includegraphics{logo-pwr-2016.pdf}
+    \vspace{17ex}
+    \hrule
+    \vspace{1ex}
+    {\huge \bfseries \@title}
+    \vspace{1ex}
+    \hrule
+    \vfill
+    \large
+    \textsc{\@author}\\
     \vspace{\baselineskip}
-    \rule{\linewidth}{0.2 mm}\\[0.4 cm]
-    {\huge \bfseries \@title}\\
-    \rule{\linewidth}{0.2 mm}\\[1.5 cm]
-  \vfill
-  \large
-  \textsc{\@author}\\
-  \vspace{\baselineskip}
-  \textsc{Tutor: \@reporttutor}\\
-% TODO 2024-03-17: Parametrize it.
-  \textsc{Laboratory group: Friday 13:15}\\
-
+    \textsc{Tutor: \@reporttutor}\\
+    \textsc{Laboratory group: \@reportgroup}\\
   \end{center}
 \end{titlepage}
 }

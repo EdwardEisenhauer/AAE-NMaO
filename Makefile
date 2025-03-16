@@ -2,7 +2,7 @@ BUILDDIR = `pwd`/build
 DOCKER_IMAGE = latex-builder
 LATEX_OPTIONS = -pdf
 #  -interaction=nonstopmode
-PACKAGE_NAME = WUST-AAE-NMaO-Report
+PACKAGE_NAME = WUSTReport
 
 SOURCE_DIRS = $(shell ls -d */ | grep -v "^build")
 SOURCE_TEXS = $(SOURCE_DIRS:=Report/main.tex)
