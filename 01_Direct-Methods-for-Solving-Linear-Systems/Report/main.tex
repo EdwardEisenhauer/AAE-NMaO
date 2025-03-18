@@ -3,7 +3,6 @@
 \usepackage{amsmath}
 \usepackage[polish,main=english]{babel}
 \usepackage{indentfirst}
-\usepackage{nameref}
 \usepackage{natbib}
 \usepackage{listings}
 \usepackage{matlab-prettifier}
@@ -36,8 +35,8 @@
 \clearpage
 
 \section{Algorithms}
-\subsection{Algorithm~1: Gaussian elimination}%
-\label{algorithm:1}
+\subsection{Gaussian elimination}%
+\label{algorithm:gaussian_elimination}
 \lstinputlisting[style=Matlab-editor, breaklines=false]{algorithms/gaussian_elimination.m}
 \subsection{Algorithm~2: Gaussian  elimination  with  Complete  Pivoting}%
 \label{algorithm:2}
@@ -45,8 +44,8 @@
 \subsection{Algorithm~3: Forward Substitution}%
 \label{algorithm:3}
 \lstinputlisting[style=Matlab-editor, breaklines=false]{algorithms/Alg3.m}
-\subsection{Algorithm~4: Back Substitution}%
-\label{algorithm:4}
+\subsection{Back Substitution}%
+\label{algorithm:back_substitution}
 \lstinputlisting[style=Matlab-editor, breaklines=false]{algorithms/Alg4.m}
 \subsection{Algorithm~5: The Gauss-Jordan elimination algorithm}%
 \label{algorithm:5}
@@ -76,7 +75,7 @@
 
 \clearpage
 
-\nocite{Zdunek, GoluVanl96}
+\nocite{Zdunek, GoluVanl96, Meyer}
 \bibliographystyle{alpha}
 \bibliography{bibliography}
 

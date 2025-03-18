@@ -8,25 +8,24 @@ Solve the system and find the pivots when:
 
 \subsubsection*{Mathematics}
 The solution to a linear system $\matr{A}x = \matr{b}$, where $\matr{A}$ is a
-coefficient matrix and $\matr{b}$ is a column vector may be found by:
+coefficient matrix and $\matr{b}$ is a column vector, may be found by:
 \begin{enumerate}
   \item Composing an augmented matrix
     $\matr{B} = \begin{amatrix}{1}{1}
       \matr{A} & \matr{b}
     \end{amatrix}$.
-  \item Reducing the matrix $\matr{B}$ to the upper triangular form with the Gaussian
-    Elimination\footnote{\nameref{algorithm:1}} algorithm.
-  \item Obtaining the solution with the Back
-    Substitution\footnote{\nameref{algorithm:4}} algorithm.
+  \item Reducing the matrix $\matr{B}$ to the upper triangular form
+    with the \textit{\nameref{algorithm:gaussian_elimination}} algorithm.
+  \item Obtaining the solution with the \textit{\nameref{algorithm:back_substitution}} algorithm.
 \end{enumerate}
 
-Note, that this method works only when none of the $a_{ii}$ is zero, which is further
-discussed in \nameref{problem:2}.
+Note, that this method works only when none of the diagonal entries $a_{ii}$ is zero,
+which is further discussed in \nameref{problem:2}.
 
 \subsubsection*{Solution}
 
-Following the manual calculations of the Gaussian Elimination, we transform the matrix
-to the upper triangular form:
+Following the manual calculations of the \nameref{algorithm:gaussian_elimination},
+we transform the matrix to the upper triangular form:
 \begin{equation*}
 \begin{split}
     \begin{amatrix}{1}{1}
@@ -63,16 +62,14 @@ and then we obtain the variables' values with the Back Substitution:
 \begin{equation*}
   \begin{split}
     \systeme{2u-v=0,\frac{3}{2}v-2w=0,\frac{4}{3}w-z=0,\frac{5}{4}z=5}
+    \rightarrow
+    \systeme[uvw]{2u-v=0,\frac{3}{2}v-2w=0,\frac{4}{3}w-4=0,z=4}
     &\rightarrow
-    \systeme{2u-v=0,\frac{3}{2}v-2w=0,\frac{4}{3}w-4=0,z=4}
+    \systeme[uv]{2u-v=0,\frac{3}{2}v-6=0,w=3,z=4}
     \rightarrow\\
     \rightarrow
-    \systeme{2u-v=0,\frac{3}{2}v-6=0,w=3,z=4}
+    \systeme[u]{2u-2=0,v=2,w=3,z=4}
     &\rightarrow
-    \systeme{2u-v=0,v=2,w=3,z=4}
-    \rightarrow
-    \systeme{u=1,v=2,w=3,z=4}
-    \rightarrow
     \begin{cases}
     u=1\\
     v=2\\
@@ -82,6 +79,8 @@ and then we obtain the variables' values with the Back Substitution:
 \end{split}
 \end{equation*}
 
-Verifying the above calculation with our implementations in \MATLAB yields:
+Verifying the above calculations with our implementations in \MATLAB
+\footnote{Algorithms \hyperref[algorithm:gaussian_elimination]{\texttt{gaussian\_elimination}} and \hyperref[algorithm:back_substitution]{\texttt{back\_substitution}}.}
+yields:
 \lstinputlisting[style=Matlab-editor]{problems/Problem_1.m}
 which corresponds to our solution.
