@@ -1,12 +1,34 @@
 \subsection{Problem 3}
+
 Solve the system:
 \begin{equation*}
     \systeme{0.0001x_1+x_2=1,x_1+x_2=2}
 \end{equation*}
 with the Gaussian elimination with and without pivoting at the round-off error limited to 3 significant digits. Compute the condition number of the system matrix.
+
 \subsubsection*{Mathematics}
-Not only pivoting helps with $a_{ii}=0$ problem but, by choosing the biggest entry, ensures the stability of the LU factorization. As explained in detail in~~\cite[section 3.3]{GoluVanl96} for the factorization errors to be small, the diagonal entries of $\matr{U}$ matrix has to be small. Please note that in both solutions and condition number computations precision was limited to 3 significant digits.
+
+In \nameref{problem:2} we saw that pivoting allows us to perform the Gaussian elimination when $a_{ii}=0$.
+In our implementation of \nameref{algorithm:gaussian_elimination_with_partial_pivoting}, we choose the maximum entry in the considered row to ensure the stability of the floating-point computations, which is explained in detail in~\cite[section 3.3]{GoluVanl96} and~\cite[section 1.5]{Meyer}.
+
+The \textit{condition number} describes the computational stability of the computed matrix.
+The higher the condition number $\kappa$, the more sensitive is the exact solution to matrix perturbations --- a small relative change in $\matr{A}$ can cause a large relative change in $\matr{A}^{-1}$
+The condition number is computed as: 
+\begin{equation}
+    \kappa(\mathbf{A})=||\mathbf{A}||_2\cdot||\mathbf{A}^{-1}||_2
+\end{equation}
+where $||\mathbf{A}||_2$ is matrix 2-Norm defined by~\cite[equation 5.2.7]{Meyer} as:
+\begin{equation}\label{eqn:2-norm}
+\begin{split}
+    ||\mathbf{A}||_2 = \sqrt{\lambda_{max}}
+\end{split}
+\end{equation}
+where $\lambda_{max}$ is the largest number $\lambda$ such that $\matr{A}^T\matr{A}-\lambda\matr{I}$ is singular\footnote{Eigenvalues and eigenvectors will be explained in detail in the next report.}. 
+
+Please note that in both solutions and condition number computations, the precision was limited to 3 significant digits.
+
 \subsubsection*{Solution without pivoting}
+
 \begin{equation*}
 \begin{split}
     \begin{amatrix}{1}{1}
@@ -33,6 +55,7 @@ gives us
 which is obviously contradictory to $R_2$.
 
 \subsubsection*{Solution with pivoting}
+
 \begin{equation*}
 \begin{split}
     \begin{amatrix}{1}{1}
@@ -61,17 +84,9 @@ gives us
     x_2=1
     \end{cases}
 \end{equation*}
+
 \subsubsection*{Condition number}
-Condition number should describe the stability of a computed matrix. The bigger the condition number $\kappa$ the less stable the (coefficient) matrix is. It is computed as: 
-\begin{equation}
-    \kappa(\mathbf{A})=||\mathbf{A}||_2\cdot||\mathbf{A}^{-1}||_2
-\end{equation}
-where 
-\begin{equation}\label{eqn:2-norm}
-\begin{split}
-    ||\mathbf{A}||_2 = \sqrt{\lambda_{max}A^TA}
-\end{split}
-\end{equation}
+
 $\matr{A}^{-1}$ may be computed via Gauss-Jordan algorithm with pivoting:
 \begin{equation*}
 \begin{split}
@@ -103,7 +118,8 @@ $\matr{A}^{-1}$ may be computed via Gauss-Jordan algorithm with pivoting:
     \end{amatrix}
 \end{split}
 \end{equation*}
-Now, using the equation~\ref{eqn:2-norm}
+
+Now, following~\autoref{eqn:2-norm}:
 
 \parbox{0.5\textwidth}{
 \begin{gather*}
@@ -135,6 +151,6 @@ Now, using the equation~\ref{eqn:2-norm}
 }
 we finally obtain
 \begin{equation*}
-    \kappa(\mathbf{A})=\frac{3\pm\sqrt{5}}{2}\approx2.618
+    \kappa(\mathbf{A})=\frac{3+\sqrt{5}}{2}\approx2.618
 \end{equation*}
-which is a very low number indicating, that the matrix $\matr{A}$ is computationally stable.
+which is a relatively low number indicating, that the matrix $\matr{A}$ is computationally stable.
