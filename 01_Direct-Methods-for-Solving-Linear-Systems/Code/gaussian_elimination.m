@@ -16,7 +16,7 @@ end
 
 B = [A b];
 
-for k = 1:n - 1
+for k = 1:m - 1
     rows = k + 1:m;
     B(rows, :) = B(rows, :) - (B(rows, k) / B(k, k)) .* B(k, :);
 end

@@ -1,12 +1,13 @@
+clear all;
+clc;
 A = [1, 1, 1;
      1, 1, 2;
      1, 2, 2];
-b = [1;2;1];
-[P, Q, L, U] = Alg2(A);
-% PAQ = LU
-% Ly = b and Ux = y
-y = Alg3(L, P*b);     % Forward substitution
-x = Q*Alg4(U, y)      % Backward substitution
+b = [1;
+     2;
+     1];
+B = gaussian_elimination_with_partial_pivoting(A, b);
+x = back_substitution(B(:, 1:end - 1), B(:, end))
 
 x =
 
