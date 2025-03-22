@@ -1,36 +1,20 @@
 \documentclass[a4paper]{article}
-\usepackage{WUST-AAE-NMaO-Report}
-\usepackage{amsfonts}
+\usepackage{WUSTReport}
 \usepackage{amsmath}
 \usepackage[polish,main=english]{babel}
 \usepackage{indentfirst}
-\usepackage{nameref}
 \usepackage{natbib}
 \usepackage{listings}
 \usepackage{matlab-prettifier}
 \usepackage{systeme}
 \usepackage{todonotes}
 
-\usepackage{float} 
-\usepackage{graphicx,xcolor,colortbl}    
-\usepackage{epstopdf,epsfig}   
-
-% \graphicspath{{images/}}
-% \usepackage{amssymb}
-% \usepackage{titlesec}
-% \usepackage{vmargin}
-% \usepackage{graphicx}
-% \usepackage{fancyhdr}
-% \usepackage{xcolor}
-% \usepackage{multicol}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\title{Numerical Methods and Optimization Report 2: Eigenproblems}
-\author{KKinga Otczyk 268473\\Sergiusz Warga 230757}
-\date{\today}
-\reporttutor{dr hab.\ inż. Rafał Zdunek}
+\title{Numerical Methods and Optimization Report 2:
+  Eigenproblems}
+\author{Kinga Otczyk 268473\\Sergiusz Warga 230757}
+\date{2025-03-28}
+\reporttutor{dr hab. inż. Rafał Zdunek}
+\reportgroup{Friday 13:15}
 
 \begin{document}
 
@@ -41,21 +25,12 @@
 \section{Problems}
 \input{problems/Problem_1}
 \input{problems/Problem_2}
-\input{problems/Problem_4}
 \input{problems/Problem_7}
+\input{problems/Problem_11}
 
 \clearpage
 
 \section{Algorithms}
-\subsection{Algorithm~1: Scaled power}%
-\label{algorithm:1}
-\lstinputlisting[style=Matlab-editor, breaklines=false]{algorithms/Alg1.m}
-\subsection{Algorithm~2: Shift inverse power}%
-\label{algorithm:2}
-\lstinputlisting[style=Matlab-editor, breaklines=false]{algorithms/Alg2.m}
-\subsection{Algorithm: Gershgorin}%
-\label{algorithm:gershgorin}
-\lstinputlisting[style=Matlab-editor, breaklines=false]{algorithms/Gershgorin.m}
 
 %%%%%%%%%%%%%%%%%%%
 %% BIBLIOGRAPHY %%%
@@ -63,7 +38,7 @@
 
 \clearpage
 
-\nocite{GoluVanl96,Zarowski,Zdunek}
+\nocite{Meyer, GoluVanl96, Zdunek}
 \bibliographystyle{alpha}
 \bibliography{bibliography}
 
