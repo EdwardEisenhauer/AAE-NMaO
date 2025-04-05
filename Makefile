@@ -1,6 +1,6 @@
 BUILDDIR = `pwd`/build
 DOCKER_IMAGE = latex-builder
-LATEX_OPTIONS = -pdf
+LATEX_OPTIONS = -xelatex
 #  -interaction=nonstopmode
 PACKAGE_NAME = WUSTReport
 
