@@ -1,7 +1,10 @@
 \documentclass[a4paper]{article}
+\usepackage{fontspec}
+\setmainfont[Ligatures=TeX]{CMU Serif}
 \usepackage{WUSTReport}
 \usepackage{amsmath}
-\usepackage[polish,main=english]{babel}
+\usepackage{amssymb}
+\usepackage[russian,polish,main=english]{babel}
 \usepackage{indentfirst}
 \usepackage{natbib}
 \usepackage{listings}
@@ -23,14 +26,21 @@
 \pagebreak
 
 \section{Problems}
-\input{problems/Problem_1}
-\input{problems/Problem_2}
-\input{problems/Problem_7}
-\input{problems/Problem_11}
+\input{problems/problem_1}
+\input{problems/problem_2}
+\input{problems/problem_7}
+\input{problems/problem_11}
 
 \clearpage
 
 \section{Algorithms}
+\subsection{Gershgorin disks}%
+\label{algorithm:gershgorin}
+\lstinputlisting[style=Matlab-editor, breaklines=false]{algorithms/Gershgorin.m}
+\subsection{Scaled power algorithm}
+\lstinputlisting[style=Matlab-editor, breaklines=false]{algorithms/scaled_power.m}
+\subsection{Shift inverse power algorithm}
+\lstinputlisting[style=Matlab-editor, breaklines=false]{algorithms/inverse_power.m}
 
 %%%%%%%%%%%%%%%%%%%
 %% BIBLIOGRAPHY %%%
