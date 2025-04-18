@@ -1,7 +1,8 @@
-\subsection{Problem 1}%
-\label{sec:problem_1}
-Find a condition on the numbers $a, b, c$ such that the following system of equations is
-consistent. When that condition is satisfied, find all solutions
+\subsection{Problem~1}%
+\label{problem:1}
+
+Find a condition on the numbers $a, b, c$ such that the following system of equations is consistent.
+When that condition is satisfied, find all solutions
 (in terms of $a, b, \text{and}, c$):
 \begin{equation*}
   \systeme{x+3y+z=a,
@@ -14,17 +15,16 @@ Then choose the numbers $a, b, c$ to satisfy the conditions:
   \task $x=0, y=0, z=1$
   \task $x=-2, y=1, z=0$
 \end{tasks}
-For the computed numbers $a, b, c$, estimate the solutions using the Regularized FOCUSS
-algorithm.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+For the computed numbers $a, b, c$, estimate the solutions using the Regularized FOCUSS algorithm.
+
 \subsubsection*{Mathematics}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-The above system of equations is underdetermined.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% The above system of equations is underdetermined.
+\todo[inline]{Elaborate on mathematics.}
+
 \subsubsection*{Solution}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Following the manual calculations of the Gaussian Elimination, we transform the matrix
-to the Row Reduced Echelon Form:
+
+Following the steps of the \textit{Gauss-Jordan method}, we transform the matrix to the Row Reduced Echelon Form:
 \begin{equation*}
 \begin{split}
     \begin{amatrix}{1}{1}
@@ -48,22 +48,60 @@ to the Row Reduced Echelon Form:
   \end{amatrix} &
 \end{split}
 \end{equation*}
-From the RREF we may conclude that there are only two possibilities: either the system
-has no solutions when $c + 2b - a \neq 0$, or it has infinitely many solutions when
-$c + 2b - a = 0$ --- in that case, the system is consistent.
-Additionally, the $z$ is a free variable.
-Now we may proceed with substituting the variables:
+Looking at the RREF we may easily conclude that for our system to be consistent:
 \begin{equation*}
-  \text{for}
+    c + 2b - a = 0
+\end{equation*}
+In such a case, $z$ is a free variable and the considered system has infinitely many solutions.
+
+Now we may proceed with substituting the variables:
+\begin{tasks}
+    \task \begin{equation*}
+      \text{for}\quad
   \begin{cases}
-  x=0\\
-  y=3\\
-  z=1
+    x=0\\
+    y=3\\
+    z=1
+  \end{cases}\quad
+  \text{we get}\quad
+  \begin{cases}
+    a=0+3*3+1=10\\
+    b=0-2*3+1=-5\\
+    c=0+7*3-1=20
   \end{cases}
-  \text{we get}
+  \end{equation*}
+  \task \begin{equation*}
+  \text{for}\quad
   \begin{cases}
-  a=0+3*3+1=10\\
-  b=0-2*3+1=-5\\
-  c=0+7*3-1=20
+    x=0\\
+    y=0\\
+    z=1
+  \end{cases}\quad
+  \text{we get}\quad
+  \begin{cases}
+    a=0+3*3+1=10\\
+    b=0-2*3+1=-5\\
+    c=0+7*3-1=20
+  \end{cases}
+  \end{equation*}
+  \task \begin{equation*}
+  \text{for}\quad
+  \begin{cases}
+    x=-2\\
+    y=1\\
+    z=0
+  \end{cases}\quad
+  \text{we get}\quad
+  \begin{cases}
+    a=0+3*3+1=10\\
+    b=0-2*3+1=-5\\
+    c=0+7*3-1=20
   \end{cases}
 \end{equation*}
+\end{tasks}
+
+
+
+
+\todo[inline]{Solve tasks b and c}
+\todo[inline]{Estimate all solutions with Regularized FOCUSS}
