@@ -1,4 +1,4 @@
-function [x, r_err] = gaussSeidel(A, b, initialGuess, maxIterations, tolerance, x_real)
+function [x, r_err] = gauss_seidel(A, b, initialGuess, maxIterations, tolerance, x_real)
 % Input:
 %   A: Coefficient matrix of the linear equation system
 %   b: Right-hand side vector of the linear equation system

@@ -1,5 +1,7 @@
 \documentclass[a4paper]{article}
-\usepackage{WUST-AAE-NMaO-Report}
+\usepackage{fontspec}
+\setmainfont[Ligatures=TeX]{CMU Serif}
+\usepackage{WUSTReport}
 \usepackage{amsfonts}
 \usepackage{amsmath}
 \usepackage[polish,main=english]{babel}
@@ -8,27 +10,16 @@
 \usepackage{natbib}
 \usepackage{listings}
 \usepackage{matlab-prettifier}
+\usepackage{multicol}
 \usepackage{pdfpages}
 \usepackage{pgfplots}
 \usepackage{systeme}
 \usepackage{tasks}
 \usepackage{todonotes}
-\usepackage{multicol}
-
-% \usepackage{amssymb}
-% \usepackage{titlesec}
-% \usepackage{vmargin}
-% \usepackage{fancyhdr}
-% \usepackage{xcolor}
-% \usepackage{multicol}
-
 
 \usepackage{float} 
 \usepackage{graphicx,xcolor,colortbl}    
 \usepackage{epstopdf,epsfig}   
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \title{Numerical Methods and Optimization Report 5:
 Iterative linear solvers}
@@ -39,46 +30,41 @@ Iterative linear solvers}
 
 \maketitle
 \tableofcontents
-\listoftodos
 \pagebreak
 
 \section{Problems}
-\input{problems/Problem_1}
-\input{problems/Problem_2}
+\input{problems/problem_1}
+\input{problems/problem_2}
+\input{problems/problem_3}
 
 \clearpage
 
-\section{Algorithms}%
+\section{Algorithms}
 \label{sec:algorithms}
-\subsection{Algorithm~1: Landweber method}%
-\label{algorithm:1}
-\lstinputlisting[style=Matlab-editor, breaklines=false]{algorithms/landweber.m}
-\subsection{Algorithm~2: Jacobi method}%
-\lstinputlisting[style=Matlab-editor, breaklines=false]{algorithms/jacobi.m}
-% \lstinputlisting[style=Matlab-editor, breaklines=false]{algorithms/jacobi.m}
-\subsection{Algorithm~3: Gauss-Seidel method}%
-\label{algorithm:3}
-\input{algorithms/gaussSeidel.tex}
-\lstinputlisting[style=Matlab-editor, breaklines=false]{algorithms/gaussSeidel.m}
 
-% \lstinputlisting[style=Matlab-editor, breaklines=false]{algorithms/gauss_seidel.m}
-\subsection{Algorithm~4: Successive Over-Relaxation (SOR) method}%
-\label{algorithm:4}
+\subsection{Landweber method}%
+\label{alg:landweber}
+\lstinputlisting[style=Matlab-editor, breaklines=false]{algorithms/landweber.m}
+
+\subsection{Jacobi method}%
+\label{alg:jacobi}
+\lstinputlisting[style=Matlab-editor, breaklines=false]{algorithms/jacobi.m}
+
+\subsection{Gauss-Seidel method}%
+\label{alg:gauss-seidel}
+\lstinputlisting[style=Matlab-editor, breaklines=false]{algorithms/gauss_seidel.m}
+
+\subsection{Successive Over-Relaxation (SOR) method}%
+\label{slg:sor}
 \lstinputlisting[style=Matlab-editor, breaklines=false]{algorithms/sor.m}
 
-\subsection{Algorithm~5: Kaczmarz method}%
-\input{algorithms/kaczmarz.tex}
+\subsection{Kaczmarz method}%
+\label{slg:kaczmarz}
 \lstinputlisting[style=Matlab-editor, breaklines=false]{algorithms/kaczmarz.m}
-
-
-
-%%%%%%%%%%%%%%%%%%%
-%% BIBLIOGRAPHY %%%
-%%%%%%%%%%%%%%%%%%%
 
 \clearpage
 
-\nocite{Zdunek, GoluVanl96, Meyer}
+\nocite{Meyer, GoluVanl96, Zdunek}
 \bibliographystyle{alpha}
 \bibliography{bibliography}
 
