@@ -1,4 +1,6 @@
-BUILDDIR = `pwd`/build
+BUILD_DIR = `pwd`/build
+OUT_DIR   = `pwd`/out
+
 DOCKER_IMAGE = latex-builder
 LATEX_OPTIONS = -xelatex
 #  -interaction=nonstopmode
@@ -6,52 +8,51 @@ PACKAGE_NAME = WUSTReport
 
 SOURCE_DIRS = $(shell ls -d */ | grep -v "^build")
 SOURCE_TEXS = $(SOURCE_DIRS:=Report/main.tex)
-PDFBUILDS = $(addprefix $(BUILDDIR)/, $(SOURCE_DIRS:/=.pdf))
+PDFBUILDS = $(addprefix $(BUILD_DIR)/, $(SOURCE_DIRS:/=.pdf))
 
 
-.DEFAULT_GOAL := docker
+.DEFAULT_GOAL := all
 
 
-.PHONY : clean
 clean :
-	-rm -r $(BUILDDIR) $(PACKAGE_NAME).sty
+	-rm -r $(BUILD_DIR) $(OUT_DIR) $(PACKAGE_NAME).sty
+.PHONY : clean
 
 
-.PHONY : all
 all : $(PDFBUILDS)
+.PHONY : all
 
 
-.PHONY : sty
 sty : $(PACKAGE_NAME).sty
+.PHONY : sty
 $(PACKAGE_NAME).sty : $(PACKAGE_NAME).ins $(PACKAGE_NAME).dtx
-	mkdir -p $(BUILDDIR)
-	yes | latex -output-directory=$(BUILDDIR) $(PACKAGE_NAME).ins
-	cp $(BUILDDIR)/$@ $@
+	mkdir -p $(BUILD_DIR)
+	yes | latex -output-directory=$(BUILD_DIR) $(PACKAGE_NAME).ins
+	cp $(BUILD_DIR)/$@ $@
 
 
-$(PDFBUILDS) : $(BUILDDIR)/%.pdf: $(PACKAGE_NAME).sty %/Report/main.tex
-	mkdir -p $(BUILDDIR)
-	cp logo-pwr-2016.pdf $(BUILDDIR)/
+$(PDFBUILDS) : $(BUILD_DIR)/%.pdf: $(PACKAGE_NAME).sty %/Report/main.tex
+	mkdir -p $(BUILD_DIR) $(OUT_DIR)
+	cp logo-pwr-2016.pdf $(BUILD_DIR)/
 	latexmk $(LATEX_OPTIONS) \
 		-cd \
 		-jobname=$* \
-		-output-directory=$(BUILDDIR) \
+		-output-directory=$(BUILD_DIR) \
 		$*/Report/main
+	cp $(BUILD_DIR)/$*.pdf $(OUT_DIR)/$*.pdf
 
-
-.PHONY : hadolint
 hadolint : Dockerfile
 	docker run --rm --interactive hadolint/hadolint < Dockerfile
+.PHONY : hadolint
 
 
-.PHONY : image
 image : Dockerfile
 	docker build \
 		--tag $(DOCKER_IMAGE) \
 		.
+.PHONY : image
 
 
-.PHONY : docker
 docker : image ## Compile the project via the latex-builder docker image
 	docker run \
 		--rm \
@@ -61,3 +62,4 @@ docker : image ## Compile the project via the latex-builder docker image
 		--name=$(DOCKER_IMAGE) \
 		$(DOCKER_IMAGE) \
 		sh -c "make all"
+.PHONY : docker
