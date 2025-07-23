@@ -1,6 +1,8 @@
-FROM alpine:3.16.0
+FROM ubuntu:24.04
 
-RUN apk update && \
-    apk add --no-cache \
-    texlive-full=20220403.62885-r2 \
-    make=4.3-r0
+RUN apt-get update && \
+    apt-get install --no-install-recommends -y \
+    texlive-full=2023.20240207-1 \
+    make=4.3-4.1build2 && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
