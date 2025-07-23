@@ -1,6 +1,7 @@
 # LaTeX
 build
 out
+WUSTReport.sty
 
 # MATLAB
 *.asv
