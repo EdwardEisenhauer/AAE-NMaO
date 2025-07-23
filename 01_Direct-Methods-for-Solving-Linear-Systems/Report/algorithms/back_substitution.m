@@ -23,7 +23,7 @@ if length(b) ~= m
 end
 
 if det(U) < eps
-    error('Matrix is not nonsingular!')
+    error('Matrix U is not nonsingular!')
 end
 
 b(m) = b(m) / U(m, m);

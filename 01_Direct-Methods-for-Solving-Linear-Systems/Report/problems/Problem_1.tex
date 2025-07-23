@@ -3,13 +3,19 @@
 
 Solve the system and find the pivots when:
 \begin{equation*}
-    \systeme{2u-v=0,-u+2v-w=0,-v+2w-z=0,-w+2z=5}
+  \systeme{2u-v=0,-u+2v-w=0,-v+2w-z=0,-w+2z=5}
 \end{equation*}
 
 \subsubsection*{Mathematics}
 
-The solution to a linear system $\matr{A}x = \matr{b}$, where $\matr{A}$ is a
-coefficient matrix and $\matr{b}$ is a column vector, may be found by:
+A system of $m$ linear algebraic equations in $n$ unknowns may be expressed in a form:
+\begin{equation*}
+  \matr{Ax}=\matr{b}
+\end{equation*}
+where $\matr{A}\in\mathfrak{R}^{m\times{}n}$ is a coefficient matrix,
+$\matr{x}\in\mathfrak{R}^n$ is a column vector of unknowns,
+and $\matr{b}\in\mathfrak{R}^m$ is a column vector of constant terms.
+The solution to such a system may be found by:
 \begin{enumerate}
   \item Composing an augmented matrix
     $\matr{B} = \begin{amatrix}{1}{1}
@@ -17,7 +23,8 @@ coefficient matrix and $\matr{b}$ is a column vector, may be found by:
     \end{amatrix}$.
   \item Reducing the matrix $\matr{B}$ to the upper triangular form
     with the \textit{\nameref{algorithm:gaussian_elimination}} algorithm.
-  \item Obtaining the solution with the \textit{\nameref{algorithm:back_substitution}} algorithm.
+  \item Obtaining the final solution with the
+    \textit{\nameref{algorithm:back_substitution}} algorithm.
 \end{enumerate}
 
 Note, that this method works only when none of the diagonal entries $a_{ii}$ is zero,
@@ -26,40 +33,42 @@ which is further discussed in \nameref{problem:2}.
 \subsubsection*{Solution}
 
 Following the manual calculations of the \nameref{algorithm:gaussian_elimination},
-we transform the matrix to the upper triangular form:
+we transform the matrix to the upper triangular form.
+At each step, the strategy is to focus on one position, called the pivot position,
+and to eliminate all terms below this position using the three elementary operations.
 \begin{equation*}
-\begin{split}
+  \begin{split}
     \begin{amatrix}{1}{1}
-        \matr{A} & \matr{b}
+      \matr{A} & \matr{b}
     \end{amatrix} = 
     \begin{amatrix}{4}{1}
-        \phantom{-}2 & -1 & \phantom{-}0 & \phantom{-}0 & 0\\
-        -1 & \phantom{-}2 & -1 & \phantom{-}0 & 0\\
-        \phantom{-}0 & -1 & \phantom{-}2 & -1 & 0\\
-        \phantom{-}0 & \phantom{-}0 & -1 & \phantom{-}2 & 5
+      \phantom{-}2 & -1 & \phantom{-}0 & \phantom{-}0 & 0\\
+      -1 & \phantom{-}2 & -1 & \phantom{-}0 & 0\\
+      \phantom{-}0 & -1 & \phantom{-}2 & -1 & 0\\
+      \phantom{-}0 & \phantom{-}0 & -1 & \phantom{-}2 & 5
     \end{amatrix} &\xrightarrow{R_2 + \frac{1}{2}R_1} 
     \begin{amatrix}{4}{1}
-        \phantom{-}2 & -1 & \phantom{-}0 & \phantom{-}0 & 0\\
-        \phantom{-}0 & \phantom{-}\frac{3}{2} & -1 & \phantom{-}0 & 0\\
-        \phantom{-}0 & -1 & \phantom{-}2 & -1 & 0\\
-        \phantom{-}0 & \phantom{-}0 & -1 & \phantom{-}2 & 5
+      \phantom{-}2 & -1 & \phantom{-}0 & \phantom{-}0 & 0\\
+      \phantom{-}0 & \phantom{-}\frac{3}{2} & -1 & \phantom{-}0 & 0\\
+      \phantom{-}0 & -1 & \phantom{-}2 & -1 & 0\\
+      \phantom{-}0 & \phantom{-}0 & -1 & \phantom{-}2 & 5
     \end{amatrix} \xrightarrow{R_3 + \frac{2}{3}R_2} \\
     \xrightarrow{R_3 + \frac{2}{3}R_2}
     \begin{amatrix}{4}{1}
-        \phantom{-}2 & -1 & \phantom{-}0 & \phantom{-}0 & 0\\
-        \phantom{-}0 & \phantom{-}\frac{3}{2} & -1 & \phantom{-}0 & 0\\
-        \phantom{-}0 & \phantom{-}0 & \phantom{-}\frac{4}{3} & -1 & 0\\
-        \phantom{-}0 & \phantom{-}0 & -1 & \phantom{-}2 & 5
+      \phantom{-}2 & -1 & \phantom{-}0 & \phantom{-}0 & 0\\
+      \phantom{-}0 & \phantom{-}\frac{3}{2} & -1 & \phantom{-}0 & 0\\
+      \phantom{-}0 & \phantom{-}0 & \phantom{-}\frac{4}{3} & -1 & 0\\
+      \phantom{-}0 & \phantom{-}0 & -1 & \phantom{-}2 & 5
     \end{amatrix} &\xrightarrow{R_4 + \frac{3}{4}R_3}
     \begin{amatrix}{4}{1}
-        \phantom{-}2 & -1 & \phantom{-}0 & \phantom{-}0 & 0\\
-        \phantom{-}0 & \phantom{-}\frac{3}{2} & -1 & \phantom{-}0 & 0\\
-        \phantom{-}0 & \phantom{-}0 & \phantom{-}\frac{4}{3} & -1 & 0\\
-        \phantom{-}0 & \phantom{-}0 & \phantom{-}0 & \phantom{-}\frac{5}{4} & 5
+      \phantom{-}2 & -1 & \phantom{-}0 & \phantom{-}0 & 0\\
+      \phantom{-}0 & \phantom{-}\frac{3}{2} & -1 & \phantom{-}0 & 0\\
+      \phantom{-}0 & \phantom{-}0 & \phantom{-}\frac{4}{3} & -1 & 0\\
+      \phantom{-}0 & \phantom{-}0 & \phantom{-}0 & \phantom{-}\frac{5}{4} & 5
     \end{amatrix}
   \end{split}
 \end{equation*}
-and then we obtain the variables' values with the Back Substitution:
+We may now obtain the unknowns with the \nameref{algorithm:back_substitution}:
 \begin{equation*}
   \begin{split}
     \systeme{2u-v=0,\frac{3}{2}v-2w=0,\frac{4}{3}w-z=0,\frac{5}{4}z=5}

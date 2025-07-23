@@ -1,3 +1,4 @@
+
 function B = gaussian_elimination(A, b)
 % GAUSSIAN_ELIMINATION Gaussian elimination.
 %
@@ -12,6 +13,10 @@ function B = gaussian_elimination(A, b)
 
 if m ~= n
     error('The coefficient matrix A is not square!')
+end
+
+if length(b) ~= m
+    error('The constant terms vector b has wrong length!')
 end
 
 B = [A b];
