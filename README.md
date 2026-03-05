@@ -9,7 +9,18 @@ and Optimization at the Wrocław University of Science and Technology.
  report use.
 - [ ] Refine Lab 1 Problem 2. Develop the description of the LU factorisation
  and consider changing the method not involving P and Q matrices.
-- [ ] Fix the missing CMU Serif font issue upon documents compilation.
+
+## Compilation
+
+To compile on Ubuntu 24.04:
+
+```sh
+sudo apt-get install -y \
+  fonts-cmu \
+  texlive-full
+sudo fc-cache -f -v
+make
+```
 
 ## Acknowledgement
 
