@@ -1,4 +1,5 @@
-function [x, r_err] = sor(A, b, initialGuess, maxIterations, tolerance, x_real, omega)
+function [x, r_err] = sor(A, b, initialGuess, maxIterations, ...
+    tolerance, x_real, omega)
 % Input:
 %   A: Coefficient matrix of the linear equation system
 %   b: Right-hand side vector of the linear equation system
@@ -18,7 +19,8 @@ for k = 1:maxIterations
     x = inv(S)*(T*x_prev + b);
 
     if r_err(k) < tolerance
-        fprintf('Converged successfully after %d iterations!\n', k);
+        fprintf(['The Sor method converged successfully' ...
+            ' after %d iterations!\n'], k);
         break;
     end
 end

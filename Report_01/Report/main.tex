@@ -1,0 +1,63 @@
+\documentclass[a4paper]{article}
+\usepackage{WUSTReport}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage[polish,main=english]{babel}
+\usepackage{indentfirst}
+\usepackage{natbib}
+\usepackage{listings}
+\usepackage{matlab-prettifier}
+\usepackage{systeme}
+\usepackage{todonotes}
+
+\title{Numerical Methods and Optimization
+  Report 1:
+  Direct Methods for Solving Linear Systems,
+  Eigenproblems,
+  Ill-posed least-squares problems}
+\author{Sergiusz Warga 230757}
+\date{}
+\reporttutor{dr inż. Mateusz Gabor}
+\reportgroup{Wednesday 13:15}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\pagebreak
+
+\section{Problems}
+\input{numerical_methods_1/problems/Problem_1}
+\input{numerical_methods_1/problems/Problem_2}
+\input{numerical_methods_1/problems/Problem_3}
+\clearpage
+
+\section{Algorithms}
+\subsection{Back substitution}%
+\label{algorithm:back_substitution}
+\lstinputlisting[style=Matlab-editor, breaklines=false]{numerical_methods_1/algorithms/back_substitution.m}
+\subsection{Gaussian elimination}%
+\label{algorithm:gaussian_elimination}
+\lstinputlisting[style=Matlab-editor, breaklines=false]{numerical_methods_1/algorithms/gaussian_elimination.m}
+% \subsection{Gaussian elimination with partial pivoting}
+% \label{algorithm:gaussian_elimination_with_partial_pivoting}
+% \subsection{Algorithm~2: Gaussian elimination with Complete Pivoting}%
+% \label{algorithm:2}
+% \lstinputlisting[style=Matlab-editor, breaklines=false]{algorithms/Alg2.m}
+% \subsection{Algorithm~3: Forward Substitution}%
+% \label{algorithm:3}
+% \lstinputlisting[style=Matlab-editor, breaklines=false]{algorithms/Alg3.m}
+% \subsection{Algorithm~5: The Gauss-Jordan elimination algorithm}%
+% \label{algorithm:5}
+% \lstinputlisting[style=Matlab-editor, breaklines=false]{algorithms/Alg5.m}
+% \subsection{Algorithm~6: The RREF algorithm}%
+% \label{algorithm:6}
+% \lstinputlisting[style=Matlab-editor, breaklines=false]{algorithms/Alg6_RREF.m}
+
+\clearpage
+
+\nocite{Zdunek, GoluVanl96, Meyer}
+\bibliographystyle{alpha}
+\bibliography{bibliography}
+
+\end{document}

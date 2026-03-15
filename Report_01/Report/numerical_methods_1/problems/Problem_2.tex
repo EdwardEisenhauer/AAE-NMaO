@@ -1,0 +1,67 @@
+\subsection{Problem~2}%
+\label{problem:2}
+
+Solve the following system of linear equations using the Gaussian Elimination with
+pivoting:
+\begin{equation*}
+    \systeme{x_1+x_2+x_3=1,x_1+x_2+2x_3=2,x_1+2x_2+2x_3=1}
+\end{equation*}
+
+Explain why the Gaussian elimination without pivoting does not work.
+
+\subsubsection*{Mathematics}
+
+As stated at the end of the mathematical introduction to the \nameref{problem:1},
+the \nameref{algorithm:gaussian_elimination} requires all the diagonal entries of the coefficient
+matrix to be non-zero, to avoid the division by zero during the row normalization.
+While in manual computations such a division would be noticed, in \MATLAB their result
+is \texttt{Inf} and the algorithm proceeds with replacing subsequent coefficients with
+this value, resulting in gibberish output.
+
+This behaviour can be avoided by using a \textit{pivoting}.
+The basic idea is to find the row with the maximum absolute value in the zeroed column below the
+pivot and swap it with the one currently considered.
+This is called a \textit{partial pivoting}.
+Searching in the whole submatrix spanned between pivot and $\matr{A_{n,m}}$ ---
+ interchanging not only rows but also columns --- is called a \textit{complete pivoting}.
+
+\subsubsection*{Solution}
+
+As shown below, upon zeroing the elements of the first column below the first pivot $a_{1,1}$, the second pivot $a_{2,2}$ is zeroed as well.
+To proceed with the Gaussian elimination, one must swap the second and third rows, performing a partial pivoting.
+
+\begin{equation*}
+\begin{split}
+    \begin{amatrix}{1}{1}
+        \matr{A} & \matr{b}
+    \end{amatrix} &=
+    \begin{amatrix}{3}{1}
+        1 & 1 & 1 & 1\\
+        1 & 1 & 2 & 2\\
+        1 & 2 & 2 & 1
+    \end{amatrix} \xrightarrow[\substack{R_2-R_1\\R_3-R_1}]{}
+    \begin{amatrix}{3}{1}
+        1 & 1 & 1 & 1\\
+        0 & 0 & 1 & 1\\
+        0 & 1 & 1 & 0
+    \end{amatrix} \xrightarrow[R_2\leftrightarrow R_3]{}
+    \begin{amatrix}{3}{1}
+        1 & 1 & 1 & 1\\
+        0 & 1 & 1 & 0\\
+        0 & 0 & 1 & 1
+    \end{amatrix}\rightarrow\\
+    &\rightarrow
+    \systeme{x_1+x_2+x_3=1,x_2+x_3=0,x_3=1}
+    \rightarrow
+    \systeme{x_1+x_2+x_3=\phantom{-}1,x_2=-1,x_3=\phantom{-}1}
+    \rightarrow
+    \begin{cases}
+    x_1=\phantom{-}1\\
+    x_2=-1\\
+    x_3=\phantom{-}1
+    \end{cases}
+\end{split}
+\end{equation*}
+
+Our implementation of \nameref{algorithm:gaussian_elimination_with_partial_pivoting} in \MATLAB\footnote{Algorithm \hyperref[algorithm:gaussian_elimination_with_partial_pivoting]{\texttt{gaussian\_elimination\_with\_partial\_pivoting}}} yields the same result:
+\lstinputlisting[style=Matlab-editor]{numerical_methods_1/problems/Problem_2.m}

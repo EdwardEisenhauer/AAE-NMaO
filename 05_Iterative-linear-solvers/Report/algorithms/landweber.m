@@ -1,17 +1,27 @@
-function [x, r_err] = landweber(A, b, x_init, maxIterations, tolerance, x_real, alpha)
+function [x, r_err, k] = landweber(A, b,  alpha, x_init, ...
+                                   k_max, tolerance, x_real)
 % LANDWEBER The Landweber iterative method.
 %
-%   x = LANDWEBER(A, b) approximates a solution to the system A*x=b.
+%   x = LANDWEBER(A, b) Returns the approximate solution
+%     to the system Ax=b.
 %
 %   Arguments:
 %     A --- Square coefficient matrix.
 %     b --- Column vector of constant terms.
-%     x_init --- An initial guess of the solution vector.
 %     alpha --- The relaxation parameter.
-%
-% Input:
-%   maxIterations: Maximum number of iterations
-%   tolerance: Error tolerance for convergence
+%     x_init --- An initial guess of the solution vector.
+%     k_max --- Maximum number of iterations.
+%     tolerance --- Error tolerance for convergence.
+%     x_real --- The real solution.
+arguments
+  A (:,:)
+  b (:,1)
+  alpha double {mustBePositive}
+  x_init (:,1)
+  k_max {mustBePositive}
+  tolerance {mustBePositive}
+  x_real (:,1)
+end
 
 [m, n] = size(A);
 
@@ -27,31 +37,30 @@ if length(b) ~= n
     error('Vector b has wrong length!')
 end
 
-if alpha < 0
-    error('Alpha cannot be smaller than 0!')
-end
-
-alpha_max = 2/norm(eigs(A,1)*(A'*A));
+ATA = A' * A;
+alpha_max = 2 / norm( max( eigs( ATA ) ) );
+% alpha_max = 2/norm(eigs(A,1)*(A'*A));
 if alpha > alpha_max
     error('Alpha cannot be greater than %d!', alpha_max)
 end
 
 x = x_init;
-r_err = NaN(maxIterations);
+r_err = NaN(k_max);
 
-for k = 1:maxIterations
+for k = 1:k_max
     x_prev = x;
-    r_err(k) = norm(x_real - x)/n;
+    r_err(k) = norm(x_real - x) / n;
     x = x_prev + alpha * A' * (b - A*x_prev);
 
     if r_err(k) < tolerance
-        fprintf('Converged successfully after %d iterations.\n', k);
+        fprintf('The Landweber method converged successfully after %d iterations.\n', k);
         break;
     end
 end
 
-if k == maxIterations
-    fprintf('Maximum number of %d iterations reached!\n', maxIterations);
+if k == k_max
+    warning('The maximum number of %d iterations reached %s', k_max, ...
+            'during approximating with the Landweber method!');
 end
 
 end
