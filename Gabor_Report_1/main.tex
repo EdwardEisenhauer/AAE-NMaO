@@ -1,0 +1,147 @@
+\documentclass[a4paper]{article}
+\usepackage{fontspec}
+\setmainfont[Ligatures=TeX]{CMU Serif}
+\usepackage{WUSTReport}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[russian,polish,main=english]{babel}
+\usepackage{indentfirst}
+\usepackage{nameref}
+\usepackage{natbib}
+\usepackage{listings}
+\usepackage{matlab-prettifier}
+\usepackage{pdfpages}
+\usepackage{pgfplots}
+\usepackage{systeme}
+\usepackage{tasks}
+\usepackage{todonotes}
+\usepackage{float}
+\usepackage{graphicx,xcolor,colortbl}
+\usepackage{epstopdf,epsfig}
+
+% Search for graphics in CWD and each lab's directory tree
+\graphicspath{{./}{lab1/}{lab2/}{lab3/}}
+
+% Patch \lstinputlisting so each lab's problem files find their source files.
+% Set \labbase before each lab's content block.
+\newcommand{\labbase}{}
+\let\OrigLstInputListing\lstinputlisting
+\renewcommand{\lstinputlisting}[2][]{\OrigLstInputListing[#1]{\labbase#2}}
+
+\title{%
+  {\LARGE Numerical Methods and Optimization: Reports 1--3}\\[0.4em]
+  {\large Direct Methods for Solving Linear Systems,
+    Eigenproblems,\\
+    and Ill-posed Least-squares Problems}%
+}
+\author{Sergiusz Warga 230757}
+\date{}
+\reporttutor{dr inż. Mateusz Gabor}
+\reportgroup{Wednesday 13:15}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\pagebreak
+
+%%% ============================================================
+\part{Direct Methods for Solving Linear Systems}
+%%% ============================================================
+
+\renewcommand{\labbase}{lab1/}
+
+\section{Problems}
+\input{lab1/problems/Problem_1}
+\input{lab1/problems/Problem_2}
+\input{lab1/problems/Problem_3}
+\input{lab1/problems/Problem_4}
+\input{lab1/problems/Problem_5}
+\input{lab1/problems/Problem_6}
+\input{lab1/problems/Problem9}
+\input{lab1/problems/Problem10}
+
+\clearpage
+
+\section{Algorithms}
+\subsection{Back substitution}%
+\label{algorithm:back_substitution}
+\lstinputlisting[style=Matlab-editor, breaklines=false]{algorithms/back_substitution.m}
+\subsection{Gaussian elimination}%
+\label{algorithm:gaussian_elimination}
+\lstinputlisting[style=Matlab-editor, breaklines=false]{algorithms/gaussian_elimination.m}
+\subsection{Gaussian elimination with partial pivoting}
+\label{algorithm:gaussian_elimination_with_partial_pivoting}
+\subsection{Algorithm~2: Gaussian elimination with Complete Pivoting}%
+\label{algorithm:2}
+\lstinputlisting[style=Matlab-editor, breaklines=false]{algorithms/Alg2.m}
+\subsection{Algorithm~3: Forward Substitution}%
+\label{algorithm:3}
+\lstinputlisting[style=Matlab-editor, breaklines=false]{algorithms/Alg3.m}
+\subsection{Algorithm~5: The Gauss-Jordan elimination algorithm}%
+\label{algorithm:5}
+\lstinputlisting[style=Matlab-editor, breaklines=false]{algorithms/Alg5.m}
+\subsection{Algorithm~6: The RREF algorithm}%
+\label{algorithm:6}
+\lstinputlisting[style=Matlab-editor, breaklines=false]{algorithms/Alg6_RREF.m}
+
+%%% ============================================================
+\part{Eigenproblems}
+%%% ============================================================
+
+\renewcommand{\labbase}{lab2/}
+
+\section{Problems}
+\input{lab2/problems/Problem_1}
+\input{lab2/problems/Problem_2}
+\input{lab2/problems/Problem_7}
+\input{lab2/problems/problem_11}
+
+\clearpage
+
+\section{Algorithms}
+\subsection{Gershgorin disks}%
+\label{algorithm:gershgorin}
+\lstinputlisting[style=Matlab-editor, breaklines=false]{algorithms/Gershgorin.m}
+\subsection{Scaled power algorithm}
+\lstinputlisting[style=Matlab-editor, breaklines=false]{algorithms/scaled_power.m}
+\subsection{Shift inverse power algorithm}
+\lstinputlisting[style=Matlab-editor, breaklines=false]{algorithms/inverse_power.m}
+
+%%% ============================================================
+\part{Ill-posed Least-squares Problems}
+%%% ============================================================
+
+\renewcommand{\labbase}{lab3/}
+
+\section{Problems}
+\input{lab3/problems/Problem_1}
+\input{lab3/problems/Problem_2}
+\input{lab3/problems/Problem_3}
+\input{lab3/problems/Problem_4}
+\input{lab3/problems/Problem_5}
+\input{lab3/problems/Problem_6}
+\input{lab3/problems/Problem_11}
+
+\clearpage
+
+\section{Algorithms}
+\subsection{Algorithm~1: Normal equations approximation}%
+\label{lab3:algorithm:1}
+\lstinputlisting[style=Matlab-editor, breaklines=false]{algorithms/normal_approximation.m}
+\subsection{Algorithm~2: Linear regression}%
+\label{lab3:algorithm:2}
+\lstinputlisting[style=Matlab-editor, breaklines=false]{algorithms/linear_regression.m}
+
+%%%%%%%%%%%%%%%%%%%
+%% BIBLIOGRAPHY %%%
+%%%%%%%%%%%%%%%%%%%
+
+\clearpage
+
+\nocite{Zdunek, GoluVanl96, Meyer, Gerschgorin, Zarowski, Demmel}
+\bibliographystyle{alpha}
+\bibliography{bibliography}
+
+\end{document}
