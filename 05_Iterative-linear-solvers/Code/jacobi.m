@@ -31,8 +31,8 @@ end
 x = x_init;
 r_err = NaN(maxIterations);
 
-S = diag(diag(A))
-T = S - A
+S = diag(diag(A));
+T = S - A;
 
 for k = 1:maxIterations
     x_prev = x;

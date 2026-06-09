@@ -45,7 +45,7 @@ where $\rho$ is the \textit{spectral radius}:
 Following~\cite{Zdunek}, the value of the solution error at the $k$-th iteration may be
 calculated via:
 \begin{equation}
-  \matr{e}^{(k)} = \matr{G}^k * \matr{e}^{(0)}
+  \matr{e}^{(k)} = \matr{G}^k \matr{e}^{(0)}
 \end{equation}
 
 \begin{itemize}
@@ -99,12 +99,12 @@ calculated via:
 
     The spectral radius of the iteration matrix, $ \rho(\matr{G}) = 0.8090$
 
-  \item Landwebber \\
+  \item Landweber \\
   
   The convergence of the Richardson's first-order method, depends on the appropriate choice of the relaxation parameter \( \alpha \). 
   For a given matrix $\matr{A}$, the iterations converge to the least-squares solution \( x = A^+b \) if \( \alpha \) is chosen within the range:
   \begin{equation*}
-    0 < \alpha < 2|\lambda_{max}(\matr{A}^T\matr{A})| 
+    0 < \alpha < \frac{2}{\lambda_{max}(\matr{A}^T\matr{A})}
   \end{equation*}
 
   where  $\lambda_{max}(\matr{A}^T\matr{A})$ is the largest eigenvalue of $ \matr{A}^T\matr{A} $.
@@ -114,10 +114,7 @@ calculated via:
   
   The calculation is as follows:
   \begin{enumerate}
-      \item Compute $ \matr{A}^T\max{A} $:
-      \begin{equation*}
-          A^TA = \matr{A}^\top \matr{A}
-      \end{equation*}
+      \item Compute $ \matr{A}^T\matr{A} $.
       
       \item Find the eigenvalues of $\matr{A}^T\matr{A}$, denoted $\lambda_i$.
       
@@ -128,7 +125,7 @@ calculated via:
       
       \item Calculate the upper bound for \( \alpha \):
       \begin{equation*}
-        \alpha < 2*\lambda_{max}
+        \alpha < \frac{2}{\lambda_{max}}
       \end{equation*}
   \end{enumerate}
 
@@ -146,11 +143,6 @@ calculated via:
     Additionally, for the method to converge, the following condition should be satisfied: 
     $ \matr{Ax} = \matr{b} $ must be consistent, meaning that at least one solution exists.
 \end{itemize}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\subsubsection*{Solving}
-
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection*{Solution}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

@@ -1,0 +1,158 @@
+\subsection{Problem~1}%
+\label{problem:1}
+
+Find numbers $x_1$ and $x_2$ that maximize the sum $x_1 + x_2$ subject to the constraints:
+\begin{equation*}
+    \begin{split}
+        x_1\geq 0, x_2\geq0,\\
+        x_1+2x_2\leq4,\\
+        4x_1+2x_2\leq12,\\
+        -x_1+x_2\leq1,
+    \end{split}
+\end{equation*}
+
+Draw the feasible set on $\Re^2$ and find the feasible solution geometrically and algebraically by
+formulating a LP problem.
+
+\subsubsection*{Mathematics}
+Linear Programming (LP) is a type of optimization method used to minimize or maximize a linear objective function. A general LP problem has the following form:
+\begin{equation*}
+    \text{minimize}\quad c_1x_1+c_2x_2+...+c_nx_n=c^Tx
+\end{equation*}
+where $x \in \mathbb{R}^n$, $c \in \mathbb{R}^n$ which satisfy finitely many constrains of the form
+\begin{equation*}
+    \begin{split}
+        a_{i1}x_1+a_{i2}x_2+...+a_{in}x_n\leq b_i \quad \text{(Inequality constraints)}\\
+        a_{j1}x_1+a_{j2}x_2+...+a_{jn}x_n = b_j\quad \text{(Equality constraints)}\\
+        a_{k1}x_1+a_{k2}x_2+...+a_{kn}x_n\geq b_k\quad \text{(Inequality constraints)}\\
+    \end{split}
+\end{equation*}
+The function $c^Tx$ to be minimized is called \textit{objective function}. For each $x \in \mathbb{R}^n$ which satisfied all the constraints  is said to be a \textit{feasible point} for the problem. By introducing additional (slack) variables and equations, the linear programming problem can be put in a form in which the only constraints which appear are equalities or elementary inequalities. Which give us standard form :
+
+\begin{equation*}
+\begin{split}
+    \min_{x}\ & \{c^Tx\} \\
+    \text{subject to}\quad & Ax = b \quad \text{and} \quad x \geq 0 \\
+    \text{where}\quad & x \in \mathbb{R}^n, \ c \in \mathbb{R}^n, \ A \in \mathbb{R}^{m \times n}
+\end{split}
+\end{equation*}
+
+Where $\matr{A}^{m\times n}$ is a matrix of constrains and $\Vec{b}$ is a vector of solutions in $\mathbb{R}^m$.
+
+\subsubsection*{The Two-Phase Simplex method}
+
+The two-phase simplex method is a systematic approach for solving linear programming problems. It consists of two distinct phases that work sequentially to first establish feasibility and then find the optimal solution.
+The goal is to find a feasible solution to the system.
+
+\begin{equation*}
+    \matr{A}x=\matr{b},\quad x_i \geq 0 \text{ for } i \in I.
+\end{equation*}
+\begin{enumerate}
+    \item \textbf{Phase 1:}If no obvious feasible solution is available, an artificial variables are introduced to create an auxiliary problem.
+    The objective of this auxiliary problem is to minimize the sum of these artificial variables.
+
+    If the minimum value achieved is zero, it confirms that the original problem has at least one feasible solution, and the corresponding basis can be used as a starting point for Phase 2.
+
+    \item \textbf{Phase 2:}In this step we proceeds to optimize the original objective function. The algorithm computes the basic solution and evaluates the reduced costs of non-basic variables.
+
+    If all reduced costs satisfy the optimality conditions the current solution is optimal. Otherwise, the method selects an entering variable that can improve the objective function value. A direction of movement is computed, and if no feasible improvement direction exists, the problem is unbounded.
+
+    When improvement is possible, a pivot operation exchanges a basic variable with the entering variable, updating the basis while maintaining feasibility. This process iterates until an optimal solution is found or unboundedness is detected.
+\end{enumerate}
+
+\subsubsection*{Solution}
+We seek $z = \max(x_1+x_2)$.
+Since all constraints are of the $\leq$ form and the RHS is non-negative, we introduce slack variables $x_3, x_4, x_5 \geq 0$ to convert the inequalities to equalities:
+
+\begin{equation*}
+    \left\{
+    \begin{aligned}
+        &x_1 \geq 0, x_2 \geq 0, x_3 \geq 0, x_4 \geq 0, x_5 \geq 0 \\
+        &x_1 + x_2 + x_3 = 4 \\
+        &4x_1 + 2x_2 + x_4 = 12 \\
+        &-x_1 + x_2 + x_5 = 1
+    \end{aligned}
+    \right.
+\end{equation*}
+We construct initial tableau for simplex method:
+\begin{equation*}
+    \matr{f}=[-1 -1],\quad \matr{A}=\begin{bmatrix}
+        1 & 1\\
+        4 & 2\\
+        -1 & 1\\
+    \end{bmatrix},\quad \matr{b}=\begin{bmatrix}
+        4\\12\\1
+    \end{bmatrix}
+\end{equation*}
+
+\begin{table}[ht]
+    \centering
+    \begin{tabular}{c|c c|c c c|c}
+         &$x_1$ & $x_2$ & $x_3$ & $x_4$ & $x_5$ & b \\
+        \hline
+        $s_1$ &1 & 1 & 1 & 0 & 0 & 4\\
+        $s_2$ &4 & 2 & 0 & 1 & 0 & 12\\
+        $s_3$ &-1 & 1 & 0 & 0 & 1 & 1\\
+        \hline
+        $z$ &-1 & -1 & 0 & 0 & 0 & 0\\
+    \end{tabular}
+\end{table}
+Where $s_1, s_2, s_3$ are slack variables introduced to convert inequalities into equalities. The first step is to choose the column with the most negative objective-row entry ($x_1$) as the pivot column, then compute the minimum ratio test over rows with a positive coefficient in that column:
+\begin{equation*}
+    \begin{split}
+    \matr{x_1}=\begin{bmatrix}
+        1\\
+        4\\
+        -1\\
+    \end{bmatrix},\quad s_1=\frac{4}{1}=4, \quad s_2= \frac{12}{4}=3\\
+    \text{Pivot row}\rightarrow \matr{s_2}
+    \end{split}
+\end{equation*}
+\begin{equation*}
+    \begin{split}
+    \begin{amatrix}{5}{1}
+    1 & 1 & 1 & 0 & 0 & 4\\
+    4 & 2 & 0 & 1 & 0 & 12\\
+    -1 & 1 & 0 & 0 & 1 & 1\\
+    \hline
+    -1 & -1 & 0 & 0 & 0 & 0 \\
+    \end{amatrix} \xrightarrow{\frac{s_2}{4}}
+    \begin{amatrix}{5}{1}
+    0 & 1.5 & 1.0 & -0.25 & 0 & 1\\
+    1 & 0.5 & 0 & 0.25 & 0 & 3\\
+    0 & 1.5 & 0 & 0.25 & 1 & 4\\
+    \hline
+    0 & -0.5 & 0 & 0.25 & 0 & 3 \\
+    \end{amatrix}
+    \end{split}
+\end{equation*}
+After finding minimal ratio we divide the pivot row and update other rows accordingly.
+We repeat the same step for each column with negative coefficient left in the $z$(object row) row.
+\begin{equation*}
+\begin{split}
+\begin{amatrix}{5}{1}
+    0 & 1.5 & 1.0 & -0.25 & 0 & 1\\
+    1 & 0.5 & 0 & 0.25 & 0 & 3\\
+    0 & 1.5 & 0 & 0.25 & 1 & 4\\
+    \hline
+    0 & -0.5 & 0 & 0.25 & 0 & 3 \\
+    \end{amatrix}\xrightarrow{\frac{s_1}{1.5}}\
+    \begin{amatrix}{5}{1}
+    0.0000 & 1.0000 & 0.6667 & -0.1667 & 0.0000 & 0.6667\\
+    1.0000 & 0.0000 & -0.3333 & 0.3333 & 0.0000 & 2.6667\\
+    0.0000 & 0.0000 & -1.0000 & 0.5000 & 1.000  & 3.0000\\
+    \hline
+    0.0000 & 0.0000 & 0.3333 & 0.1667 & 0 & 3.3333 \\
+    \end{amatrix}
+    \end{split}
+\end{equation*}
+
+All objective-row entries are non-negative, so the algorithm terminates.
+The optimal solution read from the final tableau is:
+
+\begin{equation*}
+    \systeme{x_1=2.6667,x_2=0.6667}
+\end{equation*}
+
+\subsubsection*{Matlab Implementation}
+\lstinputlisting[style=Matlab-editor]{problems/Problem_1.m}

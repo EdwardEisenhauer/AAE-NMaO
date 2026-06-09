@@ -11,7 +11,7 @@
 \usepackage{systeme}
 \usepackage{tasks}
 \usepackage{todonotes}
-\usepackage{amsmath} 
+\usepackage{amsmath}
 \usepackage{mathtools}
 \usepackage{gauss}
 \usepackage{etoolbox}
@@ -49,13 +49,24 @@ Undetermined and constrained linear systems}
 % Problem 3 - generate five signals with no. of samples ~1000 (maybe ~100).
 
 
+\clearpage
+
+\section{Algorithms}
+\subsection{Regularized FOCUSS}%
+\label{algorithm:focuss}
+\lstinputlisting[style=Matlab-editor, breaklines=false]{algorithms/focuss.m}
+
+\subsection{M-FOCUSS}%
+\label{algorithm:mfocuss}
+\lstinputlisting[style=Matlab-editor, breaklines=false]{algorithms/mfocuss.m}
+
 %%%%%%%%%%%%%%%%%%%
 %% BIBLIOGRAPHY %%%
 %%%%%%%%%%%%%%%%%%%
 
 \clearpage
 
-\nocite{Zdunek, GoluVanl96}
+\nocite{Zdunek, GoluVanl96, Meyer, GorodRao97}
 \bibliographystyle{alpha}
 \bibliography{bibliography}
 

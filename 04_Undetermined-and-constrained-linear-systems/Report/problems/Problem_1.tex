@@ -19,8 +19,32 @@ For the computed numbers $a, b, c$, estimate the solutions using the Regularized
 
 \subsubsection*{Mathematics}
 
-% The above system of equations is underdetermined.
-\todo[inline]{Elaborate on mathematics.}
+The system of independent linear equations is \textit{undetermined} if the
+number of equations is greater than the number of unknown variables.
+Such a system may be expressed in the form:
+\begin{equation*}
+  \matr{Ax}=\matr{b}, \quad \text{where} \quad
+  \matr{A}\in\mathfrak{R}^{m\times{}n}, \quad
+  \matr{b}\in\mathfrak{R}^m, \quad
+  \matr{x}\in\mathfrak{R}^n, \quad \text{and} \quad m<{}n
+\end{equation*}
+where $\matr{x}_p$ is any particular solution and
+$\matr{x}_h\in\mathcal{N}(\matr{A})$ is an arbitrary element of the null space
+of $\matr{A}$ \citep{Meyer}.
+
+\paragraph{Sparsity and the $\ell_p$ diversity measure.}
+To single out one solution, additional prior knowledge is needed.
+A common assumption is that the true solution is \textit{sparse} --- most of
+its entries are zero \citep{Zdunek}.
+This is formalised by minimising the $\ell_p$ quasi-norm diversity measure
+introduced by \citet{GorodRao97}:
+\begin{equation*}
+  E^{(p)}(\matr{x}) = \sum_{j=1}^{n} |x_j|^p, \qquad 0 < p \leq 1,
+\end{equation*}
+subject to $\matr{Ax}=\matr{b}$.
+For $p=1$ this is the convex LASSO penalty; as $p\to 0$ it approaches the
+$\ell_0$ pseudo-norm (a count of non-zero entries).
+
 
 \subsubsection*{Solution}
 
@@ -29,7 +53,7 @@ Following the steps of the \textit{Gauss-Jordan method}, we transform the matrix
 \begin{split}
     \begin{amatrix}{1}{1}
         \matr{A} & \matr{b}
-    \end{amatrix} = 
+    \end{amatrix} =
     \begin{amatrix}{3}{1}
         \phantom{-}1 & \phantom{-}3 & \phantom{-}1 & a\\
         -1 & -2 & \phantom{-}1 & b\\
@@ -79,9 +103,9 @@ Now we may proceed with substituting the variables:
   \end{cases}\quad
   \text{we get}\quad
   \begin{cases}
-    a=0+3*3+1=10\\
-    b=0-2*3+1=-5\\
-    c=0+7*3-1=20
+    a=0+3*0+1=1\\
+    b=0-2*0+1=1\\
+    c=3*0+7*0-1=-1
   \end{cases}
   \end{equation*}
   \task \begin{equation*}
@@ -93,15 +117,48 @@ Now we may proceed with substituting the variables:
   \end{cases}\quad
   \text{we get}\quad
   \begin{cases}
-    a=0+3*3+1=10\\
-    b=0-2*3+1=-5\\
-    c=0+7*3-1=20
+    a=-2+3*1+0=1\\
+    b=-(-2)-2*1+0=0\\
+    c=3*(-2)+7*1-0=1
   \end{cases}
 \end{equation*}
 \end{tasks}
 
+\subsubsection*{FOCUSS Estimation}
 
+The Regularized FOCUSS (FOCal Undetermined System Solver) algorithm finds the
+minimum $\ell_p$-norm solution over the affine solution set by iteratively
+reweighting a Tikhonov-regularised least-squares problem.
+Starting from a random initialisation $\matr{x}^{(0)}$, each iterate is
 
+\begin{equation*}
+  \matr{x}^{(k+1)}
+  = \matr{W}_k^2 \matr{A}^T
+    \!\left(\matr{A}\matr{W}_k^2\matr{A}^T + \lambda\matr{I}\right)^{-1}
+    \matr{b},
+  \qquad
+  \matr{W}_k = \operatorname{diag}\!\left(\left|x_j^{(k)}\right|^{1-p/2}\right),
+\end{equation*}
 
-\todo[inline]{Solve tasks b and c}
-\todo[inline]{Estimate all solutions with Regularized FOCUSS}
+\noindent where $p\in(0,1]$ controls sparsity and $\lambda>0$ provides
+regularisation.
+Here we use $p=0.1$ and $\lambda=10^{-8}$.
+
+\lstinputlisting[style=Matlab-editor]{problems/Problem_1.m}
+
+The FOCUSS estimates for all three tasks are shown in Table~\ref{tab:focuss_p1}.
+
+\begin{table}[h]
+  \centering
+  \begin{tabular}{ccc}
+    \hline
+    Task & True chosen $\matr{x}$ & FOCUSS estimate \\
+    \hline
+    (a) & $(0,3,1)^T$ & $(0,\;3,\;1)^T$ \\
+    (b) & $(0,0,1)^T$ & $(0,\;0,\;1)^T$ \\
+    (c) & $(-2,1,0)^T$ & $(0,\;\tfrac{1}{5},\;\tfrac{2}{5})^T$ \\
+    \hline
+  \end{tabular}
+  \caption{FOCUSS estimates ($p=0.1$, $\lambda=10^{-8}$) for each task.}
+  \label{tab:focuss_p1}
+\end{table}

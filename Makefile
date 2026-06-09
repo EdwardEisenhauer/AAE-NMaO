@@ -9,11 +9,15 @@ PACKAGE_NAME = WUSTReport
 LAB_DIRS = \
 	01_Direct-Methods-for-Solving-Linear-Systems \
 	02_Eigenproblems \
-	03_Ill-posed-least-squares-problems
+	03_Ill-posed-least-squares-problems \
+	04_Undetermined-and-constrained-linear-systems \
+	05_Iterative-linear-solvers \
+	06_Linear-programming \
+	07_Unconstrained-Optimization
 
 LAB_PDFS  = $(addprefix $(BUILD_DIR)/, $(addsuffix .pdf, $(LAB_DIRS)))
-GABOR_PDF = $(BUILD_DIR)/Gabor_Report_1.pdf
-PDFBUILDS = $(LAB_PDFS) $(GABOR_PDF)
+GABOR_PDFS = $(BUILD_DIR)/Gabor_Report_1.pdf $(BUILD_DIR)/Gabor_Report_2.pdf
+PDFBUILDS  = $(LAB_PDFS) $(GABOR_PDFS)
 
 
 .DEFAULT_GOAL := all
@@ -47,7 +51,7 @@ $(LAB_PDFS) : $(BUILD_DIR)/%.pdf: $(PACKAGE_NAME).sty %/Report/main.tex
 	cp $(BUILD_DIR)/$*.pdf $(OUT_DIR)/$*.pdf
 
 
-$(GABOR_PDF) : $(PACKAGE_NAME).sty Gabor_Report_1/main.tex
+$(BUILD_DIR)/Gabor_Report_1.pdf : $(PACKAGE_NAME).sty Gabor_Report_1/main.tex
 	mkdir -p $(BUILD_DIR) $(OUT_DIR)
 	cp logo-pwr-2016.pdf $(BUILD_DIR)/
 	latexmk $(LATEX_OPTIONS) \
@@ -56,6 +60,17 @@ $(GABOR_PDF) : $(PACKAGE_NAME).sty Gabor_Report_1/main.tex
 		-output-directory=$(BUILD_DIR) \
 		Gabor_Report_1/main
 	cp $(BUILD_DIR)/Gabor_Report_1.pdf $(OUT_DIR)/Gabor_Report_1.pdf
+
+
+$(BUILD_DIR)/Gabor_Report_2.pdf : $(PACKAGE_NAME).sty Gabor_Report_2/main.tex
+	mkdir -p $(BUILD_DIR) $(OUT_DIR)
+	cp logo-pwr-2016.pdf $(BUILD_DIR)/
+	latexmk $(LATEX_OPTIONS) \
+		-cd \
+		-jobname=Gabor_Report_2 \
+		-output-directory=$(BUILD_DIR) \
+		Gabor_Report_2/main
+	cp $(BUILD_DIR)/Gabor_Report_2.pdf $(OUT_DIR)/Gabor_Report_2.pdf
 
 hadolint : Dockerfile
 	docker run --rm --interactive hadolint/hadolint < Dockerfile

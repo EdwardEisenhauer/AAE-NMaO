@@ -5,7 +5,7 @@ $\begin{bmatrix} 1 & 0 & 1 & 1 & 0 \end{bmatrix}^T$
 onto the range space spanned by the columns in the matrix:
 \begin{equation*}
     A = \begin{bmatrix}
-        1 & 2 & 3 & 2 & 1 \\
+        1 & 2 & 2 & 3 & 1 \\
         2 & 4 & 4 & 6 & 2 \\
         3 & 6 & 6 & 9 & 6 \\
         1 & 2 & 4 & 5 & 3
@@ -17,369 +17,104 @@ Then change the $a_{21}$ entry from 2 to 0 and repeat the estimation.
 Explain the difference.
 Compute the residual and solution errors.
 Which algorithm gives the best estimate and why?
-Which metrics are best to solbe this problem?
+Which metrics are best to solve this problem?
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection*{Mathematics}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-First step towards solving the problem would be obtaining matrix b by calculating.
-\begin{equation*}
-    \matr{A}\matr{x} = \matr{b} \rightarrow 
-    \begin{bmatrix}
-        1 & 2 & 3 & 2 & 1 \\
-        2 & 4 & 4 & 6 & 2 \\
-        3 & 6 & 6 & 9 & 6 \\
-        1 & 2 & 4 & 5 & 3
-    \end{bmatrix}
-    \begin{bmatrix}
-        1 \\
-        0 \\
-        1 \\
-        1 \\
-        0
-    \end{bmatrix} =
-    \begin{bmatrix}
-        6 \\
-        12 \\
-        18 \\
-        10
-\end{bmatrix}
-\end{equation*}
-With calculated solution we're able to create estimated "true" solution.
-\begin{equation*}
-    \matr{A}^T\matr{A}\matr{\hat{x}} = \matr{A}^T\matr{b} \rightarrow
-    \matr{\hat{x}} = (\matr{A}^T\matr{A})^-1 \matr{A}^T\matr{b} = \matr{A}^+\matr{b}
-\end{equation*}
-Since our matrix is not square we are forced to use pseudo-ivnerse which is denoted as $A^+$.\\
-This way least squares solution has form:
-\begin{equation*}
-    \matr{\hat{x}} = \matr{A}^+ \matr{b}
-\end{equation*}
-Calculating $\matr{A^+}$ requires using SVD of base matrix $\matr{\matr{A}}$
-\begin{equation*}
-    \matr{A^+} = \matr{V} 
-    \begin{bmatrix}
-        \matr{\Sigma^{-1}} && 0 \\
-        0 && 0
-    \end{bmatrix}
-    \matr{U}^H = \sum_{i=1}^{r} \sigma_i^{-1} \matr{v}_i\matr{u}_i^H \in \matr{\Im}^{N \times M} 
-\end{equation*}
-Pseudo-inverse of matrix $\matr{A}$ was calculated using MATLAB
+For an underdetermined system $\matr{Ax}=\matr{b}$ with
+$\matr{A}\in\mathbb{R}^{m\times n}$, $m < n$, solutions exist if and only if
+$\matr{b}\in\mathcal{R}(\matr{A})$ \citep{Meyer}.
+When consistent, the solution set is the affine subspace
+$\{\matr{x}_p + \matr{x}_h : \matr{x}_h \in \mathcal{N}(\matr{A})\}$,
+which is infinite-dimensional whenever $\operatorname{rank}(\matr{A}) < n$.
 
+\paragraph{Pseudoinverse.}
+Among all solutions, the Moore--Penrose pseudoinverse selects the one of minimum
+$\ell_2$ norm.
+Via the singular value decomposition $\matr{A} = \matr{U\Sigma V}^T$ with
+$r = \operatorname{rank}(\matr{A})$ non-zero singular values \citep{GoluVanl96}:
 \begin{equation*}
-    \matr{A^+ = }
-    \begin{bmatrix}
-        0.0273  &  0.0545  &  0.0909  & -0.2273 \\
-        0.0545  &  0.1091  &  0.1818  & -0.4545 \\
-        0.0364  &  0.0727  & -0.2121  &  0.3636 \\
-        0.0636  &  0.1273  & -0.1212  &  0.1364 \\
-        -0.2000 &  -0.4000 &   0.3333 &  -1.32 * 10^-16 \\
-    \end{bmatrix}
+  \matr{A}^+ = \matr{V}
+  \begin{bmatrix} \matr{\Sigma}_r^{-1} & \matr{0} \\ \matr{0} & \matr{0} \end{bmatrix}
+  \matr{U}^T.
 \end{equation*}
+The minimum-norm solution $\hat{\matr{x}} = \matr{A}^+\matr{b}$ lies in the row
+space $\mathcal{R}(\matr{A}^T)$, orthogonal to $\mathcal{N}(\matr{A})$.
 
-With pseudo-inverse calculated we're able to calculate "real" $\\matr{\hat{x}}$ for solution $\matr{b}$
-\begin{equation*}
-    \matr{\hat{x}} = \matr{A^+}\matr{b} = 
-    \begin{bmatrix}
-        0.0273  &  0.0545  &  0.0909  & -0.2273 \\
-        0.0545  &  0.1091  &  0.1818  & -0.4545 \\
-        0.0364  &  0.0727  & -0.2121  &  0.3636 \\
-        0.0636  &  0.1273  & -0.1212  &  0.1364 \\
-        -0.2000 &  -0.4000 &   0.3333 &  -1.32 * 10^{-16} \\
-    \end{bmatrix}
-    \begin{bmatrix}
-        6 \\
-        12 \\
-        18 \\
-        10
-    \end{bmatrix} =
-    \begin{bmatrix}
-        0.1818 \\ 
-        0.3636 \\
-        0.9091 \\
-        1.0909 \\
-        0.0000
-    \end{bmatrix}
-\end{equation*}
-
-Next step would be to modify matrix $\matr{A}$ in such way that element $a_{21} = 0$.  
-\begin{equation*}
-    \matr{A} = 
-    \begin{bmatrix}
-        1 & 2 & 3 & 2 & 1 \\
-        0 & 4 & 4 & 6 & 2 \\
-        3 & 6 & 6 & 9 & 6 \\
-        1 & 2 & 4 & 5 & 3
-    \end{bmatrix}
-\end{equation*}
-Recalculating matrix $\matr{b}$ results in:
-\begin{equation*}
-    \matr{A}\matr{x} = \matr{b} = 
-    \begin{bmatrix}
-        6 \\
-        10\\
-        18\\
-        10
-    \end{bmatrix}
-\end{equation*}
-
-With newly formed $\matr{A}$ pseudo inverse of this matrix is:
-\begin{equation*}
-    \matr{A^+} = 
-    \begin{bmatrix}
-        1.0000  & -0.5000 & 0 & 0 \\
-        -0.1111 &   0.2222 & 0.2222 & -0.5556 \\
-        0.2778  & -0.0556 & -0.2222 & 0.3889 \\
-        0.2222  &  0.0556 & -0.1111 & 0.1111 \\
-        -1.0000 &  -6.11 * 10^{-16} & 0.3333 & -8.32 * 10^{-17}
-    \end{bmatrix}
-\end{equation*}
-
-This time real solution is close to base solution
-\begin{equation*}
-    \matr{\hat{x}} = \matr{A^+} \matr{b} =
-    \begin{bmatrix}
-        1.0000 \\
-        -8.88 * 10^{-16} \\
-        1.0000 \\
-        1.0000 \\
-        -2.61 * 10^{-15}
-    \end{bmatrix}
-\end{equation*}
-
-Discrepancy as to why true solution differs when we change $a_{21}$ entry to 0 from 2 is quite trivial, if the step of calculating the rank of matrix wasn't skipped.\\
-$\left(\begin{gmatrix}
-    1 & 2 & 3 & 2 & 1 \\
-    2 & 4 & 4 & 6 & 2 \\
-    3 & 6 & 6 & 9 & 6 \\
-    1 & 2 & 4 & 5 & 3\end{gmatrix}\right.
-    \begin{gmatrix}[q]
-    6 \\
-    12 \\
-    18 \\
-    10
-    \rowops
-    \add[\cdot\left(-2\right)]{0}{1}
-    \add[\cdot\left(-3\right)]{0}{2}
-    \add[\cdot\left(-1\right)]{0}{3}
-    
-    \end{gmatrix}$
-    
-    $\left(\begin{gmatrix}
-    1 & 2 & 3 & 2 & 1 \\
-    0 & 0 & -2 & 2 & 0 \\
-    0 & 0 & -3 & 3 & 3 \\
-    0 & 0 & 1 & 3 & 2\end{gmatrix}\right.
-    \begin{gmatrix}[q]
-    6 \\
-    0 \\
-    0 \\
-    4
-    \rowops
-    \mult{1}{\cdot \left(\frac{-1}{2}\right)}
-    
-    \end{gmatrix}$
-$\left(\begin{gmatrix}
-    1 & 2 & 3 & 2 & 1 \\
-    0 & 0 & 1 & -1 & 0 \\
-    0 & 0 & -3 & 3 & 3 \\
-    0 & 0 & 1 & 3 & 2\end{gmatrix}\right.
-    \begin{gmatrix}[q]
-    6 \\
-    0 \\
-    0 \\
-    4
-    \rowops
-    \add[\cdot\left(-3\right)]{1}{0}
-    \add[\cdot3]{1}{2}
-    \add[\cdot\left(-1\right)]{1}{3}
-    
-    \end{gmatrix}$
-    
-    $\left(\begin{gmatrix}
-    1 & 2 & 0 & 5 & 1 \\
-    0 & 0 & 1 & -1 & 0 \\
-    0 & 0 & 0 & 0 & 3 \\
-    0 & 0 & 0 & 4 & 2\end{gmatrix}\right.
-    \begin{gmatrix}[q]
-    6 \\
-    0 \\
-    0 \\
-    4
-    \rowops
-    \swap{2}{3}
-    
-    \end{gmatrix}$
-    
-    $\left(\begin{gmatrix}
-    1 & 2 & 0 & 5 & 1 \\
-    0 & 0 & 1 & -1 & 0 \\
-    0 & 0 & 0 & 4 & 2 \\
-    0 & 0 & 0 & 0 & 3\end{gmatrix}\right.
-    \begin{gmatrix}[q]
-    6 \\
-    0 \\
-    4 \\
-    0
-    \rowops
-    \mult{2}{\cdot \frac{1}{4}}
-    
-    \end{gmatrix}$
-    
-    $\left(\begin{gmatrix}
-    1 & 2 & 0 & 5 & 1 \\
-    0 & 0 & 1 & -1 & 0 \\
-    0 & 0 & 0 & 1 & \frac{1}{2} \\
-    0 & 0 & 0 & 0 & 3\end{gmatrix}\right.
-    \begin{gmatrix}[q]
-    6 \\
-    0 \\
-    1 \\
-    0
-    \rowops
-    \add[\cdot\left(-5\right)]{2}{0}
-    \add{2}{1}
-    
-    \end{gmatrix}$
-    
-    $\left(\begin{gmatrix}
-    1 & 2 & 0 & 0 & \frac{-3}{2} \\
-    0 & 0 & 1 & 0 & \frac{1}{2} \\
-    0 & 0 & 0 & 1 & \frac{1}{2} \\
-    0 & 0 & 0 & 0 & 3\end{gmatrix}\right.
-    \begin{gmatrix}[q]
-    1 \\
-    1 \\
-    1 \\
-    0
-    \end{gmatrix}$
-    \\
-For base matrix $\matr{A}$ rank is 3, meaning it is not a full rank matrix, hence solution using least squares is not accurate.\\
-
-$\left(\begin{gmatrix}
-    1 & 2 & 3 & 2 & 1 \\
-    0 & 4 & 4 & 6 & 2 \\
-    3 & 6 & 6 & 9 & 6 \\
-    1 & 2 & 4 & 5 & 3\end{gmatrix}\right.
-    \begin{gmatrix}[q]
-    6 \\
-    10 \\
-    18 \\
-    10
-    \rowops
-    \add[\cdot\left(-3\right)]{0}{2}
-    \add[\cdot\left(-1\right)]{0}{3}
-    
-    \end{gmatrix}$
-    
-    $\left(\begin{gmatrix}
-    1 & 2 & 3 & 2 & 1 \\
-    0 & 4 & 4 & 6 & 2 \\
-    0 & 0 & -3 & 3 & 3 \\
-    0 & 0 & 1 & 3 & 2\end{gmatrix}\right.
-    \begin{gmatrix}[q]
-    6 \\
-    10 \\
-    0 \\
-    4
-    \rowops
-    \mult{1}{\cdot \frac{1}{4}}
-    
-    \end{gmatrix}$
-    
-    $\left(\begin{gmatrix}
-    1 & 2 & 3 & 2 & 1 \\
-    0 & 1 & 1 & \frac{3}{2} & \frac{1}{2} \\
-    0 & 0 & -3 & 3 & 3 \\
-    0 & 0 & 1 & 3 & 2\end{gmatrix}\right.
-    \begin{gmatrix}[q]
-    6 \\
-    \frac{5}{2} \\
-    0 \\
-    4
-    \rowops
-    \add[\cdot\left(-2\right)]{1}{0}
-    
-    \end{gmatrix}$
-    
-    $\left(\begin{gmatrix}
-    1 & 0 & 1 & -1 & 0 \\
-    0 & 1 & 1 & \frac{3}{2} & \frac{1}{2} \\
-    0 & 0 & -3 & 3 & 3 \\
-    0 & 0 & 1 & 3 & 2\end{gmatrix}\right.
-    \begin{gmatrix}[q]
-    1 \\
-    \frac{5}{2} \\
-    0 \\
-    4
-    \rowops
-    \mult{2}{\cdot \left(\frac{-1}{3}\right)}
-    
-    \end{gmatrix}$
-    
-    $\left(\begin{gmatrix}
-    1 & 0 & 1 & -1 & 0 \\
-    0 & 1 & 1 & \frac{3}{2} & \frac{1}{2} \\
-    0 & 0 & 1 & -1 & -1 \\
-    0 & 0 & 1 & 3 & 2\end{gmatrix}\right.
-    \begin{gmatrix}[q]
-    1 \\
-    \frac{5}{2} \\
-    0 \\
-    4
-    \rowops
-    \add[\cdot\left(-1\right)]{2}{0}
-    \add[\cdot\left(-1\right)]{2}{1}
-    \add[\cdot\left(-1\right)]{2}{3}
-    
-    \end{gmatrix}$
-    
-    $\left(\begin{gmatrix}
-    1 & 0 & 0 & 0 & 1 \\
-    0 & 1 & 0 & \frac{5}{2} & \frac{3}{2} \\
-    0 & 0 & 1 & -1 & -1 \\
-    0 & 0 & 0 & 4 & 3\end{gmatrix}\right.
-    \begin{gmatrix}[q]
-    1 \\
-    \frac{5}{2} \\
-    0 \\
-    4
-    \rowops
-    \mult{3}{\cdot \frac{1}{4}}
-    
-    \end{gmatrix}$
-    
-    $\left(\begin{gmatrix}
-    1 & 0 & 0 & 0 & 1 \\
-    0 & 1 & 0 & \frac{5}{2} & \frac{3}{2} \\
-    0 & 0 & 1 & -1 & -1 \\
-    0 & 0 & 0 & 1 & \frac{3}{4}\end{gmatrix}\right.
-    \begin{gmatrix}[q]
-    1 \\
-    \frac{5}{2} \\
-    0 \\
-    1
-    \rowops
-    \add[\cdot\left(\frac{-5}{2}\right)]{3}{1}
-    \add{3}{2}
-    
-    \end{gmatrix}$
-    
-    $\left(\begin{gmatrix}
-    1 & 0 & 0 & 0 & 1 \\
-    0 & 1 & 0 & 0 & \frac{-3}{8} \\
-    0 & 0 & 1 & 0 & \frac{-1}{4} \\
-    0 & 0 & 0 & 1 & \frac{3}{4}\end{gmatrix}\right.
-    \begin{gmatrix}[q]
-    1 \\
-    0 \\
-    1 \\
-    1
-    \end{gmatrix}$
-    \\
-Modified $\matr{A}$ rank is 4 being full rank matrix. This implies unique solution for least squares problem given that $\matr{b}$ is in the column space of $\matr{A}$.
+\paragraph{Effect of rank on exact recovery.}
+The pseudoinverse recovers the true solution only if
+$\matr{x}_{\mathrm{true}}\in\mathcal{R}(\matr{A}^T)$ \citep{Zdunek}.
+For the base matrix with $\operatorname{rank}=3$, the null space has dimension
+$5-3=2$; the true solution need not lie in the three-dimensional row space, so
+exact recovery is not guaranteed.
+Changing $a_{21}$ from 2 to 0 raises the rank to 4, shrinking the null space to
+one dimension.
+The true solution then lies in the four-dimensional row space and is the unique
+minimum-norm solution, so the pseudoinverse recovers it to machine precision.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsubsection*{Solution}
-Using MATLAB script we performed calculations using pseudo inverse, FOCUSS and M-FOCUSS Methods
-\lstinputlisting[style=Matlab-editor]{problems/Problem_2.m}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+M-FOCUSS (Multiple-measurement FOCUSS) is a variant of the FOCUSS algorithm
+that uses the same weight matrix $\matr{W}_k = \operatorname{diag}(|x_j^{(k)}|^{1-p/2})$
+but applies it once rather than twice in the numerator of the update
+\citep{GorodRao97}:
+\begin{equation*}
+  \matr{x}^{(k+1)}
+  = \matr{W}_k \matr{A}^T
+    \!\left(\matr{A}\matr{W}_k^2\matr{A}^T + \lambda\matr{I}\right)^{-1}
+    \matr{b}.
+\end{equation*}
+Here we use $p=1$ and $\lambda=10^{-3}$.
 
+The following MATLAB script computes $\matr{b}=\matr{Ax}_{\mathrm{true}}$, then
+estimates the solution via pseudoinverse (\texttt{pinv}), FOCUSS
+(Algorithm~\ref{algorithm:focuss}), and M-FOCUSS
+(Algorithm~\ref{algorithm:mfocuss}) for both the base and modified matrices.
+
+\lstinputlisting[style=Matlab-editor]{problems/Problem_2.m}
+
+\paragraph{Residuals and solution errors.}
+The residual $\|\matr{A\hat{x}}-\matr{b}\|_2$ is zero for any element of the
+affine solution set, so it does not discriminate between estimates when the
+system is rank-deficient.
+The solution error $\|\hat{\matr{x}}-\matr{x}_{\mathrm{true}}\|_2$ is the
+primary metric when the true solution is known.
+
+\begin{center}
+\begin{tabular}{llcc}
+  \hline
+  Matrix & Method & $\|\hat{\matr{x}}-\matr{x}_{\mathrm{true}}\|_2$ & $\|\matr{A\hat{x}}-\matr{b}\|_2$ \\
+  \hline
+  Base $\matr{A}$ (rank 3)     & Pseudoinverse & 0.90                & $8.7\times10^{-15}$ \\
+                                & FOCUSS        & 1.73                & $8.1\times10^{-5}$  \\
+                                & M-FOCUSS      & 1.08                & $3.7\times10^{-1}$  \\
+  \hline
+  Modified $\matr{A}$ (rank 4) & Pseudoinverse & $3.1\times10^{-15}$ & $5.7\times10^{-15}$ \\
+                                & FOCUSS        & $1.7\times10^{-3}$  & $8.7\times10^{-4}$  \\
+                                & M-FOCUSS      & $1.3\times10^{-2}$  & $8.5\times10^{-2}$  \\
+  \hline
+\end{tabular}
+\end{center}
+
+\paragraph{Best algorithm.}
+For the base matrix ($\operatorname{rank}=3$), no algorithm recovers
+$\matr{x}_{\mathrm{true}}$ exactly because the null space has dimension 2.
+The pseudoinverse gives the smallest solution error ($0.90$) by returning the
+minimum-$\ell_2$-norm consistent solution.
+FOCUSS finds a sparser consistent solution $(0,0,0,2,0)^T$ but with larger error
+($1.73$); M-FOCUSS does not fully converge to a consistent solution (residual
+$0.37$).
+For the modified matrix ($\operatorname{rank}=4$), $\matr{x}_{\mathrm{true}}$
+lies in the row space and the pseudoinverse recovers it to machine precision.
+FOCUSS and M-FOCUSS also converge close to the truth but less accurately due to
+finite iterations and regularisation.
+
+\paragraph{Best metrics.}
+The residual $\|\matr{A\hat{x}}-\matr{b}\|_2$ is necessary but not sufficient:
+it equals zero for the entire affine solution set when $\matr{b}\in\mathcal{R}(\matr{A})$.
+When the true solution is known, solution error is the primary metric.
+When it is not, the $\ell_2$ norm $\|\hat{\matr{x}}\|_2$ (minimised by the
+pseudoinverse) or the $\ell_p$ quasi-norm $\|\hat{\matr{x}}\|_p^p$ (minimised
+by FOCUSS/M-FOCUSS) serve as surrogates encoding prior knowledge about the
+nature of the true solution.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

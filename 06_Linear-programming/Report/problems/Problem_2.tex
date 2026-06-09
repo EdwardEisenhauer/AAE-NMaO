@@ -1,0 +1,83 @@
+\subsection{Problem~2}%
+\label{problem:2}
+
+A balanced normal diet assumes that we should consume at least 60 grams of
+proteins and at least 120 grams of carbohydrates daily. We assume that 100 grams of cheese
+contains 20 grams of proteins and 20 grams of carbohydrates, but the same amount of bread
+contains 10 grams of proteins and 30 grams of carbohydrates. Please determine the most
+economical diet under the assumption that the price of cheese is 30\,PLN/kg and bread costs
+20\,PLN/kg.
+
+\subsubsection*{Solution}
+
+Let $x_1$ (kg of cheese) and $x_2$ (kg of bread) be the decision variables.
+Rescaling nutrition data to per-kg units ($1\,\text{kg} = 10 \times 100\,\text{g}$) gives the LP:
+
+\begin{equation*}
+\begin{split}
+    \min_{x_1,x_2}\ & 30x_1 + 20x_2 \\
+    \text{subject to}\quad
+        & 200x_1 + 100x_2 \geq 60 \quad\text{(protein)} \\
+        & 200x_1 + 300x_2 \geq 120 \quad\text{(carbohydrates)} \\
+        & x_1,\, x_2 \geq 0
+\end{split}
+\end{equation*}
+
+Because the constraints are of the $\geq$ form, the initial point $x_1 = x_2 = 0$ is
+\emph{infeasible}: the basic solution obtained by adding slack variables would require
+negative slacks.
+Instead, surplus variables $s_1, s_2 \geq 0$ are subtracted and artificial variables
+$a_1, a_2 \geq 0$ are added to obtain an initial basic feasible solution, which leads to
+the two-phase simplex method~\cite{Zdunek}:
+
+\begin{equation*}
+    \mathbf{A} =
+    \begin{bmatrix}
+        200 & 100 & -1 & 0 \\
+        200 & 300 &  0 & -1
+    \end{bmatrix},\quad
+    \mathbf{b} = \begin{bmatrix} 60 \\ 120 \end{bmatrix},\quad
+    \mathbf{f} = \begin{bmatrix} 30 & 20 & 0 & 0 \end{bmatrix}
+\end{equation*}
+
+\paragraph{Phase~1.}
+The auxiliary objective $\min\,(a_1 + a_2)$ is minimised over the extended system
+$\mathbf{A}x + a = \mathbf{b}$.
+The initial Phase~1 tableau (columns: $x_1,x_2,s_1,s_2,a_1,a_2,b$) is:
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{c|cc cc cc|c}
+         & $x_1$ & $x_2$ & $s_1$ & $s_2$ & $a_1$ & $a_2$ & $b$ \\
+        \hline
+        $a_1$ & 200 & 100 & $-1$ & 0 & 1 & 0 & 60 \\
+        $a_2$ & 200 & 300 & 0 & $-1$ & 0 & 1 & 120 \\
+        \hline
+        $z_1$ & $-400$ & $-400$ & 1 & 1 & 0 & 0 & $-180$ \\
+    \end{tabular}
+\end{table}
+
+After two pivot operations the Phase~1 objective reaches~0, confirming feasibility, and
+the BFS $x_1 = 0.15$, $x_2 = 0.30$ is already in the basis.
+
+\paragraph{Phase~2.}
+The artificial columns are discarded and the original objective row
+$\mathbf{f} = [30, 20, 0, 0]$ is substituted.
+After eliminating the basis variables from the objective row, all reduced costs are
+non-negative, so the algorithm terminates at the Phase~1 BFS.
+The optimal solution is:
+
+\begin{equation*}
+    \systeme{x_1 = 0.15\,\text{kg (cheese)},x_2 = 0.30\,\text{kg (bread)}}
+\end{equation*}
+
+Both nutritional lower bounds are tight at this vertex:
+\begin{equation*}
+    200(0.15) + 100(0.30) = 60\,\text{g protein},\quad
+    200(0.15) + 300(0.30) = 120\,\text{g carbohydrates.}
+\end{equation*}
+The minimum daily cost is $30(0.15) + 20(0.30) = \mathbf{10.50}\,\text{PLN}$.
+
+\subsubsection*{Matlab Implementation}
+\label{problem:2:impl}
+\lstinputlisting[style=Matlab-editor, breaklines=false]{problems/Problem_2.m}

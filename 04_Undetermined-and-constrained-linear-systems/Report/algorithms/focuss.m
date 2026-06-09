@@ -9,6 +9,9 @@ function x = focuss(A, b, p, lambda, tol, max_iter)
         W = diag(abs(x).^(1 - p/2));
         x = W^2 * A' * (A * W^2 * A' + lambda * eye(m))^(-1) * b;
         k = k + 1;
+        if mod(k, 100) == 0
+            fprintf('iter %d  ||dx|| = %.2e\n', k, norm(x - x_prev));
+        end
         if k >= max_iter
             fprintf('FOCUSS: reached max_iter = %d\n', max_iter);
             break;

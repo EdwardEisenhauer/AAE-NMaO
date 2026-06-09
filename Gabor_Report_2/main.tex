@@ -1,0 +1,149 @@
+\documentclass[a4paper]{article}
+\usepackage{fontspec}
+\setmainfont[Ligatures=TeX]{CMU Serif}
+\usepackage{WUSTReport}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\usepackage{gauss}
+\usepackage{etoolbox}
+\usepackage[polish,main=english]{babel}
+\usepackage{indentfirst}
+\usepackage{nameref}
+\usepackage{natbib}
+\usepackage{listings}
+\usepackage{matlab-prettifier}
+\usepackage{multicol}
+\usepackage{pdfpages}
+\usepackage{pgfplots}
+\usepackage{systeme}
+\usepackage{tasks}
+\usepackage{todonotes}
+\usepackage{float}
+\usepackage{graphicx,xcolor,colortbl}
+\usepackage{epstopdf,epsfig}
+
+\newmatrix{|}{)}{q}
+
+% Search for graphics in CWD and each lab's directory tree
+\graphicspath{{./}{lab4/}{lab5/}{lab6/}{lab7/}}
+
+% Patch \lstinputlisting so each lab's problem files find their source files.
+% Set \labbase before each lab's content block.
+\newcommand{\labbase}{}
+\let\OrigLstInputListing\lstinputlisting
+\renewcommand{\lstinputlisting}[2][]{\OrigLstInputListing[#1]{\labbase#2}}
+
+\title{%
+  {\LARGE Numerical Methods and Optimization: Reports 4--7}\\[0.4em]
+  {\large Undetermined and Constrained Linear Systems,
+    Iterative Linear Solvers,\\
+    Linear Programming, and Unconstrained Optimization}%
+}
+\author{Sergiusz Warga 230757}
+\date{}
+\reporttutor{dr inż. Mateusz Gabor}
+\reportgroup{Wednesday 13:15}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\pagebreak
+
+%%% ============================================================
+\part{Undetermined and Constrained Linear Systems}
+%%% ============================================================
+
+\renewcommand{\labbase}{lab4/}
+
+\section{Problems}
+\input{lab4/problems/Problem_1}
+\input{lab4/problems/Problem_2}
+
+\clearpage
+
+\section{Algorithms}
+\subsection{Regularized FOCUSS}%
+\label{algorithm:focuss}
+\lstinputlisting[style=Matlab-editor, breaklines=false]{algorithms/focuss.m}
+
+\subsection{M-FOCUSS}%
+\label{algorithm:mfocuss}
+\lstinputlisting[style=Matlab-editor, breaklines=false]{algorithms/mfocuss.m}
+
+%%% ============================================================
+\part{Iterative Linear Solvers}
+%%% ============================================================
+
+\renewcommand{\labbase}{lab5/}
+
+\section{Problems}
+\input{lab5/problems/problem_1}
+\input{lab5/problems/problem_2}
+
+\clearpage
+
+\section{Algorithms}
+\subsection{Landweber method}%
+\label{alg:landweber}
+\lstinputlisting[style=Matlab-editor, breaklines=false]{algorithms/landweber.m}
+
+\subsection{Jacobi method}%
+\label{alg:jacobi}
+\lstinputlisting[style=Matlab-editor, breaklines=false]{algorithms/jacobi.m}
+
+\subsection{Gauss-Seidel method}%
+\label{alg:gauss-seidel}
+\lstinputlisting[style=Matlab-editor, breaklines=false]{algorithms/gaussSeidel.m}
+
+\subsection{Successive Over-Relaxation (SOR) method}%
+\label{alg:sor}
+\lstinputlisting[style=Matlab-editor, breaklines=false]{algorithms/sor.m}
+
+\subsection{Kaczmarz method}%
+\label{alg:kaczmarz}
+\lstinputlisting[style=Matlab-editor, breaklines=false]{algorithms/kaczmarz.m}
+
+%%% ============================================================
+\part{Linear Programming}
+%%% ============================================================
+
+\renewcommand{\labbase}{lab6/}
+
+\section{Problems}
+\input{lab6/problems/Problem_1}
+\input{lab6/problems/Problem_2}
+
+\clearpage
+
+\section{Algorithms}
+\subsection{Simplex method}%
+\label{alg:simplex}
+\lstinputlisting[style=Matlab-editor, breaklines=false]{algorithms/simplex.m}
+
+\subsection{Two-Phase Simplex method}%
+\label{alg:two-phase-simplex}
+\lstinputlisting[style=Matlab-editor, breaklines=false]{algorithms/2_phase_simplex.m}
+
+%%% ============================================================
+\part{Unconstrained Optimization}
+%%% ============================================================
+
+\renewcommand{\labbase}{lab7/}
+
+\section{Problems}
+\input{lab7/problems/problem_1}
+\input{lab7/problems/problem_2}
+
+%%%%%%%%%%%%%%%%%%%
+%% BIBLIOGRAPHY %%%
+%%%%%%%%%%%%%%%%%%%
+
+\clearpage
+
+\nocite{Zdunek, GoluVanl96, Meyer, Zarowski, Demmel, Gerschgorin, Bjorck, GorodRao97}
+\bibliographystyle{alpha}
+\bibliography{bibliography}
+
+\end{document}
