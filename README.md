@@ -22,6 +22,12 @@ sudo fc-cache -f -v
 make
 ```
 
+On macoS you need to run:
+
+```sh
+brew install --cask font-computer-modern
+```
+
 ## Acknowledgement
 
 I want to thank:

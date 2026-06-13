@@ -1,0 +1,397 @@
+% Satellite Constellation Argument-of-Latitude Optimisation
+% 10-minute Beamer presentation sketch
+% Build: make build/Project-Presentation.pdf
+
+\documentclass[aspectratio=169, 10pt]{beamer}
+
+\usetheme[lang=en,hr=false]{NewPwr}
+\usepackage{amsmath, amssymb}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{listings}
+\lstset{basicstyle=\ttfamily\tiny, breaklines=false}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, decorations.pathreplacing}
+
+% ── Metadata ──────────────────────────────────────────────────────────────────
+\title{Argument-of-Latitude Optimization\\in a Satellite Constellation}
+\subtitle{Numerical Methods and Optimization --- Project}
+\author{Sergiusz Warga 230757}
+\institute{Wrocław University of Science and Technology\\
+  Tutor: dr~inż.~Mateusz~Gabor\\
+  Group: Wednesday 13:15}
+\date{2026-06-10}
+
+% ── Convenience macros ────────────────────────────────────────────────────────
+\newcommand{\dv}{\Delta v}
+\newcommand{\du}{\delta}
+
+% ==============================================================================
+\begin{document}
+
+\maketitle
+
+% ── Outline ───────────────────────────────────────────────────────────────────
+\begin{frame}{Outline}
+  \tableofcontents
+\end{frame}
+
+% ==============================================================================
+\section{Motivation}
+
+% ── 1. Motivation ─────────────────────────────────────────────────────────────
+\begin{frame}{Motivation}
+  \begin{columns}[T]
+    \begin{column}{0.55\textwidth}
+      \begin{itemize}[<+->]
+        \item I don't have time. I asked our Mission Analysis
+              team for a real problem I could implement for this course.
+        \item Low-Earth-orbit constellations rely on
+              \textbf{uniform angular spacing} to provide continuous coverage.
+        \item Atmospheric drag, solar pressure, and Earth's oblateness slowly
+              shift each satellite's angular position.
+        \item Periodically, small \textbf{phasing manoeuvres} must restore equal
+              spacing, but fuel is finite and unevenly distributed across the
+              fleet.
+        \item \textbf{Goal:} find the cheapest set of manoeuvres that re-spaces
+              the constellation while keeping fuel levels as \emph{balanced} as
+              possible.
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.42\textwidth}
+      \only<1-5>{\begin{tikzpicture}[scale=1.15]
+        \draw[thick, gray!60] (0,0) circle (1.4cm);
+        \fill[Logo!80] (0,0) circle (0.12cm);
+        % current positions only
+        \foreach[count=\i] \a in {40,105,170,245,305,350}{
+          \fill[Logo] ({1.4*cos(\a)},{1.4*sin(\a)}) circle (3.5pt)
+            node[font=\tiny, above right] {$S_{\i}$};
+        }
+        \draw[->, gray!60] (0,0)--(1.6,0) node[right, font=\tiny]{$\Omega$};
+      \end{tikzpicture}}
+      \only<6->{\begin{tikzpicture}[scale=1.15]
+        \draw[thick, gray!60] (0,0) circle (1.4cm);
+        \fill[Logo!80] (0,0) circle (0.12cm);
+        % ideal slots (dashed)
+        \foreach \k in {0,...,5}{
+          \draw[gray!30, dashed] (0,0) -- ({1.4*cos(60*\k)},{1.4*sin(60*\k)});
+          \fill[gray!40] ({1.4*cos(60*\k)},{1.4*sin(60*\k)}) circle (2.5pt);
+        }
+        % current (perturbed) positions
+        \foreach[count=\i] \a in {40,105,170,245,305,350}{
+          \fill[Logo] ({1.4*cos(\a)},{1.4*sin(\a)}) circle (3.5pt)
+            node[font=\tiny, above right] {$S_{\i}$};
+        }
+        \draw[->, gray!60] (0,0)--(1.6,0) node[right, font=\tiny]{$\Omega$};
+        \node[font=\scriptsize, gray!60] at (0,-1.75) {grey: ideal \quad red: current};
+      \end{tikzpicture}}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ==============================================================================
+\section{Orbital Mechanics Background}
+
+% ── 3. Circular orbits and Kepler's 3rd law ───────────────────────────────────
+\begin{frame}{Circular Orbits --- The Key Relationship}
+  \begin{columns}[T]
+    \begin{column}{0.55\textwidth}
+      \onslide<1->{From Newton's law and centripetal acceleration, the orbital
+      speed of a satellite at radius~$r$ is:
+      \[
+        v_c = \sqrt{\frac{\mu}{r}}, \qquad
+        \mu = GM_\oplus \approx 3.986 \times 10^{14}\ \frac{\text{m}^3}{\text{s}^2}
+      \]}
+      \onslide<2->{The orbital period follows from Kepler's third law:
+      \[
+        T = \frac{2\pi r}{v_c} = 2\pi\sqrt{\frac{r^3}{\mu}}
+      \]}
+      \onslide<3->{\begin{block}{The key insight}
+        \textbf{Lower orbit $\Rightarrow$ faster speed, shorter period.}\\
+        \textbf{Higher orbit $\Rightarrow$ slower speed, longer period.}
+      \end{block}}
+    \end{column}
+    \begin{column}{0.42\textwidth}
+      \onslide<1->{\begin{tikzpicture}[scale=1.4]
+        \draw[gray!50, thick] (0,0) circle (1cm);
+        \fill[Logo!80] (0,0) circle (0.07cm)
+              node[above right, font=\scriptsize]{$\oplus$};
+        \draw[->, thick, Logo] (0,0) -- ({cos(55)},{sin(55)})
+              node[midway, above left, font=\small]{$r$};
+        \fill[Logo] ({cos(55)},{sin(55)}) circle (0.05cm)
+              node[above right, font=\scriptsize]{$S$};
+        \draw[->, thick, orange!80!black]
+              ({cos(55)},{sin(55)}) -- ({cos(55)-0.35*sin(55)},{sin(55)+0.35*cos(55)})
+              node[above, font=\scriptsize]{$v_c$};
+        \draw[->, gray!70] (0.35,0) arc[start angle=0,end angle=55,radius=0.35cm]
+              node[right, font=\scriptsize]{$u$};
+        \draw[->, gray!60] (0,0)--(1.2,0) node[right, font=\tiny]{$\Omega$};
+      \end{tikzpicture}\\[4pt]
+      {\footnotesize The \textbf{argument of latitude}~$u$ is the angle from
+      the ascending node $\Omega$ to the satellite's current position,
+      measured along the orbit.}}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ── 4. Orbit Phasing --- concept ─────────────────────────────────────────────
+\begin{frame}{Orbit Phasing --- How It Works}
+  \begin{columns}[T]
+    \begin{column}{0.50\textwidth}
+      \textbf{Need to advance (positive $\du$)?}
+      \begin{enumerate}[<+->]
+        \item Fire \textbf{retrograde} --- slow down.
+        \item Satellite drops to a \emph{lower} orbit.
+        \item Faster orbital speed $\Rightarrow$ shorter period.\\
+              \textit{Completes one lap before the reference.}
+        \item Fire \textbf{prograde} --- restore altitude.
+      \end{enumerate}
+      \pause\medskip
+      \textbf{Need to fall back (negative $\du$)?}
+      \begin{enumerate}[<+->]
+        \item Fire \textbf{prograde} --- speed up.
+        \item Satellite climbs to a \emph{higher} orbit.
+        \item Slower speed $\Rightarrow$ longer period.\\
+              \textit{Completes one lap behind the reference.}
+        \item Fire \textbf{retrograde} --- restore altitude.
+      \end{enumerate}
+    \end{column}
+    \begin{column}{0.46\textwidth}
+      \onslide<10->{\begin{tikzpicture}[scale=1.5]
+        % circular orbit (radius 1, Earth at origin)
+        \draw[Logo, thick] (0,0) circle (1cm);
+        % phasing orbit: apoapsis = 1 at (1,0), periapsis = 0.6 at (-0.6,0)
+        % a=0.8, b=sqrt(0.64-0.04)=0.775, center=(0.2,0)
+        \draw[red!60, thick, dashed] (0.2,0) ellipse (0.8cm and 0.775cm);
+        % Earth
+        \fill[Logo!80] (0,0) circle (0.06cm);
+        % both burns happen at the same point: apoapsis (1,0)
+        \fill[red!80] (1,0) circle (0.06cm);
+        \node[font=\tiny, red!70, right] at (1.05,0.12) {burns 1 \& 2};
+        % travel direction arrows
+        \draw[->, Logo, thick] ({cos(100)},{sin(100)}) -- ({cos(101)},{sin(101)});
+        \draw[->, red!50, thick]
+              ({0.2+0.8*cos(100)},{0.775*sin(100)}) --
+              ({0.2+0.8*cos(101)},{0.775*sin(101)});
+        % labels
+        \node[font=\tiny, Logo]    at (-0.3,  0.88) {circular orbit};
+        \node[font=\tiny, red!60]  at (-0.35, -0.60) {phasing orbit};
+      \end{tikzpicture}}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ── 5. Delta-v formula ────────────────────────────────────────────────────────
+\begin{frame}{Delta-$v$ for a Phasing Manoeuvre}
+  \onslide<1->{To shift by angle~$\du$ in exactly one revolution, the phasing
+  orbit semi-major axis is found from the period ratio:
+  \[
+    \frac{T_\text{ph}}{T_c} = 1 - \frac{\du}{2\pi}
+    \;\Longrightarrow\;
+    \frac{a_\text{ph}}{r} = \left(1 - \frac{\du}{2\pi}\right)^{2/3}
+    \;\Longrightarrow\;
+    \boxed{a_\text{ph} = \frac{r}{\bigl(1 + \du/(2\pi)\bigr)^{2/3}}}
+  \]}
+  \onslide<2->{The speed at the manoeuvre point on the phasing orbit
+  (vis-viva equation):
+  \[
+    v_\text{ph} = \sqrt{\mu\!\left(\frac{2}{r} - \frac{1}{a_\text{ph}}\right)}
+  \]}
+  \onslide<3->{Both burns have equal magnitude, so the total cost is:
+  \[
+    \dv = 2\,\bigl|v_\text{ph} - v_c\bigr|
+  \]}
+  \begin{itemize}[<+->]
+    \item $\du > 0$: $a_\text{ph} < r$, lower/faster orbit ---
+          first burn is \textbf{retrograde}.
+    \item $\du < 0$: $a_\text{ph} > r$, higher/slower orbit ---
+          first burn is \textbf{prograde}.
+  \end{itemize}
+\end{frame}
+
+% ── Problem Statement ─────────────────────────────────────────────────────────
+\section{Problem Statement}
+
+\begin{frame}{Problem Statement}
+  \textbf{Inputs} (arbitrary, supplied by the caller):
+  \begin{itemize}[<+->]
+    \item $N$ satellites on a circular orbit at altitude $h$,
+          gravitational parameter $\mu$.
+    \item Current arguments of latitude $\mathbf{u} \in \mathbb{R}^N$.
+    \item Remaining $\dv$ budgets $\mathbf{f} \in \mathbb{R}^N$.
+  \end{itemize}
+
+  \pause\medskip
+  \textbf{Find:} angular transfers $\boldsymbol{\du}$ such that:
+  \begin{enumerate}[<+->]
+    \item Satellites are \textbf{equally spaced} ($360°/N$ apart) after the
+          manoeuvre.
+    \item \textbf{Total} $\dv$ consumed by the fleet is minimised.
+    \item \textbf{Remaining} fuel budgets are as equal as possible.
+  \end{enumerate}
+
+  \pause\medskip
+  \textbf{Simplifying assumptions:} circular, co-planar orbits; two-burn
+  phasing manoeuvre per satellite; no perturbations during the transfer.
+
+  \pause\medskip
+  \textbf{Example used here:} $N=6$, $h = 550\ \text{km}$ (SSO),
+  $\mathbf{u} = [40°,\ 105°,\ 170°,\ 245°,\ 305°,\ 350°]^\top$,
+  $\mathbf{f} = [100,\ 95,\ 102,\ 98,\ 100,\ 97]^\top$ m/s.
+\end{frame}
+
+% ==============================================================================
+\section{Mathematical Formulation}
+
+% ── 6. 1-D reduction ──────────────────────────────────────────────────────────
+\begin{frame}{Reducing to a 1-D Optimisation}
+  \onslide<1->{After sorting satellites by current~$u$, the equal-spacing
+  constraint fixes all target positions given a single \emph{reference phase}
+  $u_\text{ref} \in [0,\ 2\pi)$:
+  \[
+    u_{i,\text{target}} = u_\text{ref} + (i-1)\cdot\frac{2\pi}{N},
+    \quad i = 1,\dots,N.
+  \]}
+  \onslide<2->{The transfer angle for satellite~$i$:
+  \[
+    \du_i(u_\text{ref}) = \operatorname{wrap}_{[-\pi,\pi]}\!\bigl(
+      u_{i,\text{target}} - u_i\bigr)
+  \]}
+  \onslide<3->{Wrapping to $[-\pi,\pi]$ selects the \textbf{shortest path}
+  automatically.}
+
+  \onslide<4->{\medskip
+  The full $N$-satellite scheduling problem reduces to a
+  \textbf{scalar search over $u_\text{ref}$}, solved with \texttt{fminbnd}.}
+\end{frame}
+
+% ── 7. Optimisation strategies ────────────────────────────────────────────────
+\begin{frame}{Optimisation Criteria and Strategies}
+  \onslide<1->{Define:
+  \[
+    J_1(u_\text{ref}) = \sum_{i=1}^N \dv_i, \qquad
+    J_2(u_\text{ref}) = \max_i \bigl| r_i - \bar{r} \bigr|,
+    \quad r_i = f_i - \dv_i \text{ (remaining fuel)}
+  \]}
+
+  \onslide<2->{\begin{block}{Weighted strategy (single \texttt{fminbnd} call)}
+    \[
+      \min_{u_\text{ref}}\ W_1 J_1(u_\text{ref}) + W_2 J_2(u_\text{ref})
+    \]
+    Trade-off between total cost and fuel balance controlled by $W_1, W_2$.
+  \end{block}}
+
+  \onslide<3->{\begin{block}{Lexicographic strategy (two \texttt{fminbnd} calls)}
+    \textbf{Stage 1:} $\min J_1 \;\Rightarrow\; J_1^*$.\\
+    \textbf{Stage 2:} $\min J_2$ subject to
+    $J_1 \le J_1^*(1 + \varepsilon)$.\\
+    Strictly prioritises fuel economy; balance is secondary.
+  \end{block}}
+\end{frame}
+
+% ==============================================================================
+\section{Implementation and Results}
+
+% ── 9. Strategy Comparison ───────────────────────────────────────────────────
+\begin{frame}{Strategy Comparison}
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \onslide<1->{\begin{block}{Weighted ($W_1 = 1,\ W_2 = 10$)}
+        \begin{itemize}
+          \item Single \texttt{fminbnd} call.
+          \item $W_2 \gg W_1$: strongly penalises fuel imbalance.
+          \item May consume slightly more total $\dv$ to equalise
+                remaining budgets.
+        \end{itemize}
+      \end{block}}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \onslide<2->{\begin{block}{Lexicographic}
+        \begin{itemize}
+          \item Two sequential \texttt{fminbnd} calls.
+          \item Stage~1: minimise total $\dv$ strictly.
+          \item Stage~2: minimise imbalance within
+                $\dv \le \dv^*(1 + \varepsilon)$.
+        \end{itemize}
+      \end{block}}
+    \end{column}
+  \end{columns}
+
+  \onslide<3->{\medskip
+  \begin{center}
+    \includegraphics[height=0.45\textheight]{figures/comparison.pdf}
+  \end{center}}
+\end{frame}
+
+% ── 10. Numerical Results: Weighted ──────────────────────────────────────────
+\begin{frame}[fragile]{Numerical Results --- Weighted ($W_1=1,\ W_2=10$)}
+  \lstinputlisting{out_weighted.m}
+\end{frame}
+
+% ── 11. Numerical Results: Lexicographic ─────────────────────────────────────
+\begin{frame}[fragile]{Numerical Results --- Lexicographic}
+  \lstinputlisting{out_lexicographic.m}
+\end{frame}
+
+% ── 12. Manoeuvre plans ───────────────────────────────────────────────────────
+\begin{frame}{Manoeuvre Plans}
+  \begin{columns}[c]
+    \begin{column}{0.48\textwidth}
+      \onslide<1->{\centering
+      \includegraphics[width=\linewidth]{figures/manoeuvre_weighted.pdf}}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \onslide<2->{\centering
+      \includegraphics[width=\linewidth]{figures/manoeuvre_lexicographic.pdf}}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+% ── 13. Before / After ────────────────────────────────────────────────────────
+\begin{frame}{Before and After}
+  \begin{columns}[c]
+    \begin{column}{0.48\textwidth}
+      \onslide<1->{\centering
+      \includegraphics[width=\linewidth]{figures/constellation_initial.pdf}}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \onslide<2->{\centering
+      \includegraphics[width=\linewidth]{figures/constellation_target.pdf}}
+    \end{column}
+  \end{columns}
+  \onslide<2->{\begin{center}
+    \footnotesize After manoeuvres: spacing = $60^\circ$ between each adjacent pair.
+  \end{center}}
+\end{frame}
+
+% ==============================================================================
+\section{Discussion and Conclusions}
+
+% ── 12. Limitations ──────────────────────────────────────────────────────────
+\begin{frame}{Limitations and Possible Extensions}
+  \begin{itemize}[<+->]
+    \item \textbf{Multi-revolution phasing} --- each transfer is currently
+          fixed to one phasing orbit. Allowing $k$ revolutions reduces $\dv$
+          proportionally to $1/k$ at the cost of longer transfer time.
+    \item \textbf{Fuel-budget feasibility} --- if the computed $\dv_i$
+          exceeds a satellite's budget $f_i$, the solver returns negative
+          remaining fuel without raising an error.
+    \item \textbf{Global optimality} --- \texttt{fminbnd} finds a local
+          minimum; multi-start sampling could verify global optimality for
+          non-unimodal objectives.
+    \item \textbf{Perturbation model} --- ignoring $J_2$, drag, and solar
+          pressure leads to optimistic $\dv$ estimates.
+    \item \textbf{Non-circular orbits} --- generalising to elliptic reference
+          orbits would require a Hohmann transfer followed by a phasing arc.
+  \end{itemize}
+\end{frame}
+
+% ── Thank you ─────────────────────────────────────────────────────────────────
+\begin{frame}{}
+  \begin{center}
+    \Large\textbf{Thank you --- Questions?}\\[6pt]
+    \normalsize\texttt{github.com/EdwardEisenhauer/AAE-NMaO}
+  \end{center}
+\end{frame}
+
+\end{document}
