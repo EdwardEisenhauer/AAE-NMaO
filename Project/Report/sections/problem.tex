@@ -1,0 +1,42 @@
+\subsection{Inputs}
+
+The following quantities are provided as inputs to the optimiser:
+\begin{itemize}
+  \item $N$ --- number of satellites in the constellation.
+  \item $\mathbf{u} \in \mathbb{R}^N$ --- current arguments of latitude [rad].
+  \item $\mathbf{f} \in \mathbb{R}^N$ --- remaining $\dv$ budget per satellite [m/s].
+  \item $h$ --- orbital altitude [km].
+  \item $\mu$ --- gravitational parameter of the central body [m$^3$/s$^2$].
+\end{itemize}
+The orbital radius is computed as $r = (R_\oplus + h) \times 10^3$,
+where $R_\oplus = 6371$~km is the mean Earth radius.
+
+\subsection{Requirements}
+
+Find angular transfers $\boldsymbol{\du} \in \mathbb{R}^N$ such that:
+\begin{enumerate}
+  \item \textbf{Equal spacing:} After the manoeuvre, satellites are
+        equally spaced at intervals of $2\pi/N$.
+  \item \textbf{Optimality:} Two competing objectives are minimised
+        (see Section~\ref{sec:objectives}).
+\end{enumerate}
+
+\subsection{Simplifying Assumptions}
+
+\begin{itemize}
+  \item All satellites share a single circular, co-planar orbit.
+  \item Each satellite executes exactly one two-burn phasing manoeuvre.
+  \item Orbital perturbations are neglected during the transfer.
+  \item Each transfer completes in exactly one phasing orbit revolution.
+\end{itemize}
+
+\subsection{Test Case}
+
+The numerical results in this report use the following parameters:
+\begin{itemize}
+  \item $N = 6$, altitude $h = 550$~km,
+        $\mu = 3.986 \times 10^{14}$~m$^3$/s$^2$.
+  \item $\mathbf{u} = [40,\ 105,\ 170,\ 245,\ 305,\ 350]^{\top}$~degrees
+        (non-uniformly spaced; uniform would be every $60^{\circ}$).
+  \item $\mathbf{f} = [1102,\ 1230,\ 870,\ 900,\ 960,\ 979]^{\top}$~m/s.
+\end{itemize}

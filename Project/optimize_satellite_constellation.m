@@ -1,102 +1,98 @@
-function [delta, u_target, remaining_fuel, fuel_consumed, fuel_imbalance] = ...
-        optimize_satellite_constellation(u, f, strategy, W1, W2)
-% Finds minimum-fuel orbital transfers that equally space a satellite constellation.
+function [delta, u_target, remaining_fuel, fuel_consumed, fuel_imbalance, dv_per_sat] = ...
+        optimize_satellite_constellation(u, f, h, mu, strategy, W1, W2)
+% Finds minimum-delta-v orbital transfers that equally space a satellite constellation.
 %
 %   u               (N,1) current arguments of latitude [rad]
-%   f               (N,1) current fuel levels [units]
+%   f               (N,1) current delta-v budget per satellite [m/s]
+%   h               orbital altitude [km]            (default: 550 km, SSO)
+%   mu              gravitational parameter [m^3/s^2] (default: Earth)
 %   strategy        'weighted' (default) or 'lexicographic'
-%   W1              weight on total fuel consumed (weighted strategy only, default 1)
-%   W2              weight on max fuel imbalance  (weighted strategy only, default 1)
+%   W1              weight on total delta-v consumed   (weighted only, default 1)
+%   W2              weight on max delta-v imbalance    (weighted only, default 1)
 %
-%   delta           (N,1) required transfer per satellite [rad]
-%   u_target        (N,1) target argument of latitude per satellite [rad]
-%   remaining_fuel  (N,1) fuel level after manoeuvre
-%   fuel_consumed   total fuel consumed (sum of |delta|)
-%   fuel_imbalance  max deviation of remaining fuel from its mean
+%   delta           (N,1) angular transfer per satellite [rad]
+%   u_target        (N,1) target argument of latitude [rad]
+%   remaining_fuel  (N,1) remaining delta-v budget after manoeuvre [m/s]
+%   fuel_consumed   total delta-v consumed across constellation [m/s]
+%   fuel_imbalance  max deviation of remaining budgets from their mean [m/s]
+%   dv_per_sat      (N,1) delta-v consumed per satellite [m/s]
 
 arguments
     u        (:,1) double
     f        (:,1) double
-    strategy  char   = 'weighted'
-    W1        double = 1
-    W2        double = 1
+    h        double = 550                    % orbital altitude [km]
+    mu       double = 3.986004418e14         % Earth gravitational parameter [m^3/s^2]
+    strategy char   = 'weighted'
+    W1       double = 1
+    W2       double = 1
 end
+
+R_EARTH = 6371;                              % mean Earth radius [km]
+r       = (R_EARTH + h) * 1e3;              % orbital radius [m]
 
 N       = numel(u);
 spacing = 2*pi / N;
 
-[u_sorted, sort_idx] = sort(wrapTo2Pi(u));
-f_sorted = f(sort_idx);
-
+[u_sorted, sort_idx] = sort(mod(u, 2*pi));
+f_sorted       = f(sort_idx);
 target_offsets = (0:N-1)' * spacing;
 
-% LP variables
-prob  = optimproblem('ObjectiveSense', 'minimize');
-delta_var = optimvar('delta', N, 'LowerBound', -pi,  'UpperBound', pi);
-u_ref     = optimvar('u_ref', 1, 'LowerBound',  0,   'UpperBound', 2*pi);
-s         = optimvar('s',     N, 'LowerBound',  0);
-t         = optimvar('t',     1, 'LowerBound',  0);
-
-% Equal spacing
-prob.Constraints.spacing = u_sorted + delta_var == u_ref + target_offsets;
-
-% Absolute value linearisation
-prob.Constraints.abs_pos = s >= delta_var;
-prob.Constraints.abs_neg = s >= -delta_var;
-
-% Fuel balance constraints
-remaining      = f_sorted - s;
-mean_remaining = sum(remaining) / N;
-for i = 1:N
-    prob.Constraints.(sprintf('bal_pos_%d', i)) = remaining(i) - mean_remaining <= t;
-    prob.Constraints.(sprintf('bal_neg_%d', i)) = mean_remaining - remaining(i) <= t;
-end
+% With N equally-spaced targets, the spacing constraint fixes all delta_i
+% given a single free variable u_ref. Wrapping to [-pi, pi] selects the
+% shortest-path transfer for each satellite.
+delta_fn  = @(u_ref) mod(u_ref + target_offsets - u_sorted + pi, 2*pi) - pi;
+dv_fn     = @(u_ref) dv_phasing(delta_fn(u_ref), r, mu);
+total_dv  = @(u_ref) sum(dv_fn(u_ref));
+imbalance = @(u_ref) max(abs((f_sorted - dv_fn(u_ref)) - mean(f_sorted - dv_fn(u_ref))));
 
 switch strategy
     case 'weighted'
-        prob.Objective = W1 * sum(s) + W2 * t;
-        sol = solve(prob);
+        obj       = @(u_ref) W1 * total_dv(u_ref) + W2 * imbalance(u_ref);
+        u_ref_opt = fminbnd(obj, 0, 2*pi);
 
     case 'lexicographic'
-        % Stage 1: minimise total fuel, no balance constraints
-        prob.Objective = sum(s);
-        for i = 1:N
-            prob.Constraints.(sprintf('bal_pos_%d', i)) = optimconstr(0);
-            prob.Constraints.(sprintf('bal_neg_%d', i)) = optimconstr(0);
-        end
-        sol1     = solve(prob);
-        fuel_opt = sum(evaluate(s, sol1));
-
-        % Stage 2: fix total fuel, minimise imbalance
-        prob.Constraints.fuel_cap = sum(s) == fuel_opt;
-        for i = 1:N
-            prob.Constraints.(sprintf('bal_pos_%d', i)) = remaining(i) - mean_remaining <= t;
-            prob.Constraints.(sprintf('bal_neg_%d', i)) = mean_remaining - remaining(i) <= t;
-        end
-        prob.Objective = t;
-        sol = solve(prob);
+        % TODO: fminbnd may miss a global minimum if the objective is not
+        %       unimodal. A multi-start sweep over u_ref would be more robust.
+        % Stage 1: minimise total delta-v
+        u_ref_opt = fminbnd(total_dv, 0, 2*pi);
+        dv_min    = total_dv(u_ref_opt);
+        % Stage 2: minimise imbalance subject to total delta-v <= dv_min + tol
+        obj2      = @(u_ref) imbalance(u_ref) + ...
+                    1e6 * max(0, total_dv(u_ref) - dv_min * (1 + 1e-6));
+        u_ref_opt = fminbnd(obj2, 0, 2*pi);
 
     otherwise
         error('optimize_satellite_constellation:unknownStrategy', ...
             'Unknown strategy "%s". Use ''weighted'' or ''lexicographic''.', strategy);
 end
 
-% Unpack and map back to original satellite order
-delta_sol = evaluate(delta_var, sol);
-s_sol     = evaluate(s, sol);
+delta_sol = delta_fn(u_ref_opt);
+dv_sol    = dv_fn(u_ref_opt);
 
-delta          = zeros(N, 1);
-delta(sort_idx) = delta_sol;
+% TODO: add feasibility check — warn (or error) when dv_sol(i) > f_sorted(i),
+%       which produces negative remaining_fuel and an infeasible manoeuvre plan.
 
-u_target_sorted          = wrapTo2Pi(u_sorted + delta_sol);
-u_target                 = zeros(N, 1);
-u_target(sort_idx)       = u_target_sorted;
+delta(sort_idx, 1)          = delta_sol;
+u_target(sort_idx, 1)       = mod(u_sorted + delta_sol, 2*pi);
+dv_per_sat(sort_idx, 1)     = dv_sol;
+remaining_fuel(sort_idx, 1) = f_sorted - dv_sol;
 
-remaining_sorted         = f_sorted - s_sol;
-remaining_fuel           = zeros(N, 1);
-remaining_fuel(sort_idx) = remaining_sorted;
+fuel_consumed  = sum(dv_sol);
+fuel_imbalance = imbalance(u_ref_opt);
 
-fuel_consumed  = sum(s_sol);
-fuel_imbalance = evaluate(t, sol);
+end
 
+function total_dv = dv_phasing(delta, r, mu)
+% Total delta-v (two burns) for a one-revolution phasing manoeuvre.
+% Positive delta: retrograde burn into lower orbit (gains angle).
+% Negative delta: prograde burn into higher orbit (loses angle).
+%
+% TODO: generalise to k-revolution phasing — replace (2*pi) with (2*pi*k)
+%       and expose k as a parameter. This reduces dv by roughly 1/k at the
+%       cost of a longer transfer time, which may be preferable when
+%       the required angular correction exceeds the one-revolution budget.
+a_ph     = r ./ (1 + delta ./ (2*pi)).^(2/3);
+v_c      = sqrt(mu / r);
+v_ph     = sqrt(mu .* (2./r - 1./a_ph));
+total_dv = 2 * abs(v_ph - v_c);
 end

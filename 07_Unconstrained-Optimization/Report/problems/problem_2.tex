@@ -1,2 +1,80 @@
 \subsection{Problem~2}%
 \label{problem:2}
+
+Check the first- and second-order optimality conditions for the quadratic functions:
+\begin{tasks}(1)
+  \task $f_a(\matr{x}) = 2x_1^2 - x_1 x_2 + \tfrac{1}{2}x_2^2 - 3x_1 + 3.5$,
+  \task $f_b(\matr{x}) = -\tfrac{3}{2}x_1^2 + x_1 x_2 - \tfrac{1}{2}x_2^2 + 2x_1 - 1$,
+  \task $f_c(\matr{x}) = x_1^2 + 8x_1 x_2 + \tfrac{1}{2}x_2^2 - 10x_1 - 9x_2 + \tfrac{9}{2}$.
+\end{tasks}
+Draw their contour plots and classify the stationary points.
+Are these functions convex? What kind of stationarity do they have?
+
+\subsubsection*{Mathematics}
+
+A general quadratic function on $\mathbb{R}^2$ can be written as
+\begin{equation*}
+  f(\matr{x}) = \tfrac{1}{2}\matr{x}^T \matr{G}\, \matr{x} + \matr{c}^T \matr{x} + d,
+\end{equation*}
+where $\matr{G} = \nabla^2 f$ is the (constant) Hessian.
+Setting $\nabla f(\matr{x}^*) = \matr{G}\matr{x}^* + \matr{c} = \matr{0}$ gives the
+stationary point $\matr{x}^* = -\matr{G}^{-1}\matr{c}$ (when $\matr{G}$ is invertible).
+
+The character of the stationary point is determined by the Hessian eigenvalues, verified
+via Sylvester's criterion applied to $\matr{G}$ \citep{Zdunek}:
+\begin{itemize}
+  \item all $M_k > 0$: $\matr{G}$ positive definite $\Rightarrow$ \textbf{minimizer},
+  \item $M_1 < 0$ and $M_2 > 0$:
+        $\matr{G}$ negative definite $\Rightarrow$ \textbf{maximizer},
+  \item $\det(\matr{G}) < 0$: $\matr{G}$ indefinite $\Rightarrow$ \textbf{saddle point}.
+\end{itemize}
+
+A quadratic $f$ is \textbf{convex} if and only if $\matr{G}$ is positive semi-definite
+(all eigenvalues $\geq 0$), and \textbf{strictly convex} if $\matr{G}$ is positive definite.
+For a strictly convex quadratic the unique stationary point is a \textbf{global minimizer};
+for a strictly concave one it is a \textbf{global maximizer}.
+
+\subsubsection*{Solution}
+
+For each function the Hessian is constant; the stationary point solves
+$\matr{G}\matr{x}^* = -\matr{c}$.
+
+\medskip\noindent\textbf{(a)}
+\begin{equation*}
+  \matr{G}_a = \begin{bmatrix} 4 & -1 \\ -1 & 1 \end{bmatrix}, \quad
+  \matr{c}_a = \begin{bmatrix} -3 \\ 0 \end{bmatrix}, \quad
+  \matr{x}^*_a = \begin{bmatrix} 1 \\ 1 \end{bmatrix}.
+\end{equation*}
+Leading principal minors: $M_1 = 4 > 0$, $M_2 = \det(\matr{G}_a) = 3 > 0$ ---
+$\matr{G}_a$ positive definite $\Rightarrow$ $f_a$ is \textbf{strictly convex} and
+$\matr{x}^*_a$ is a \textbf{global minimizer}.
+
+\medskip\noindent\textbf{(b)}
+\begin{equation*}
+  \matr{G}_b = \begin{bmatrix} -3 & 1 \\ 1 & -1 \end{bmatrix}, \quad
+  \matr{c}_b = \begin{bmatrix} 2 \\ 0 \end{bmatrix}, \quad
+  \matr{x}^*_b = \begin{bmatrix} 1 \\ 1 \end{bmatrix}.
+\end{equation*}
+Leading principal minors: $M_1 = -3 < 0$, $M_2 = \det(\matr{G}_b) = 2 > 0$ ---
+$\matr{G}_b$ negative definite $\Rightarrow$ $f_b$ is \textbf{strictly concave} (not convex) and
+$\matr{x}^*_b$ is a \textbf{global maximizer}.
+
+\medskip\noindent\textbf{(c)}
+\begin{equation*}
+  \matr{G}_c = \begin{bmatrix} 2 & 8 \\ 8 & 1 \end{bmatrix}, \quad
+  \matr{c}_c = \begin{bmatrix} -10 \\ -9 \end{bmatrix}, \quad
+  \matr{x}^*_c = \begin{bmatrix} 1 \\ 1 \end{bmatrix}.
+\end{equation*}
+Leading principal minors: $M_1 = 2 > 0$, $M_2 = \det(\matr{G}_c) = -62 < 0$ ---
+$\matr{G}_c$ indefinite $\Rightarrow$ $f_c$ is \textbf{neither convex nor concave} and
+$\matr{x}^*_c$ is a \textbf{saddle point}.
+
+\lstinputlisting[style=Matlab-editor]{problems/Problem_2.m}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{images/Contour_Problem2.png}
+  \caption{Contour plots of the three quadratic functions.
+    Left: $f_a$ (minimizer); centre: $f_b$ (maximizer); right: $f_c$ (saddle point).
+    Stationary points are marked with a red star.}
+\end{figure}

@@ -1,0 +1,25 @@
+The implementation consists of several \MATLAB{} components described
+below.
+
+\paragraph{Solver}
+The core solver accepts inputs via an \texttt{arguments} block
+(MATLAB R2021a+), which allows optional parameters with defaults. Both
+optimisation strategies are implemented as branches of a \texttt{switch}
+statement. The function returns, for each satellite: the transfer angle
+$\du_i$, the target argument of latitude, the $\dv$ consumed, and the
+remaining fuel budget.
+
+\paragraph{Driver}
+The main script runs both strategies in sequence, prints
+per-satellite tables to the console, and generates a bar-chart
+comparison of remaining fuel.
+
+\paragraph{Visualisation}
+Two plotting routines are provided. The constellation plot draws
+satellite positions as coloured markers on a unit circle, with a dashed
+reference line to the ascending node~$\Omega$. The manoeuvre plan draws
+satellite positions with arrows indicating the direction and relative
+magnitude of the first burn. Red arrows represent a retrograde first
+burn ($\du > 0$); green arrows represent prograde ($\du < 0$). Arrow
+length is normalised to the satellite with the largest required transfer,
+providing an intuitive visual comparison of burn magnitudes.

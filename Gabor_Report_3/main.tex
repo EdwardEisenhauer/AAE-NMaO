@@ -17,12 +17,13 @@
 \usepackage{systeme}
 \usepackage{tasks}
 \usepackage{todonotes}
+\usepackage{booktabs}
 \usepackage{float}
 \usepackage{graphicx,xcolor,colortbl}
 \usepackage{epstopdf,epsfig}
 
 % Search for graphics in CWD and each lab's directory tree
-\graphicspath{{./}{lab8/}}
+\graphicspath{{./}{lab8/}{lab9/}{lab10/}}
 
 % Patch \lstinputlisting so each lab's problem files find their source files.
 % Set \labbase before each lab's content block.
@@ -57,6 +58,28 @@
 \input{lab8/problems/Problem_1}
 \input{lab8/problems/Problem_2}
 \input{lab8/problems/Problem_3}
+
+%%% ============================================================
+\part{Constrained Optimization}
+%%% ============================================================
+
+\renewcommand{\labbase}{lab9/}
+
+\section{Problems}
+\input{lab9/problems/Problem_1}
+\input{lab9/problems/Problem_2}
+\input{lab9/problems/Problem_3}
+
+%%% ============================================================
+\part{Metaheuristics}
+%%% ============================================================
+
+\renewcommand{\labbase}{lab10/}
+
+\section{Problems}
+\input{lab10/problems/Problem_1}
+\input{lab10/problems/Problem_2}
+\input{lab10/problems/Problem_3}
 
 %%%%%%%%%%%%%%%%%%%
 %% BIBLIOGRAPHY %%%

@@ -1,0 +1,68 @@
+\subsection{Reduction to a Scalar Optimisation}
+\label{sec:reduction}
+
+The equal-spacing constraint fixes all $N$ target positions given a
+single free variable, the \emph{reference phase} $\uref \in [0, 2\pi)$.
+After sorting the satellites by their current argument of latitude
+$u_1 \le u_2 \le \cdots \le u_N$, the $i$-th satellite's target is:
+\begin{equation}
+  u_{i,\text{target}}(\uref)
+    = \uref + (i-1)\,\frac{2\pi}{N},
+  \quad i = 1, \dots, N.
+  \label{eq:target}
+\end{equation}
+The required angular transfer for each satellite is:
+\begin{equation}
+  \du_i(\uref)
+    = \operatorname{wrap}_{[-\pi,\pi]}\!\bigl(u_{i,\text{target}}(\uref) - u_i\bigr),
+  \label{eq:delta}
+\end{equation}
+where $\operatorname{wrap}_{[-\pi,\pi]}(x) = ((x + \pi) \bmod 2\pi) - \pi$
+selects the shortest-path transfer for each satellite (at most half a revolution).
+
+Substituting~\eqref{eq:delta} into the $\dv$ formula~\eqref{eq:dv} gives
+a cost that depends on $\uref$ only. The full $N$-satellite scheduling problem
+therefore reduces to a \textbf{scalar search over $\uref$}, solved
+with \MATLAB's \texttt{fminbnd} on $[0, 2\pi)$.
+
+\subsection{Objectives}
+\label{sec:objectives}
+
+Let $\dv_i(\uref)$ be the cost for satellite~$i$ from~\eqref{eq:dv},
+and let $r_i(\uref) = f_i - \dv_i(\uref)$ be the remaining fuel. Two
+objectives are defined:
+\begin{align}
+  J_1(\uref) &= \sum_{i=1}^{N} \dv_i(\uref)
+    && \text{(total $\dv$ consumed by the fleet),}
+    \label{eq:J1}\\
+  J_2(\uref) &= \max_{i}\,\bigl|r_i(\uref) - \bar{r}(\uref)\bigr|
+    && \text{(max deviation of remaining budgets from their mean).}
+    \label{eq:J2}
+\end{align}
+
+\subsection{Optimisation Strategies}
+
+\subsubsection{Weighted Strategy}
+
+A single \texttt{fminbnd} call minimises the scalarised objective:
+\begin{equation}
+  \min_{\uref \in [0,2\pi)}\; W_1\,J_1(\uref) + W_2\,J_2(\uref).
+  \label{eq:weighted}
+\end{equation}
+The weights $W_1$ and $W_2$ control the trade-off between economy and
+balance. In the test case we use $W_1 = 1$ and $W_2 = 10$, placing
+a strong penalty on fuel imbalance.
+
+\subsubsection{Lexicographic Strategy}
+
+Total fuel economy is treated as strictly more important than balance.
+Two sequential \texttt{fminbnd} calls are used:
+\begin{enumerate}
+  \item \textbf{Stage~1:} minimise $J_1$ to obtain the optimal reference
+        phase $\uref^*$ and the minimum total cost $J_1^* = J_1(\uref^*)$.
+  \item \textbf{Stage~2:} minimise $J_2$ subject to
+        $J_1(\uref) \le J_1^*(1 + \varepsilon)$, enforced via a large
+        penalty term with $\varepsilon = 10^{-6}$.
+\end{enumerate}
+This guarantees that fuel balance is only improved when doing so does
+not meaningfully increase total consumption.

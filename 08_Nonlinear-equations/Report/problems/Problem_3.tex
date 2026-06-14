@@ -9,3 +9,61 @@ Solve the following system of nonlinear equations:
 \end{align*}
 
 starting from $\matr{x}_0 = (-5 \quad -5)^T$.
+
+\subsubsection*{Mathematics}
+
+\textbf{Newton's method} solves $F(\matr{x}) = \matr{0}$ by linearising $F$
+around the current iterate \citep{NoceWrig99}.  At each step a linear system is
+solved for the update $\matr{p}_k$:
+\begin{equation*}
+  J(\matr{x}_k)\,\matr{p}_k = -F(\matr{x}_k),
+  \qquad
+  \matr{x}_{k+1} = \matr{x}_k + \matr{p}_k,
+\end{equation*}
+where $J = \partial F / \partial \matr{x}$ is the Jacobian.  The method converges
+quadratically in a neighbourhood of a simple zero, provided $J(\matr{x}^*)$ is
+nonsingular \citep{NoceWrig99}.
+
+\subsubsection*{Solution}
+
+Rewriting the system as $F(\matr{x}) = \matr{0}$:
+\begin{align*}
+  F_1(\matr{x}) &= 2x_1 - x_2 - \exp(-x_1) = 0, \\
+  F_2(\matr{x}) &= -x_1 + 2x_2 - \exp(-x_2) = 0,
+\end{align*}
+with Jacobian
+\begin{equation*}
+  J(\matr{x}) =
+  \begin{bmatrix}
+    2 + \exp(-x_1) & -1 \\
+    -1             & 2 + \exp(-x_2)
+  \end{bmatrix}.
+\end{equation*}
+Since $\exp(-x) > 0$ for all $x \in \mathbb{R}$, the diagonal entries exceed~2,
+so $J$ is strictly diagonally dominant and hence nonsingular everywhere.  Newton's
+method is therefore well-defined at every iterate.
+
+The system is symmetric under the simultaneous swap $x_1 \leftrightarrow x_2$
+and $F_1 \leftrightarrow F_2$, so the solution satisfies $x_1^* = x_2^* =: x^*$.
+Substituting into either equation gives
+\begin{equation*}
+  x^* = \exp(-x^*) \quad \Longleftrightarrow \quad x^* e^{x^*} = 1,
+\end{equation*}
+whose unique positive root is the Omega constant
+$x^* = W(1) \approx 0.56714$, where $W$ denotes the Lambert $W$ function.
+The unique solution is therefore $\matr{x}^* \approx (0.56714,\;0.56714)^T$.
+
+Starting from $\matr{x}_0 = (-5,\,-5)^T$, Newton's method converges in a few
+iterations.  The MATLAB script also verifies the result with \texttt{fsolve}.
+
+\lstinputlisting[style=Matlab-editor]{problems/Problem_3.m}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.82\textwidth]{images/Iter_Problem3.png}
+  \caption{Zero-contours of $F_1$ (blue) and $F_2$ (red) with the Newton
+    iteration path from $\matr{x}_0 = (-5,\,-5)^T$.  The intersection of the
+    two curves is the solution $\matr{x}^* \approx (0.5671,\,0.5671)^T$
+    (black star).}
+  \label{fig:p3:iter}
+\end{figure}

@@ -1,0 +1,75 @@
+\subsection{Circular Orbits and Kepler's Third Law}
+
+For a satellite in a circular orbit of radius $r$ around a body with
+gravitational parameter $\mu = GM$, Newton's law and the centripetal
+acceleration condition give the orbital speed:
+\begin{equation}
+  v_c = \sqrt{\frac{\mu}{r}}.
+  \label{eq:vc}
+\end{equation}
+The orbital period follows from circumference divided by speed:
+\begin{equation}
+  T = \frac{2\pi r}{v_c} = 2\pi\sqrt{\frac{r^3}{\mu}}.
+  \label{eq:T}
+\end{equation}
+Equation~\eqref{eq:T} encapsulates the key insight for orbit phasing:
+\textbf{lower orbit $\Rightarrow$ faster speed, shorter period;
+higher orbit $\Rightarrow$ slower speed, longer period.}
+
+\subsection{Argument of Latitude}
+
+The \emph{argument of latitude} $u$ is the angle from the ascending node
+$\Omega$ to the satellite's current position, measured along the orbital
+plane. It uniquely describes the satellite's location on a circular orbit
+and is the quantity we seek to optimise.
+
+\subsection{Orbit Phasing}
+
+A two-burn \emph{phasing manoeuvre} shifts a satellite's argument of
+latitude by $\du$ without permanently altering the orbital radius.
+
+\paragraph{Advancing ($\du > 0$).}
+\begin{enumerate}
+  \item Fire \textbf{retrograde} (opposite the velocity). The satellite
+        slows and drops to a lower phasing orbit.
+  \item The shorter period causes the satellite to lap the reference
+        position in one revolution.
+  \item Fire \textbf{prograde} at the same orbital location to restore
+        the original circular orbit.
+\end{enumerate}
+
+\paragraph{Falling back ($\du < 0$).}
+\begin{enumerate}
+  \item Fire \textbf{prograde}. The satellite accelerates and climbs to
+        a higher phasing orbit.
+  \item The longer period means it completes one revolution after the
+        reference position.
+  \item Fire \textbf{retrograde} to restore the orbit.
+\end{enumerate}
+
+Both cases apply two burns of equal magnitude at the same orbital
+location (the intersection of the circular orbit and the phasing ellipse).
+
+\subsection{Delta-$v$ Cost}
+
+To advance by angle $\du$ in exactly one revolution, the phasing orbit
+period must satisfy $T_\text{ph}/T_c = 1 - \du/(2\pi)$.
+Applying Kepler's third law~\eqref{eq:T} gives the phasing orbit
+semi-major axis:
+\begin{equation}
+  a_\text{ph} = \frac{r}{\bigl(1 + \du/(2\pi)\bigr)^{2/3}}.
+  \label{eq:aph}
+\end{equation}
+The speed at the manoeuvre point on the phasing orbit
+(vis-viva equation):
+\begin{equation}
+  v_\text{ph} = \sqrt{\mu\!\left(\frac{2}{r} - \frac{1}{a_\text{ph}}\right)}.
+  \label{eq:vph}
+\end{equation}
+Since both burns have equal magnitude, the total $\dv$ per satellite is:
+\begin{equation}
+  \dv_i = 2\,|v_\text{ph}(\du_i) - v_c|.
+  \label{eq:dv}
+\end{equation}
+For $\du > 0$, equation~\eqref{eq:aph} gives $a_\text{ph} < r$ (first
+burn retrograde); for $\du < 0$, $a_\text{ph} > r$ (first burn prograde).

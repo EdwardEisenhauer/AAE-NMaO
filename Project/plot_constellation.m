@@ -1,7 +1,12 @@
-function plot_constellation(u)
+function plot_constellation(u, title_str)
 % Plots satellite positions on a circular orbit in the orbital plane.
 %
-%   u   vector of arguments of latitude [rad]
+%   u           vector of arguments of latitude [rad]
+%   title_str   optional title string (default: 'Satellite Constellation')
+%
+% TODO: caller in main.m invokes this twice with no title distinction.
+%       Pass a descriptive title_str ('Before optimisation' / 'After
+%       optimisation') so the two figures are easy to tell apart.
 
 N     = numel(u);
 theta = linspace(0, 2*pi, 500);
@@ -24,7 +29,7 @@ text(1.15, 0, '\Omega', 'HorizontalAlignment', 'left', 'FontSize', 10, 'Color', 
 colors = lines(N);
 r_label = 1.22;
 for i = 1:N
-    angle = wrapTo2Pi(u(i));
+    angle = mod(u(i), 2*pi);
     x = cos(angle);
     y = sin(angle);
     plot(x, y, 'o', ...
@@ -38,5 +43,8 @@ for i = 1:N
         'FontSize',            9);
 end
 
-title('Satellite Constellation');
+if nargin < 2 || isempty(title_str)
+    title_str = 'Satellite Constellation';
+end
+title(title_str);
 end

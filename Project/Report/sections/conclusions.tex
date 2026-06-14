@@ -1,0 +1,43 @@
+This report presented a \MATLAB{} implementation of argument-of-latitude
+optimisation for a six-satellite LEO constellation. The key contribution
+is a reduction of the $N$-dimensional scheduling problem to a scalar
+optimisation over a single reference phase~$\uref$, exploiting the
+equal-spacing constraint. The two-burn phasing cost is computed
+analytically from orbital mechanics, and \texttt{fminbnd} finds the
+optimal reference phase on $[0,2\pi)$.
+
+Two strategies were implemented and compared on a 550~km-altitude test
+case. The \textbf{weighted strategy} ($W_1=1$, $W_2=10$) produces a
+more balanced remaining-fuel distribution at a slightly higher total $\dv$.
+The \textbf{lexicographic strategy} strictly prioritises fuel economy in
+Stage~1 and then improves balance in Stage~2 within a tight tolerance,
+yielding results comparable to the weighted approach for the test case.
+
+\subsection{Limitations and Possible Extensions}
+
+\begin{description}
+  \item[Multi-revolution phasing.]
+    Each transfer is currently fixed to one phasing revolution. Allowing
+    $k$ revolutions reduces $\dv$ by roughly $1/k$ at the cost of a
+    longer transfer time---a worthwhile trade-off when large angular
+    corrections are required.
+
+  \item[Feasibility check.]
+    When the computed $\dv_i$ exceeds the satellite's budget $f_i$,
+    the solver returns negative remaining fuel without a warning.
+    A feasibility guard should be added.
+
+  \item[Global optimality.]
+    \texttt{fminbnd} is a local search; for non-unimodal objectives,
+    a multi-start sweep over $\uref$ would strengthen the global-optimality
+    guarantee.
+
+  \item[Perturbation model.]
+    Neglecting $J_2$, atmospheric drag, and solar pressure during the
+    transfer leads to optimistic $\dv$ estimates.
+
+  \item[Non-circular orbits.]
+    Generalising to elliptic reference orbits would require a Hohmann
+    transfer followed by a phasing arc, substantially increasing the
+    complexity of the $\dv$ calculation.
+\end{description}

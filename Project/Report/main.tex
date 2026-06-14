@@ -1,0 +1,61 @@
+\documentclass[a4paper]{article}
+\usepackage{WUSTReport}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage[polish,main=english]{babel}
+\usepackage{indentfirst}
+\usepackage{natbib}
+\usepackage{listings}
+\usepackage{matlab-prettifier}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{float}
+\usepackage{tikz}
+
+\graphicspath{{../figures/}}
+
+\newcommand{\dv}{\Delta v}
+\newcommand{\du}{\delta}
+\newcommand{\uref}{u_\mathrm{ref}}
+
+\title{Numerical Methods and Optimization Project:\\Argument-of-Latitude Optimisation\\in a Satellite Constellation}
+\author{Sergiusz Warga 230757}
+\date{}
+\reporttutor{dr inż. Mateusz Gabor}
+\reportgroup{Wednesday 13:15}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\pagebreak
+
+\section{Introduction}
+\input{sections/introduction}
+
+\section{Orbital Mechanics Background}
+\input{sections/background}
+
+\section{Problem Statement}
+\input{sections/problem}
+
+\section{Mathematical Formulation}
+\input{sections/formulation}
+
+The complete source is available at
+\texttt{github.com/EdwardEisenhauer/AAE-NMaO} (directory \texttt{Project/}).
+
+\section{Numerical Results}
+\input{sections/results}
+
+\section{Conclusions}
+\input{sections/conclusions}
+
+\clearpage
+\nocite{Bate1971, Vallado2013}
+\bibliographystyle{alpha}
+\bibliography{bibliography}
+
+\end{document}

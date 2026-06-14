@@ -5,3 +5,9 @@ WUSTReport.sty
 
 # MATLAB
 *.asv
+
+# Large binary assets
+Literature/
+
+# macOS
+.DS_Store

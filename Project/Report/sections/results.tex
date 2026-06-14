@@ -1,0 +1,64 @@
+\subsection{Weighted Strategy ($W_1 = 1$, $W_2 = 10$)}
+
+\lstinputlisting[basicstyle=\ttfamily\small, breaklines=false]{../out_weighted.m}
+
+\subsection{Lexicographic Strategy}
+
+\lstinputlisting[basicstyle=\ttfamily\small, breaklines=false]{../out_lexicographic.m}
+
+\subsection{Strategy Comparison}
+
+Figure~\ref{fig:comparison} shows the remaining $\dv$ budget per satellite
+after manoeuvres for both strategies. The weighted strategy ($W_2 = 10$)
+distributes the remaining fuel more evenly at the cost of slightly higher
+total consumption.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.75\linewidth]{comparison.pdf}
+  \caption{Remaining $\dv$ budget per satellite after manoeuvres,
+           weighted vs.\ lexicographic strategy.}
+  \label{fig:comparison}
+\end{figure}
+
+\subsection{Manoeuvre Plans}
+
+Figures~\ref{fig:man_weighted} and~\ref{fig:man_lex} show the planned
+first-burn direction and relative magnitude for each satellite and strategy.
+Satellites requiring no manoeuvre have no arrow.
+
+\begin{figure}[H]
+  \centering
+  \begin{minipage}[t]{0.48\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{manoeuvre_weighted.pdf}
+    \caption{Manoeuvre plan, weighted strategy ($W_1=1$, $W_2=10$).}
+    \label{fig:man_weighted}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[t]{0.48\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{manoeuvre_lexicographic.pdf}
+    \caption{Manoeuvre plan, lexicographic strategy.}
+    \label{fig:man_lex}
+  \end{minipage}
+\end{figure}
+
+\subsection{Constellation Before and After}
+
+\begin{figure}[H]
+  \centering
+  \begin{minipage}[t]{0.48\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{constellation_initial.pdf}
+    \caption{Initial (non-uniform) satellite configuration.}
+    \label{fig:initial}
+  \end{minipage}
+  \hfill
+  \begin{minipage}[t]{0.48\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{constellation_target.pdf}
+    \caption{Target configuration with $60^{\circ}$ equal spacing.}
+    \label{fig:target}
+  \end{minipage}
+\end{figure}
